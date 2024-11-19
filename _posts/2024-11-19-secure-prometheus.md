@@ -92,7 +92,8 @@ author: Najwan Octavian Gerrard
       sudo mkdir -p /etc/ssl/node_exporter/
       sudo mkdir -p /etc/ssl/apache_exporter/
       sudo mkdir -p /etc/ssl/nginx_exporter/
-      ``` 
+      ```
+      
     - Node Client 1
       ```
       # Untuk Node Exporter
@@ -104,6 +105,7 @@ author: Najwan Octavian Gerrard
 
       sudo mkdir -p /etc/ssl/nginx
       ```
+      
     - Node Client 2
       ```
       # Untuk Node Exporter
@@ -322,7 +324,6 @@ author: Najwan Octavian Gerrard
      
 ### 5. Install Apache Exporter dengan SSL
   - Download Package Apache Exporter, lalu pindahkan ke directory **_"/etc"_**.
-    
     ```bash
     wget https://github.com/Lusitaniae/apache_exporter/releases/download/v1.0.3/apache_exporter-1.0.3.linux-amd64.tar.gz
 
@@ -331,7 +332,6 @@ author: Najwan Octavian Gerrard
     ```
     
   - Buat file **_“config.yml”_** di directory **_“/etc/apache_exporter”_** yang nantinya digunakan untuk koneksi ssl.
-    
     ```yaml
     tls_server_config:
        cert_file: /etc/ssl/apache_exporter/apache_exporter.crt
@@ -339,7 +339,6 @@ author: Najwan Octavian Gerrard
     ```
 
   - Buat service, agar dapat berjalan di background.
-    
     ```bash
     sudo /etc/systemd/system/apache-exporter.service
 
@@ -356,6 +355,7 @@ author: Najwan Octavian Gerrard
     [Install]
     WantedBy=default.target
     ```
+    
   - Restart Daemon dan jalankan service Node Exporternya.
     ```bash
     sudo systemctl daemon-reload
@@ -373,7 +373,6 @@ author: Najwan Octavian Gerrard
     ```
      
   - Buat file **_“config.yml”_** di directory **_“/etc/nginx_exporter”_** yang nantinya digunakan untuk koneksi ssl.
-    
     ```yaml
     tls_server_config:
        cert_file: /etc/ssl/nginx_exporter/nginx_exporter.crt
@@ -381,7 +380,6 @@ author: Najwan Octavian Gerrard
     ```
      
   - Buat service, agar dapat berjalan di background.
-    
     ```bash
     sudo /etc/systemd/system/nginx-exporter.service
      
@@ -403,9 +401,8 @@ author: Najwan Octavian Gerrard
     [Install]
     WantedBy=default.target
     ```
-     
-  - Restart Daemon dan jalankan service Nginx Exporternya.
     
+  - Restart Daemon dan jalankan service Nginx Exporternya.
     ```bash
     sudo systemctl daemon-reload
     sudo systemctl start nginx-exporter.service
@@ -423,11 +420,13 @@ author: Najwan Octavian Gerrard
     sudo chmod a+r /etc/apt/keyrings/docker.asc
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     ```
+    
   - Install Docker.
     ```
     sudo apt-get update
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
     ```
+    
   - Mengatur agar user **_“student”_** atau user biasa (Bukan Root) dapat menggunakan perintah docker
     ```
     sudo usermod -aG docker $USER
@@ -451,7 +450,7 @@ author: Najwan Octavian Gerrard
     
     docker ps -a
     ```
- 
+    
 ### 9. Install dan Konfigurasi Prometheus dengan SSL
   - Download Package Prometheus.
     ```bash
@@ -460,6 +459,7 @@ author: Najwan Octavian Gerrard
     tar xvfz prometheus-2.48.1.linux-amd64.tar.gz
     cp prometheus-2.48.1.linux-amd64/etc/prometheus
     ```
+    
   - Buat file “web-config.yml” di directory **_“/etc/prometheus/”_**  yang nantinya digunakan untuk koneksi ssl
     ```yaml
     tls_server_config:
@@ -468,7 +468,6 @@ author: Najwan Octavian Gerrard
     ```
     
   - Lalu Edit di file **_/etc/prometheus/config.yml_** untuk menambahkan alerting ke AlertManager, Rules untuk Alerting, serta Targets yang akan di Pantau.
-    
     ```yaml
     global:
       scrape_interval: 15s
@@ -552,6 +551,7 @@ author: Najwan Octavian Gerrard
     [Install]
     WantedBy=default.target
     ```
+    
   - Restart Daemon dan jalankan Service Prometheus nya.
     ```bash
     sudo systemctl daemon-reload
@@ -562,7 +562,6 @@ author: Najwan Octavian Gerrard
     
 ### 10. Install Grafana
   - Download Package Grafana, lalu pindahkan ke **_/etc_**.
-    
     ```bash
     sudo su
     wget https://dl.grafana.com/oss/release/grafana-11.2.2.linux-amd64.tar.gz
@@ -572,7 +571,6 @@ author: Najwan Octavian Gerrard
     ```
     
   - Lalu buat service, agar dapat berjalan di background.
-    
     ```bash
     sudo nano /etc/systemd/system/grafana.service
     
@@ -594,19 +592,20 @@ author: Najwan Octavian Gerrard
     sudo systemctl enable grafana.service
     sudo systemctl status grafana.service
     ```
+    
   - Lalu konfigurasi agar Grafana dapat membaca data dari Prometheus. Ke bagian kiri pilih “Connections”  kemudian “Add new connection” , lalu pilih Data Source “Prometheus”.
     ![Branching](./assets/images/data_source_1.png)
     
-  - Klik “Add new data source” di kanan atas.
+  - Klik **_“Add new data source”_** di kanan atas.
     ![Branching](./assets/images/data_source_2.png)
     
-  - Kemudian isi nama “Data Source” dan “Connection – Prometheus server URL”.
+  - Kemudian isi nama **_“Data Source”_** dan **_“Connection – Prometheus server URL”_**.
     ![Branching](./assets/images/data_source_3.png)
     
-  - Lalu checklist di bagian “TLS settings – Add self-signed certificate”, lalu masukan certificate SSL dari Prometheus nya (file dengan akhiran “.crt”.
+  - Lalu checklist di bagian **_“TLS settings – Add self-signed certificate”_**, lalu masukan certificate SSL dari Prometheus nya (file dengan akhiran **_“.crt”_**).
     ![Branching](./assets/images/data_source_4.png)
     
-  - Kemudian klik “Save & Test”
+  - Kemudian klik **_“Save & Test”_**.
     ![Branching](./assets/images/data_source_5.png)
     
 ### 11. Install Alert Manager
@@ -653,7 +652,6 @@ author: Najwan Octavian Gerrard
     
   - Konfigurasi untuk rules yang mentrigger alert manager mengirim notifikasi.
     * Rules untuk Web Server Apache atau Nginx yang Down.
-      
       ```yaml
       groups:
       - name: nginx.rules
@@ -676,7 +674,6 @@ author: Najwan Octavian Gerrard
       ```
       
     * Rules untuk jumlah Container yang Stopped atau Down.
-      
       ```yaml
       groups:
       - name: container.rules
@@ -692,7 +689,6 @@ author: Najwan Octavian Gerrard
       ```
       
     * Rules untuk CPU Available pada semua server atau node.
-      
       ```yaml
       groups:
       - name: cpu-free-under-35-monitoring.rules
@@ -724,7 +720,6 @@ author: Najwan Octavian Gerrard
       ```
       
     * Rules untuk Memory Available pada semua server atau node.
-      
       ```yaml
       groups:
       - name: memory-available-under-35-Monitoring.rules
@@ -756,7 +751,6 @@ author: Najwan Octavian Gerrard
       ```
       
     * Rules untuk Penyimpanan atau Disk jika penuh dari setiap server atau node.
-      
       ```yaml
       groups:
       - name: disk-usage-75-persen-node-monitoring.rules
@@ -788,7 +782,6 @@ author: Najwan Octavian Gerrard
       ```
       
     * Rules untuk Traffic Networking jika ada lonjakan Traffic dari setiap server atau node.
-      
       ```yaml
       groups:
       - name: record-traffic-node-monitoring
@@ -834,7 +827,6 @@ author: Najwan Octavian Gerrard
       ```
       
   - Lalu buat service, agar dapat berjalan di background.
-    
     ```bash
     [Unit]
     Description=Alert Manager
