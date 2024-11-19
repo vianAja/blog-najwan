@@ -660,18 +660,18 @@ author: Najwan Octavian Gerrard
     * Rules untuk Web Server Apache atau Nginx yang Down.
       ```yaml
       groups:
-      - name: nginx.rules
+      \- name: nginx.rules
         rules:
-        - alert: nginxDown
+        \- alert: nginxDown
           expr: nginx_up == 0
           for: 1m
           annotations:
             summary: "Service Nginx Down"
             description: "Service Nginx been down, sudah 1 menit, silahkan di cek dulu."
       
-      - name: apache.rules
+      \- name: apache.rules
         rules:
-        - alert: apacheDown
+        \- alert: apacheDown
           expr: apache_up == 0
           for: 1m
           annotations:
@@ -682,16 +682,16 @@ author: Najwan Octavian Gerrard
     * Rules untuk jumlah Container yang Stopped atau Down.
       ```yaml
       groups:
-      - name: container.rules
+      \- name: container.rules
         rules:
-        - alert: containerDown
-          expr: engine_daemon_container_states_containers{state="stopped"} > 0
+        \- alert: containerDown
+          expr: engine_daemon_container_states_containers\{state="stopped"\} \> 0
           for: 1m
           labels:
-            valueService: "{{ $value }}"
+            valueService: "\{\{ $value \}\}"
           annotations:
-            summary: "{{ $value }} Service container Down"
-            description: "{{ $value }} Service container Down, sudah 1 menit, silahkan di cek dulu"
+            summary: "\{\{ $value \}\} Service container Down"
+            description: "\{\{ $value \}\} Service container Down, sudah 1 menit, silahkan di cek dulu"
       ```
       
     * Rules untuk CPU Available pada semua server atau node.
