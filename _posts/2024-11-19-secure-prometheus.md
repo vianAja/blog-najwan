@@ -417,7 +417,7 @@ author: Najwan Octavian Gerrard
     ```
 
 ### 7. Install Docker
-Langkah Instalasi di Page [ini](../2024-10-19-install-docker.md)
+Langkah Instalasi di Page [ini](https://vianaja.github.io/blog-najwan/2024-10-19-install-docker/)
 
 ### 8. Install CAdvisor untuk Monitoring Container Docker.
   - Jalankan Container CAdvisor.
