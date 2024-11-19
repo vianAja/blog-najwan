@@ -7,7 +7,6 @@ thumbnail-img: https://user-images.githubusercontent.com/92439/89548426-51fb0f00
 share-img: /assets/img/wallpaper2.png
 tags: [Prometheus, Grafana, NGINX, Apache, Docker, Python]
 author: Najwan Octavian Gerrard
-permalink: /_posts/site/
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di zaman modern sekarang yang serba otomatis serta kebutuhan akan monitoring atau pengecekan secara berkala, membuat kebutuhan akan tools automation monitoring yang canggih tanpa adanya campur tangan manusia untuk pengambilan data yang di monitoring tersebut, seperti penggunaan CPU, memory, disk atau traffic jaringan, menjadi semakin meningkat. Prometheus adalah salah satu solusi akan hal tersebut, yang menyediakan cara monitoring real time tanpa perlu adanya campur tangan manusia saat mengambil data yang harus di monitoring.
