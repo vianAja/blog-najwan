@@ -416,7 +416,7 @@ author: Najwan Octavian Gerrard
     sudo systemctl status nginx-exporter.service
     ```
 
-### 7. Install Docker 
+### 7. [Install Docker](./2024-10-19-install-docker.md)
   - Menambahkan repository dari Docker.
     ```
     sudo apt-get update
