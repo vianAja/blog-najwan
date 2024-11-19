@@ -680,6 +680,7 @@ author: Najwan Octavian Gerrard
       ```
       
     * Rules untuk jumlah Container yang Stopped atau Down.
+      
       ```yaml
       groups:
       - name: container.rules
@@ -695,6 +696,7 @@ author: Najwan Octavian Gerrard
       ```
       
     * Rules untuk CPU Available pada semua server atau node.
+      
       ```yaml
       groups:
       - name: cpu-free-under-35-monitoring.rules
