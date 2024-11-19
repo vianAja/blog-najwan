@@ -32,7 +32,7 @@ author: Najwan Octavian Gerrard
 
 ## Topologi
 
-![Topologi](../assets/images/topologi.png).
+![Topologi](../assets/images/topologi_secure_prome.png).
 
 ## Alur kerja
 
@@ -113,15 +113,16 @@ author: Najwan Octavian Gerrard
       ```
        
    - Buat file IP SAN untuk setiap Server / Node.
-     ```
+     ```bash
      sudo nano /etc/ssl/IP_SANS.txt
-
+     ```
+     ```txt
      subjectAltName=IP:<IP dari setiap Server / Node>
      ```
      
    - Buat Certificate untuk beberapa layanan berikut :
      * Prometheus
-       ```
+       ```bash
        sudo openssl genrsa -out /etc/ssl/prometheus/cert/10.18.18.10:9090/10.18.18.10:9090.key 2048
        
        sudo openssl req sha512-new \
@@ -208,7 +209,7 @@ author: Najwan Octavian Gerrard
      ```
      
    - Buat file **_“config.yml”_** di directory **_“/etc/node_exporter”_** yang nantinya digunakan untuk koneksi ssl.
-     ```
+     ```yaml
      tls_server_config:
        cert_file: /etc/ssl/node_exporter/node_exporter.crt
        key_file: /etc/ssl/node_exporter/node_exporter.key
@@ -241,24 +242,26 @@ author: Najwan Octavian Gerrard
    - Install Package Apache2, dan Download Source Code untuk aplikasi **_[2048](https://github.com/gabrielecirulli/2048)_**.
      ```
      sudo apt install apache2 -y
-
      git clone https://github.com/gabrielecirulli/2048
      sudo cp 2048 /var/www/html/
      ```
      
    - Konfigurasi untuk mods SSL di Apache.
-     ```
+     ```bash
      sudo nano /etc/apache2/mods-available/ssl.conf
-
+     ```
+     ```
      SSLProtocol all -SSLv3 -TLSv1 -TLSv1.1 +TLSv1.2 +TLSv1.3
-
+     ```
+     ```bash
      sudo a2enmod ssl
      ```
      
    - Konfigurasi untuk web nya agar menampikan aplikasi yang sesuai.
-     ```
+     ```bash
      sudo nano /etc/apache2/sites-available/default-ssl.conf
-
+     ```
+     ```Apache
      <VirtualHost_default_:443>
          ServerName 10.18.18.20
          DocumentRoot /var/www/html/2048
@@ -272,6 +275,8 @@ author: Najwan Octavian Gerrard
              SetHandler server-status
          </Location>
      ---
+     ```
+     ```bash
      sudo a2ensite default-ssl.conf
      ```
      
@@ -285,15 +290,15 @@ author: Najwan Octavian Gerrard
    - Install Package Apache2, dan Download Source Code untuk aplikasi **_[Tic Tac Toe](https://github.com/Aklilu-Mandefro/javascript-Tic-Tac-Toe-game-app)_**.
      ```
      sudo apt install nginx -y
-
      git clone https://github.com/Aklilu-Mandefro/javascript-Tic-Tac-Toe-game-app)
      sudo cp javascript-Tic-Tac-Toe-game-app /var/www/html/
      ```
      
    - Konfigurasi untuk web nya agar menampikan aplikasi yang sesuai.
-     ```
+     ```bash
      sudo nano /etc/nginx/sites-available/default
-
+     ```
+     ```NGINX
      server {
            listen 443 ssl default_server;
            listen [::]: 443 ssl default_server;
@@ -326,7 +331,6 @@ author: Najwan Octavian Gerrard
   - Download Package Apache Exporter, lalu pindahkan ke directory **_"/etc"_**.
     ```bash
     wget https://github.com/Lusitaniae/apache_exporter/releases/download/v1.0.3/apache_exporter-1.0.3.linux-amd64.tar.gz
-
     tar xvzf apache_exporter-1.0.3.linux-amd64.tar.gz
     sudo cp apache_exporter-1.0.3.linux-amd64 /etc/apache_exporter
     ```
@@ -341,7 +345,8 @@ author: Najwan Octavian Gerrard
   - Buat service, agar dapat berjalan di background.
     ```bash
     sudo /etc/systemd/system/apache-exporter.service
-
+    ```
+    ```
     [Unit]
     Description=Apache Exporter
 
@@ -382,7 +387,8 @@ author: Najwan Octavian Gerrard
   - Buat service, agar dapat berjalan di background.
     ```bash
     sudo /etc/systemd/system/nginx-exporter.service
-     
+    ```
+    ```
     [Unit]
     Description=Nginx Exporter
     Wants=network-online.target
@@ -436,7 +442,7 @@ author: Najwan Octavian Gerrard
     
 ### 8. Install CAdvisor untuk Monitoring Container Docker.
   - Jalankan Container CAdvisor.
-    ```
+    ```bash
     docker run -d \
        --volume=/:/rootfs:ro \
        --volume=/var/run:/var/run:ro \
@@ -468,15 +474,18 @@ author: Najwan Octavian Gerrard
     ```
     
   - Lalu Edit di file **_/etc/prometheus/config.yml_** untuk menambahkan alerting ke AlertManager, Rules untuk Alerting, serta Targets yang akan di Pantau.
+    
     ```yaml
     global:
       scrape_interval: 15s
       evaluation_interval: 15s
+    
     alerting:
       alertmanagers:
         - static_configs:
             - targets:
               - 10.18.18.10:9093
+    
     rule_files:
       - "rules-web-server.yml"
       - "rules-container.yml"
@@ -565,7 +574,6 @@ author: Najwan Octavian Gerrard
     ```bash
     sudo su
     wget https://dl.grafana.com/oss/release/grafana-11.2.2.linux-amd64.tar.gz
-
     tar -zxvf grafana-v11.2.2.linux-amd64.tar.gz
     cp grafana-v11.2.2.linux-amd64/etc/grafana
     ```
@@ -573,7 +581,8 @@ author: Najwan Octavian Gerrard
   - Lalu buat service, agar dapat berjalan di background.
     ```bash
     sudo nano /etc/systemd/system/grafana.service
-    
+    ```
+    ```
     [Unit]
     Description=Grafana
     
@@ -613,7 +622,6 @@ author: Najwan Octavian Gerrard
     ```bash
     sudo su
     wget https://dl.grafana.com/oss/release/grafana-11.2.2.linux-amd64.tar.gz
-
     tar -zxvf grafana-v11.2.2.linux-amd64.tar.gz
     cp grafana-v11.2.2.linux-amd64/etc/grafana
     ```
@@ -621,14 +629,14 @@ author: Najwan Octavian Gerrard
     ```yaml
     global:
       resolve_timeout: 15s
-
+    
     route:
       receiver: discord-all
       routes:
       - receiver: discord-python
         continue: true
       - receiver: email
-
+    
     receivers:
     - name: email
       email_configs:
@@ -639,15 +647,14 @@ author: Najwan Octavian Gerrard
         auth_identity: "email@test.id"
         auth_password: "TOKEN_EMAIL"
         send_resolved: True
-
+    
     - name: discord-all
       discord_configs:
       - webhook_url: 'URL_WEBHOOKS_DISCORD'
-
+    
     - name: discord-python
       webhook_configs:
       - url: "URL_ENDPOINT_PYTHON"
-
     ```
     
   - Konfigurasi untuk rules yang mentrigger alert manager mengirim notifikasi.
@@ -828,6 +835,9 @@ author: Najwan Octavian Gerrard
       
   - Lalu buat service, agar dapat berjalan di background.
     ```bash
+    sudo nano /etc/systemd/system/alert_manager.service
+    ```
+    ```bash
     [Unit]
     Description=Alert Manager
     
@@ -899,3 +909,4 @@ author: Najwan Octavian Gerrard
 
 ### Alert Traffic
 ![Branching](../assets/images/alert_traffic.png)
+
