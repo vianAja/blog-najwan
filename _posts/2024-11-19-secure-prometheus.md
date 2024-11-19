@@ -657,21 +657,21 @@ author: Najwan Octavian Gerrard
     ```
     
   - Konfigurasi untuk rules yang mentrigger alert manager mengirim notifikasi.
-    * Rules untuk Web Server Apache atau Nginx yang Down.
+    - Rules untuk Web Server Apache atau Nginx yang Down.
       ```yaml
       groups:
-      \- name: nginx.rules
+      - name: nginx.rules
         rules:
-        \- alert: nginxDown
+        - alert: nginxDown
           expr: nginx_up == 0
           for: 1m
           annotations:
             summary: "Service Nginx Down"
             description: "Service Nginx been down, sudah 1 menit, silahkan di cek dulu."
       
-      \- name: apache.rules
+      - name: apache.rules
         rules:
-        \- alert: apacheDown
+        - alert: apacheDown
           expr: apache_up == 0
           for: 1m
           annotations:
@@ -679,8 +679,7 @@ author: Najwan Octavian Gerrard
             description: "Service Apache been down, sudah 1 menit, silahkan di cek dulu."
       ```
       
-    * Rules untuk jumlah Container yang Stopped atau Down.
-      
+    - Rules untuk jumlah Container yang Stopped atau Down. 
       ```yaml
       groups:
       - name: container.rules
@@ -728,6 +727,7 @@ author: Najwan Octavian Gerrard
       ```
       
     * Rules untuk Memory Available pada semua server atau node.
+      
       ```yaml
       groups:
       - name: memory-available-under-35-Monitoring.rules
@@ -759,6 +759,7 @@ author: Najwan Octavian Gerrard
       ```
       
     * Rules untuk Penyimpanan atau Disk jika penuh dari setiap server atau node.
+      
       ```yaml
       groups:
       - name: disk-usage-75-persen-node-monitoring.rules
@@ -790,6 +791,7 @@ author: Najwan Octavian Gerrard
       ```
       
     * Rules untuk Traffic Networking jika ada lonjakan Traffic dari setiap server atau node.
+      
       ```yaml
       groups:
       - name: record-traffic-node-monitoring
