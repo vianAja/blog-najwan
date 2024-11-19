@@ -33,7 +33,7 @@ author: Najwan Octavian
 9. Slack
 
 # Topologi
-![Branching](./assets/images/topologi.png)
+![Branching](../assets/images/topologi.png)
 
 # Teori
 ## Container
