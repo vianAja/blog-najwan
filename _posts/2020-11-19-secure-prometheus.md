@@ -5,7 +5,7 @@ subtitle: Securing Prometheus Monitoring Web Service and Container
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/path.jpg
-tags: [Prometheus, Grafana, NGINX, Apache, Docker, Python]
+tags: [books, Prometheus, Grafana, NGINX, Apache, Docker, Python]
 author: Najwan Octavian
 ---
 
