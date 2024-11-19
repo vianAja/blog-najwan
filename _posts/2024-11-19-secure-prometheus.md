@@ -2,11 +2,11 @@
 layout: post
 title: Secure Prometheus
 subtitle: Securing Prometheus Monitoring Web Service and Container
-cover-img: /assets/img/path.jpg
+cover-img: https://user-images.githubusercontent.com/92439/89548426-51fb0f00-d807-11ea-890f-afb3f9d8110a.png
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/path.jpg
-tags: [books, Prometheus, Grafana, NGINX, Apache, Docker, Python]
-author: Najwan Octavian
+tags: [Prometheus, Grafana, NGINX, Apache, Docker, Python]
+author: Najwan Octavian Gerrard
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di zaman modern sekarang yang serba otomatis serta kebutuhan akan monitoring atau pengecekan secara berkala, membuat kebutuhan akan tools automation monitoring yang canggih tanpa adanya campur tangan manusia untuk pengambilan data yang di monitoring tersebut, seperti penggunaan CPU, memory, disk atau traffic jaringan, menjadi semakin meningkat. Prometheus adalah salah satu solusi akan hal tersebut, yang menyediakan cara monitoring real time tanpa perlu adanya campur tangan manusia saat mengambil data yang harus di monitoring.
