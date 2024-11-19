@@ -5,7 +5,7 @@ subtitle: Secure Kubernetes Cluster with Harbor and Trivy for Images Scanning Vu
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/path.jpg
-tags: [Kubernetes, Trivy, Harbor, Docker, Python, Slack]
+tags: [books, Kubernetes, Trivy, Harbor, Docker, Python, Slack]
 author: Najwan Octavian
 ---
 
