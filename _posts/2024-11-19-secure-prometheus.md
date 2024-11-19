@@ -7,6 +7,7 @@ thumbnail-img: https://user-images.githubusercontent.com/92439/89548426-51fb0f00
 share-img: /assets/img/wallpaper2.png
 tags: [Prometheus, Grafana, NGINX, Apache, Docker, Python]
 author: Najwan Octavian Gerrard
+permalink: /_posts/site/
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di zaman modern sekarang yang serba otomatis serta kebutuhan akan monitoring atau pengecekan secara berkala, membuat kebutuhan akan tools automation monitoring yang canggih tanpa adanya campur tangan manusia untuk pengambilan data yang di monitoring tersebut, seperti penggunaan CPU, memory, disk atau traffic jaringan, menjadi semakin meningkat. Prometheus adalah salah satu solusi akan hal tersebut, yang menyediakan cara monitoring real time tanpa perlu adanya campur tangan manusia saat mengambil data yang harus di monitoring.
@@ -416,30 +417,9 @@ author: Najwan Octavian Gerrard
     sudo systemctl status nginx-exporter.service
     ```
 
-### 7. [Install Docker](./2024-10-19-install-docker.md)
-  - Menambahkan repository dari Docker.
-    ```
-    sudo apt-get update
-    sudo apt-get install ca-certificates curl -y
-    sudo install -m 0755 -d /etc/apt/keyrings
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-    sudo chmod a+r /etc/apt/keyrings/docker.asc
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-    ```
-    
-  - Install Docker.
-    ```
-    sudo apt-get update
-    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-    ```
-    
-  - Mengatur agar user **_“student”_** atau user biasa (Bukan Root) dapat menggunakan perintah docker
-    ```
-    sudo usermod -aG docker $USER
-    sudo chmod 666 /var/run/docker.sock
-    docker version
-    ```
-    
+### 7. Install Docker
+Langkah Instalasi di Page [ini](./2024-10-19-install-docker.md)
+
 ### 8. Install CAdvisor untuk Monitoring Container Docker.
   - Jalankan Container CAdvisor.
     ```bash
