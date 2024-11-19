@@ -2,9 +2,9 @@
 layout: post
 title: Secure Prometheus
 subtitle: Securing Prometheus Monitoring Web Service and Container
-cover-img: /assets/img/pxfuel13.jpg
+cover-img: /assets/img/wallpaper2.png
 thumbnail-img: https://user-images.githubusercontent.com/92439/89548426-51fb0f00-d807-11ea-890f-afb3f9d8110a.png
-share-img: /assets/img/pxfuel13.jpg
+share-img: /assets/img/wallpaper2.png
 tags: [Prometheus, Grafana, NGINX, Apache, Docker, Python]
 author: Najwan Octavian Gerrard
 ---
