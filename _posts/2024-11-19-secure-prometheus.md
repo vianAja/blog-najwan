@@ -32,11 +32,11 @@ author: Najwan Octavian Gerrard
 
 ## Topologi
 
-![Topologi](assets/images/topologi.png).
+![Topologi](../assets/images/topologi.png).
 
 ## Alur kerja
 
-![Branching](./assets/images/alur-kerja.png)
+![Branching](../assets/images/alur-kerja.png)
 
 ### Prometheus
 
@@ -594,19 +594,19 @@ author: Najwan Octavian Gerrard
     ```
     
   - Lalu konfigurasi agar Grafana dapat membaca data dari Prometheus. Ke bagian kiri pilih “Connections”  kemudian “Add new connection” , lalu pilih Data Source “Prometheus”.
-    ![Branching](./assets/images/data_source_1.png)
+    ![Branching](../assets/images/data_source_1.png)
     
   - Klik **_“Add new data source”_** di kanan atas.
-    ![Branching](./assets/images/data_source_2.png)
+    ![Branching](../assets/images/data_source_2.png)
     
   - Kemudian isi nama **_“Data Source”_** dan **_“Connection – Prometheus server URL”_**.
-    ![Branching](./assets/images/data_source_3.png)
+    ![Branching](../assets/images/data_source_3.png)
     
   - Lalu checklist di bagian **_“TLS settings – Add self-signed certificate”_**, lalu masukan certificate SSL dari Prometheus nya (file dengan akhiran **_“.crt”_**).
-    ![Branching](./assets/images/data_source_4.png)
+    ![Branching](../assets/images/data_source_4.png)
     
   - Kemudian klik **_“Save & Test”_**.
-    ![Branching](./assets/images/data_source_5.png)
+    ![Branching](../assets/images/data_source_5.png)
     
 ### 11. Install Alert Manager
   - Download Package Grafana, lalu pindahkan ke **_/etc_**.
@@ -858,44 +858,44 @@ author: Najwan Octavian Gerrard
 ## Sample Visualisasi dan Dashboard
 ### A. Monitoring Node / Server
   - Up Time Node / Server
-    ![Up Time](./assets/images/uptime.png)
+    ![Up Time](../assets/images/uptime.png)
   - Disk
-    ![Disk](./assets/images/disk.png)
+    ![Disk](../assets/images/disk.png)
   - Memory
-    ![Memory](./assets/images/memory.png)
+    ![Memory](../assets/images/memory.png)
   - CPU
-    ![CPU](./assets/images/cpu.png)
+    ![CPU](../assets/images/cpu.png)
   - Traffic
-    ![Traffic](./assets/images/traffic.png)
+    ![Traffic](../assets/images/traffic.png)
     
 ### B. Monitoring Container
   - Container Status
-    ![Container](./assets/images/container.png)
+    ![Container](../assets/images/container.png)
   - CPU Container
-    ![CPU Container](./assets/images/cpu-container.png)
+    ![CPU Container](../assets/images/cpu-container.png)
     
 ### C. Monitoring Web Server
   - Stats Web Server
-    ![Stats Web Server](./assets/images/stats-web.png)
+    ![Stats Web Server](../assets/images/stats-web.png)
   - Total Requests Web Server
-    ![Total Requests Web Server](./assets/images/total-request.png)
+    ![Total Requests Web Server](../assets/images/total-request.png)
 
 
 ### Web Server Aplikasi Tic Tac Toe
-![Branching](./assets/images/tic_tac_toe.png)
+![Branching](../assets/images/tic_tac_toe.png)
 
 ### Web Server Aplikasi 2048
-![Branching](./assets/images/web_2048.png)
+![Branching](../assets/images/web_2048.png)
 
 ### Alert Nginx
 
-![Branching](./assets/images/alert_nginx.png)
+![Branching](../assets/images/alert_nginx.png)
 
 ### Alert Apache
-![Branching](./assets/images/alert_apache.png)
+![Branching](../assets/images/alert_apache.png)
 
 ### Alert Container
-![Branching](./assets/images/alert_container.png)
+![Branching](../assets/images/alert_container.png)
 
 ### Alert Traffic
-![Branching](./assets/images/alert_traffic.png)
+![Branching](../assets/images/alert_traffic.png)
