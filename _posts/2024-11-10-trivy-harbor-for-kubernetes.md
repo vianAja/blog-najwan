@@ -35,7 +35,6 @@ author: Najwan Octavian
 # Topologi
 ![Branching](.../assets/images/topologi.png)
 
-# Teori
 ## Container
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Container adalah sebuah unit yang mengemas code dan semua dependensinya. Sehingga dapat berjalan atau berpindah environment dengan lebih cepat dan efisien. Container tersebut sangat ringan tidak seperti Virtual Machine (VM) yang memerlukan OS untuk setiap VM nya, karena dalam container hanya berisikan source code dan dependensinya saja, jadi memungkinkan menginstal apa yang di perlukan saja.
@@ -75,6 +74,8 @@ author: Najwan Octavian
     node-worker02 :~$ sudo hostnamectl set-hostname pod-worker02
     node-harbor   :~$ sudo hostnamectl set-hostname pod-harbor
     ```
+
+    
   * Menambahkan IP dari Node dan Hostname semua Node ke **_“/etc/hosts”_** agar dapat di akses dengan menggunakan Hostname yang sudah di konfigurasi.
     ```
     ~$ sudo nano /etc/hosts
