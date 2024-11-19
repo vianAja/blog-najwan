@@ -261,7 +261,7 @@ author: Najwan Octavian Gerrard
      ```bash
      sudo nano /etc/apache2/sites-available/default-ssl.conf
      ```
-     ```Apache
+     ```apache
      <VirtualHost_default_:443>
          ServerName 10.18.18.20
          DocumentRoot /var/www/html/2048
@@ -298,7 +298,7 @@ author: Najwan Octavian Gerrard
      ```bash
      sudo nano /etc/nginx/sites-available/default
      ```
-     ```NGINX
+     ```nginx
      server {
            listen 443 ssl default_server;
            listen [::]: 443 ssl default_server;
@@ -474,7 +474,6 @@ author: Najwan Octavian Gerrard
     ```
     
   - Lalu Edit di file **_/etc/prometheus/config.yml_** untuk menambahkan alerting ke AlertManager, Rules untuk Alerting, serta Targets yang akan di Pantau.
-    
     ```yaml
     global:
       scrape_interval: 15s
