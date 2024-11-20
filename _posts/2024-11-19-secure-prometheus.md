@@ -431,7 +431,8 @@ containerd.io            # Package untuk Container RunTime Docker
 docker-buildx-plugin     # Package untuk Membuat Image Docker
 docker-compose-plugin    # Package untuk Docker compose
 ```
-Langkah Installasi di Page berikut [ini](https://vianaja.github.io/blog-najwan/2024-10-19-install-docker/).
+Langkah Installasi bisa menggunakan dari page di bawah ini.
+### [Install Docker](https://vianaja.github.io/blog-najwan/2024-10-19-install-docker/).
 
 <br>
 
@@ -454,22 +455,10 @@ Langkah Installasi di Page berikut [ini](https://vianaja.github.io/blog-najwan/2
 <br>
 
 ### 9. Install dan Konfigurasi Prometheus dengan SSL
-  - Download Package Prometheus.
-    ```bash
-    sudo su
-    wget https://github.com/prometheus/prometheus/releases/download/v2.48.1/prometheus-2.48.1.linux-amd64.tar.gz
-    tar xvfz prometheus-2.48.1.linux-amd64.tar.gz
-    cp prometheus-2.48.1.linux-amd64/etc/prometheus
-    ```
+  - Untuk langkah - langkah Installasi Prometheus bisa mengikuti dari page yang ada di bahwa ini.
+    #### [Install Prometheus](https://vianaja.github.io/blog-najwan/2024-11-01-prometheus/)
     
-  - Buat file “web-config.yml” di directory **_“/etc/prometheus/”_**  yang nantinya digunakan untuk koneksi ssl
-    ```yaml
-    tls_server_config:
-      cert_file: /etc/prometheus/certs/10.18.18.10:9090/10.18.18.10:9090.crt
-      key_file: /etc/prometheus/certs/10.18.18.10:9090/10.18.18.10:9090.key
-    ```
-    
-  - Lalu Edit di file **_/etc/prometheus/config.yml_** untuk menambahkan alerting ke AlertManager, Rules untuk Alerting, serta Targets yang akan di Pantau.
+  - Edit di file **_/etc/prometheus/config.yml_** untuk Mengatur alerting ke AlertManager, Rules untuk Alerting, serta Targets yang akan di Pantau.
     ```yaml
     global:
       scrape_interval: 15s
@@ -538,31 +527,6 @@ Langkah Installasi di Page berikut [ini](https://vianaja.github.io/blog-najwan/2
         - targets: ['10.18.18.30:8080']
     ```
     
-  - Buat Service agar dapat berjalan di Background.
-    ```bash
-    sudo nano /etc/systemd/system/prometheus_server.service
-    
-    [Unit]
-    Description=Prometheus Server
-
-    [Service]
-    User=root
-    ExecStart=/etc/prometheus/prometheus \
-        --config.file=/etc/prometheus/config.yml \
-        --web.external-url=https://10.18.18.10:9090/ \
-        --web.config.file=/etc/prometheus/web-config.yml
-
-    [Install]
-    WantedBy=default.target
-    ```
-    
-  - Restart Daemon dan jalankan Service Prometheus nya.
-    ```bash
-    sudo systemctl daemon-reload
-    sudo systemctl start prometheus_server.service
-    sudo systemctl enable prometheus_server.service
-    sudo systemctl status prometheus_server.service
-    ```
 <br>
 
 ### 10. Install Grafana
