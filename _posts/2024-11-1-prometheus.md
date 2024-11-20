@@ -32,16 +32,7 @@ Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang op
       evaluation_interval: 15s
     
     scrape_configs:
-      # Via HTTP
       - job_name: "NAME_JOB"
-        static_configs:
-        - targets: ["IP_TARGET:PORT"]
-
-      # Via HTTPS
-      - job_name: "NAME_JOB"
-        scheme: https
-        tls_config:
-          ca_file: "/path/to/ca.crt"
         static_configs:
         - targets: ["IP_TARGET:PORT"]
     ```
@@ -56,18 +47,12 @@ Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang op
     ```
     
   - Atur untuk File Rules / aturan yang akan digunakan untuk alerting di file **_"/etc/prometheus/config.yml"_**.
+    
     ```yaml
     rule_files:
       - "FILE_RULES.yml"
     ```
-    
-  - Buat file **_“web-config.yml”_** di directory **_“/etc/prometheus/”_**  yang nantinya digunakan untuk koneksi ssl
-    ```yaml
-    tls_server_config:
-      cert_file: /path/to/ca.crt
-      key_file: /path/to/ca.key
-    ```
-    
+
   - Buat Service agar dapat berjalan di Background.
     ```bash
     sudo nano /etc/systemd/system/prometheus_server.service
@@ -80,8 +65,7 @@ Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang op
     User=root
     ExecStart=/etc/prometheus/prometheus \
         --config.file=/etc/prometheus/config.yml \
-        --web.external-url=https://10.18.18.10:9090/ \
-        --web.config.file=/etc/prometheus/web-config.yml
+        --web.external-url=http://IP_SERVER:9090/ 
 
     [Install]
     WantedBy=default.target
@@ -95,3 +79,4 @@ Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang op
     sudo systemctl status prometheus_server.service
     ```
     
+Untuk Konfigurasi TLS/SSL pada Prometheus, bisa ke Postingan Blog saya berikut ini, **_[Secure Prometheus](https://vianaja.github.io/blog-najwan/2024-11-19-secure-prometheus/)_** pada Langkah Implementasi nomor 9. 
