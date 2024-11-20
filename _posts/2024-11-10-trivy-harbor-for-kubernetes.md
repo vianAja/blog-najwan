@@ -96,27 +96,17 @@ author: Najwan Octavian
      ```
 ## 2. Install Docker Untuk Harbor Registry
 > **_Note: jalankan pada Node Harbor_**
+Panduan Dibahwah ini mencakup langkah-langkah konfigurasi Docker di sistem yang akan dibutuhkan, sehingga Anda dapat dengan mudah memahami dan mengimplementasikannya. Untuk dependensi yang dibutuhkan.
+```
+docker-ce                # Package utama Docker
+docker-ce-cli            # Package untuk CLI Docker
+containerd.io            # Package untuk Container RunTime Docker
+docker-buildx-plugin     # Package untuk Membuat Image Docker
+docker-compose-plugin    # Package untuk Docker compose
+```
+Langkah Installasi bisa menggunakan dari page di bawah ini.
+#### [Page Install Docker](https://vianaja.github.io/blog-najwan/2024-10-19-install-docker/)
 
-  * Menambahkan repository dari Docker.
-    ```
-    node-harbor:~$ sudo apt-get update
-    node-harbor:~$ sudo apt-get install ca-certificates curl -y
-    node-harbor:~$ sudo install -m 0755 -d /etc/apt/keyrings
-    node-harbor:~$ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-    node-harbor:~$ sudo chmod a+r /etc/apt/keyrings/docker.asc
-    node-harbor:~$ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-    ```
-  * Install Docker.
-    ```
-    node-harbor:~$ sudo apt-get update
-    node-harbor:~$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-    ```
-  * Mengatur agar user **_“student”_** atau user biasa (Bukan Root) dapat menggunakan perintah docker
-    ```
-    node-harbor:~$ sudo usermod -aG docker $USER
-    node-harbor:~$ sudo chmod 666 /var/run/docker.sock
-    node-harbor:~$ docker version
-    ```
 ## 3. Create SSL Certificate untuk Harbor
 > **_Note: jalankan pada Node Harbor_**
 
