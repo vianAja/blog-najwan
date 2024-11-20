@@ -455,9 +455,12 @@ Langkah Installasi bisa menggunakan dari page di bawah ini.
 <br>
 
 ### 9. Install dan Konfigurasi Prometheus dengan SSL
-  - Untuk langkah - langkah Installasi Prometheus bisa mengikuti dari page yang ada di bahwa ini. Sudah ada juga untuk cara configurasi menggunakan TLS/SSL
+  - Untuk langkah - langkah Installasi Prometheus bisa mengikuti dari page yang ada di bahwa ini. Sudah ada juga untuk cara configurasi menggunakan TLS/SSL.
+
     #### [Page Install Prometheus](https://vianaja.github.io/blog-najwan/2024-11-01-prometheus/)
-    
+
+  <br>
+
   - Edit di file **_/etc/prometheus/config.yml_** untuk Mengatur alerting ke AlertManager, Rules untuk Alerting, serta Targets yang akan di Pantau.
     ```yaml
     global:
@@ -536,6 +539,12 @@ Panduan Dibahwah ini mencakup langkah-langkah Installasi, konfigurasi Grafana hi
 <br>
 
 ### 11. Install Alert Manager
+  - Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari page yang ada di bahwa ini.
+
+    #### [Page Install Alert Manager]()
+
+    <br>
+    
   - Download Package Grafana, lalu pindahkan ke **_/etc_**.
     ```bash
     sudo su
