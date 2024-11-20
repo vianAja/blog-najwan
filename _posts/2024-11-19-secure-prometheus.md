@@ -541,17 +541,10 @@ Panduan Dibahwah ini mencakup langkah-langkah Installasi, konfigurasi Grafana hi
 ### 11. Install Alert Manager
   - Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari page yang ada di bahwa ini.
 
-    #### [Page Install Alert Manager]()
+    #### [Page Install Alert Manager](https://vianaja.github.io/blog-najwan/2024-11-02-alert-manager/)
 
     <br>
     
-  - Download Package Grafana, lalu pindahkan ke **_/etc_**.
-    ```bash
-    sudo su
-    wget https://dl.grafana.com/oss/release/grafana-11.2.2.linux-amd64.tar.gz
-    tar -zxvf grafana-v11.2.2.linux-amd64.tar.gz
-    cp grafana-v11.2.2.linux-amd64/etc/grafana
-    ```
   - Konfigurasi untuk Alert Managernya untuk mengirim notifikasi ke mana.
     ```yaml
     global:
@@ -765,37 +758,10 @@ Panduan Dibahwah ini mencakup langkah-langkah Installasi, konfigurasi Grafana hi
             nodeName: "Node Client 2"
             trafficUsage: "{{ $value }}"
       ```
-      
-  - Lalu buat service, agar dapat berjalan di background.
-    ```bash
-    sudo nano /etc/systemd/system/alert_manager.service
-    ```
-    ```bash
-    [Unit]
-    Description=Alert Manager
-    
-    [Service]
-    User=root
-    ExecStart=/etc/alertmanager/alertmanager \
-            --config.file=/etc/alertmanager/config.yml \
-            --web.external-url=http://10.18.18.10:9093/ \
-            --log.level=debug
-    
-    [Install]
-    WantedBy=default.target
-    ```
-    
-  - Restart Daemon dan jalankan Service Alert Manager nya.
-    ```bash
-    sudo systemctl daemon-reload
-    sudo systemctl start alert_manager.service
-    sudo systemctl enable alert_manager.service
-    sudo systemctl status alert_manager.service
-    ```
 <br>
 
 ### 12. Menambahkan Program Python, agar filter Notifikasi ke Discord
-  - Ambil Token Discord agar program python nya dapat mengirim notifikasi ke channe Discorrd yang sesuai, dari referensi video [YouTube](https://youtu.be/UYJDKSah-Ww?si=2SYaHg74DT47RuGS) ini (cukup sampai pengambilan Token Discord).
+  - Ambil Token Discord agar program python nya dapat mengirim notifikasi ke channe Discorrd yang sesuai, dari referensi video **_[YouTube](https://youtu.be/UYJDKSah-Ww?si=2SYaHg74DT47RuGS)_** ini (cukup sampai pengambilan Token Discord).
     
   - Donwload contoh sample program python di **_[github](https://github.com/vianAja/Discord-alertmanager-python.git)_** ini. untuk contoh filtering alert agar mengarah ke beberapa channel seperti di contoh. ikuti instruksi sesuai di githubnya.
 
