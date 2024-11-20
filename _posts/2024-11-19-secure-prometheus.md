@@ -423,7 +423,8 @@ author: Najwan Octavian Gerrard
 <br>
 
 ### 7. Install Docker
-Langkah Instalasi di Page [ini](https://vianaja.github.io/blog-najwan/2024-10-19-install-docker/)
+Panduan tersebut mencakup langkah-langkah mulai dari persiapan hingga konfigurasi Docker di sistem yang akan dibutuhkan, sehingga Anda dapat dengan mudah memahami dan mengimplementasikannya. Untuk 
+Langkah Installasi di Page berikut [ini](https://vianaja.github.io/blog-najwan/2024-10-19-install-docker/).
 
 <br>
 
