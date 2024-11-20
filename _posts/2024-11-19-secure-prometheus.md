@@ -432,7 +432,7 @@ docker-buildx-plugin     # Package untuk Membuat Image Docker
 docker-compose-plugin    # Package untuk Docker compose
 ```
 Langkah Installasi bisa menggunakan dari page di bawah ini.
-### [Install Docker](https://vianaja.github.io/blog-najwan/2024-10-19-install-docker/).
+#### [Page Install Docker](https://vianaja.github.io/blog-najwan/2024-10-19-install-docker/)
 
 <br>
 
@@ -455,8 +455,8 @@ Langkah Installasi bisa menggunakan dari page di bawah ini.
 <br>
 
 ### 9. Install dan Konfigurasi Prometheus dengan SSL
-  - Untuk langkah - langkah Installasi Prometheus bisa mengikuti dari page yang ada di bahwa ini.
-    #### [Install Prometheus](https://vianaja.github.io/blog-najwan/2024-11-01-prometheus/)
+  - Untuk langkah - langkah Installasi Prometheus bisa mengikuti dari page yang ada di bahwa ini. Sudah ada juga untuk cara configurasi menggunakan TLS/SSL
+    #### [Page Install Prometheus](https://vianaja.github.io/blog-najwan/2024-11-01-prometheus/)
     
   - Edit di file **_/etc/prometheus/config.yml_** untuk Mengatur alerting ke AlertManager, Rules untuk Alerting, serta Targets yang akan di Pantau.
     ```yaml
@@ -530,52 +530,8 @@ Langkah Installasi bisa menggunakan dari page di bawah ini.
 <br>
 
 ### 10. Install Grafana
-  - Download Package Grafana, lalu pindahkan ke **_/etc_**.
-    ```bash
-    sudo su
-    wget https://dl.grafana.com/oss/release/grafana-11.2.2.linux-amd64.tar.gz
-    tar -zxvf grafana-v11.2.2.linux-amd64.tar.gz
-    cp grafana-v11.2.2.linux-amd64/etc/grafana
-    ```
-    
-  - Lalu buat service, agar dapat berjalan di background.
-    ```bash
-    sudo nano /etc/systemd/system/grafana.service
-    ```
-    ```
-    [Unit]
-    Description=Grafana
-    
-    [Service]
-    User=root
-    ExecStart=/etc/grafana/bin/grafana-server -homepath /etc/grafana/ web
-    
-    [Install]
-    WantedBy=default.target
-    ```
-    
-  - Restart Daemon dan jalankan Service Prometheus nya.
-    ```bash
-    sudo systemctl daemon-reload
-    sudo systemctl start grafana.service
-    sudo systemctl enable grafana.service
-    sudo systemctl status grafana.service
-    ```
-    
-  - Lalu konfigurasi agar Grafana dapat membaca data dari Prometheus. Ke bagian kiri pilih “Connections”  kemudian “Add new connection” , lalu pilih Data Source “Prometheus”.
-    ![Branching](../assets/images/data_source_1.png)
-    
-  - Klik **_“Add new data source”_** di kanan atas.
-    ![Branching](../assets/images/data_source_2.png)
-    
-  - Kemudian isi nama **_“Data Source”_** dan **_“Connection – Prometheus server URL”_**.
-    ![Branching](../assets/images/data_source_3.png)
-    
-  - Lalu checklist di bagian **_“TLS settings – Add self-signed certificate”_**, lalu masukan certificate SSL dari Prometheus nya (file dengan akhiran **_“.crt”_**).
-    ![Branching](../assets/images/data_source_4.png)
-    
-  - Kemudian klik **_“Save & Test”_**.
-    ![Branching](../assets/images/data_source_5.png)
+Panduan Dibahwah ini mencakup langkah-langkah Installasi, konfigurasi Grafana hingga cara menambahkan Data Source, baik yang menggunakan HTTPS atau HTTP biasa. sehingga Anda dapat dengan mudah memahami dan mengimplementasikannya.
+#### [Page Install Grafana](https://vianaja.github.io/blog-najwan/2024-10-30-grafana/)
 
 <br>
 
