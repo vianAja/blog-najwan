@@ -79,7 +79,15 @@ author: Najwan Octavian Gerrard
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSL merupakan Protocol keamanan yang digunakan untuk mengenkrip si data seperti informasi pribadi, password, rekening, dan data lain yang bersifat sensitif, saat data dikirim kan ke server, data tersebut akan di enkripsi untuk menjaga keamanan dari data tersebut. SSL sertifikat yaitu sertifikat digital digunakan untuk autentikasi indentitas dari situs web yang memungkinkan koneksi enkripsi yang aman. Dan sering digunakan untuk menjaga keamanan data pengguna yang perlu memverifikasi kepemilikan situs website.
 
 ## Implementasi
-### 1. Konfigurasi SSL Certificate untuk layanan
+### 1. Konfigurasi SSL Certificate untuk layanan.
+  - Buat file IP SAN untuk setiap Server / Node.
+    ```bash
+    sudo nano /etc/ssl/IP_SANS.txt
+    ```
+    ```bash
+    subjectAltName=IP:<IP dari setiap Server / Node>
+    ```
+    
   - Buat directory untuk menyimpan CA di dalam directory **_“/etc/ssl/”_** agar lebih rapi serta mudah di identifikasi.
     - Node Monitoring
       ```bash
@@ -93,8 +101,7 @@ author: Najwan Octavian Gerrard
       sudo mkdir -p /etc/ssl/apache_exporter/
       sudo mkdir -p /etc/ssl/nginx_exporter/
       ```
-      
-      
+
     - Node Client 1
       ```
       # Untuk Node Exporter
@@ -112,15 +119,7 @@ author: Najwan Octavian Gerrard
       # Untuk Node Exporter
       sudo mkdir -p /etc/ssl/node_exporter/
       ```
-       
-   - Buat file IP SAN untuk setiap Server / Node.
-     ```bash
-     sudo nano /etc/ssl/IP_SANS.txt
-     ```
-     ```txt
-     subjectAltName=IP:<IP dari setiap Server / Node>
-     ```
-     
+
    - Buat Certificate untuk beberapa layanan berikut :
      * Prometheus
        ```bash
