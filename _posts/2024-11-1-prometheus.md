@@ -25,13 +25,6 @@ Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang op
     cp prometheus-2.48.1.linux-amd64/ /etc/prometheus
     ```
     
-  - Buat file **_“web-config.yml”_** di directory **_“/etc/prometheus/”_**  yang nantinya digunakan untuk koneksi ssl
-    ```yaml
-    tls_server_config:
-      cert_file: /path/to/ca.crt
-      key_file: /path/to/ca.key
-    ```
-    
   - Lalu Edit di file **_"/etc/prometheus/config.yml"_** untuk mengatur Targets yang akan di Pantau.
     ```yaml
     global:
@@ -55,17 +48,26 @@ Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang op
     
   - Atur untuk Alerting, menggunakan Alert Manager di file **_"/etc/prometheus/config.yml"_**.
     ```yaml
-      alerting:
+    alerting:
       alertmanagers:
         - static_configs:
             - targets:
               - IP_ALERT_MANAGER:PORT
     ```
+    
   - Atur untuk File Rules / aturan yang akan digunakan untuk alerting di file **_"/etc/prometheus/config.yml"_**.
     ```yaml
     rule_files:
       - "FILE_RULES.yml"
     ```
+    
+  - Buat file **_“web-config.yml”_** di directory **_“/etc/prometheus/”_**  yang nantinya digunakan untuk koneksi ssl
+    ```yaml
+    tls_server_config:
+      cert_file: /path/to/ca.crt
+      key_file: /path/to/ca.key
+    ```
+    
   - Buat Service agar dapat berjalan di Background.
     ```bash
     sudo nano /etc/systemd/system/prometheus_server.service
