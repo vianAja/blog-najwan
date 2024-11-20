@@ -423,7 +423,13 @@ author: Najwan Octavian Gerrard
 <br>
 
 ### 7. Install Docker
-Panduan tersebut mencakup langkah-langkah mulai dari persiapan hingga konfigurasi Docker di sistem yang akan dibutuhkan, sehingga Anda dapat dengan mudah memahami dan mengimplementasikannya. Untuk 
+Panduan Dibahwah ini mencakup langkah-langkah konfigurasi Docker di sistem yang akan dibutuhkan, sehingga Anda dapat dengan mudah memahami dan mengimplementasikannya. Untuk dependensi yang dibutuhkan.
+> docker-ce                # Package utama Docker
+> docker-ce-cli            # Package untuk CLI Docker
+> containerd.io            # Package untuk Container RunTime Docker
+> docker-buildx-plugin     # Package untuk Membuat Image Docker
+> docker-compose-plugin    # Package untuk Docker compose
+
 Langkah Installasi di Page berikut [ini](https://vianaja.github.io/blog-najwan/2024-10-19-install-docker/).
 
 <br>
