@@ -52,11 +52,11 @@ round-avatar: true
 social-network-links:
   email: "someone@example.com"
   rss: true  # remove this line if you don't want to show an RSS link at the bottom
-  facebook: deanattali
+#  facebook: deanattali
   github: vianAja
-  twitter: daattali
-  patreon: DeanAttali
-  youtube: "@daattali"
+#  twitter: daattali
+#  patreon: DeanAttali
+#  youtube: "@daattali"
   whatsapp: 15551212
 #  medium: yourname
 #  reddit: yourname or r/yoursubreddit
@@ -93,8 +93,8 @@ rss-description: This website is a virtual proof that I'm awesome
 
 # Select which social network share links to show in posts
 share-links-active:
-  twitter: true
-  facebook: true
+  twitter: false
+  facebook: false
   linkedin: true
   vk: false
 
@@ -150,7 +150,7 @@ footer-hover-col: "#0085A1"
 # Alternatively, the navbar, footer, and page background can be set to an image
 # instead of colour
 
-#navbar-img: "/assets/img/bgimage.png"
+navbar-img: "/assets/img/wallpaper6.png"
 #footer-img: "/assets/img/bgimage.png"
 #page-img: "/assets/img/bgimage.png"
 
