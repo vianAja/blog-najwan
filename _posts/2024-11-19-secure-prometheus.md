@@ -462,7 +462,7 @@ Langkah Installasi lebih detail bisa kunjungi post saya yang **_[Install Docker]
       cert_file: /path/to/prometheus_ca.crt
       key_file: /path/to/prometheus_ca.key
     ```
-  - Lalu edit di bagian Service, di bagian **_ExecStart_**. terus tambahkan untuk path dari file config untuk TLS/SSL dengan **_--web.config.file=_**.
+  - Lalu edit di bagian Service, di bagian **_ExecStart_**. terus tambahkan untuk path dari file config untuk TLS/SSL dengan **_"--web.config.file="_**.
     
     ```bash
     sudo nano /etc/systemd/system/prometheus_server.service
@@ -477,7 +477,9 @@ Langkah Installasi lebih detail bisa kunjungi post saya yang **_[Install Docker]
   
   - Edit di file **_/etc/prometheus/config.yml_** untuk Mengatur alerting ke AlertManager, Rules untuk Alerting, serta Targets yang akan di Pantau, dan konfigurasi untuk koneksi TLS/SSL nya juga. contohnya seperti berikut, saya monitoring untuk:
     > 3 Node Server (menggunakan Node Exporter)
+    
     > Web Service (Apache2 dan Nginx)
+    
     > Container Docker
     
     ```yaml
