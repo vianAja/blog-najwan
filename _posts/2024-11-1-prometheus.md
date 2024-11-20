@@ -9,9 +9,12 @@ tags: [Prometheus]
 author: Najwan Octavian Gerrard
 ---
 
-### Prometheus
+Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang open source, yang lebih berfokus pada pengelolaan metrics dari suatu aplikasi atau system. Metrics sendiri merupakan data angka yang menunjukan performa atau nilai kinerja suatu aplikasi atau system.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang open source, yang lebih berfokus pada pengelolaan metrics dari suatu aplikasi atau system. Metrics sendiri merupakan data angka yang menunjukan performa atau nilai kinerja suatu aplikasi atau system. 
+### Keuntungan Menggunakan Prometheus:
+- **Fleksibilitas**, karena prometheus bisa untuk memantau berbagai sistem dan layanan, dari yang kecil sampai yang skala besar. Dan mudah di konfigurasikan dengan tools visualisasi atau alerting dengan cukup mudah.
+- **Skalabilitas**, Prometheus dapat menangani metrics dalam jumlah besar, dan serta dapat juga diskalakan secara horizontal, yang berarti menambah mesin prometheus nya di suatu cluster Prometheus.
+
 
 ### Install dan Konfigurasi Prometheus dengan SSL
   - Download Package Prometheus.
