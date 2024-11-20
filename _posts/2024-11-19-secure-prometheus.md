@@ -200,6 +200,7 @@ author: Najwan Octavian Gerrard
          -in /etc/ssl/nginx/nginx.csr\
          -out /etc/ssl/nginx/nginx.crt
        ```
+<br>
 
 ### 2. Install Node Exporter dan Konfigurasi SSL
    - Install Package Node Exporter, lalu pindahkan ke directory **_"/etc"_**.
@@ -237,7 +238,8 @@ author: Najwan Octavian Gerrard
      sudo systemctl enable node-exporter.service
      sudo systemctl status node-exporter.service
      ```
-     
+<br>
+
 ### 3. Install dan Konfigurasi Apache dengan SSL
    - Install Package Apache2, dan Download Source Code untuk aplikasi **_[2048](https://github.com/gabrielecirulli/2048)_**.
      ```
@@ -285,7 +287,8 @@ author: Najwan Octavian Gerrard
      sudo systemctl restart apache2.service
      sudo systemctl status apache2.service
      ```
-     
+<br>
+
 ### 4. Install dan Konfigurasi Nginx dengan SSL
    - Install Package Apache2, dan Download Source Code untuk aplikasi **_[Tic Tac Toe](https://github.com/Aklilu-Mandefro/javascript-Tic-Tac-Toe-game-app)_**.
      ```
@@ -326,7 +329,8 @@ author: Najwan Octavian Gerrard
      sudo systemctl restart nginx.service
      sudo systemctl status nginx.service
      ```
-     
+<br>
+
 ### 5. Install Apache Exporter dengan SSL
   - Download Package Apache Exporter, lalu pindahkan ke directory **_"/etc"_**.
     ```bash
@@ -368,7 +372,8 @@ author: Najwan Octavian Gerrard
     sudo systemctl enable node-exporter.service
     sudo systemctl status node-exporter.service
     ```
-    
+<br>
+
 ### 6. Install Nginx Exporter dengan SSL
   - Install Package Nginx Exporter, lalu pindahkan ke directory **_"/etc"_**.
     ```bash
@@ -415,9 +420,12 @@ author: Najwan Octavian Gerrard
     sudo systemctl enable nginx-exporter.service
     sudo systemctl status nginx-exporter.service
     ```
+<br>
 
 ### 7. Install Docker
 Langkah Instalasi di Page [ini](https://vianaja.github.io/blog-najwan/2024-10-19-install-docker/)
+
+<br>
 
 ### 8. Install CAdvisor untuk Monitoring Container Docker.
   - Jalankan Container CAdvisor.
@@ -435,7 +443,8 @@ Langkah Instalasi di Page [ini](https://vianaja.github.io/blog-najwan/2024-10-19
     
     docker ps -a
     ```
-    
+<br>
+
 ### 9. Install dan Konfigurasi Prometheus dengan SSL
   - Download Package Prometheus.
     ```bash
@@ -546,7 +555,8 @@ Langkah Instalasi di Page [ini](https://vianaja.github.io/blog-najwan/2024-10-19
     sudo systemctl enable prometheus_server.service
     sudo systemctl status prometheus_server.service
     ```
-    
+<br>
+
 ### 10. Install Grafana
   - Download Package Grafana, lalu pindahkan ke **_/etc_**.
     ```bash
@@ -594,7 +604,9 @@ Langkah Instalasi di Page [ini](https://vianaja.github.io/blog-najwan/2024-10-19
     
   - Kemudian klik **_“Save & Test”_**.
     ![Branching](../assets/images/data_source_5.png)
-    
+
+<br>
+
 ### 11. Install Alert Manager
   - Download Package Grafana, lalu pindahkan ke **_/etc_**.
     ```bash
@@ -843,11 +855,14 @@ Langkah Instalasi di Page [ini](https://vianaja.github.io/blog-najwan/2024-10-19
     sudo systemctl enable alert_manager.service
     sudo systemctl status alert_manager.service
     ```
-    
+<br>
+
 ### 12. Menambahkan Program Python, agar filter Notifikasi ke Discord
   - Ambil Token Discord agar program python nya dapat mengirim notifikasi ke channe Discorrd yang sesuai, dari referensi video [YouTube](https://youtu.be/UYJDKSah-Ww?si=2SYaHg74DT47RuGS) ini (cukup sampai pengambilan Token Discord).
     
   - Donwload contoh sample program python di **_[github](https://github.com/vianAja/Discord-alertmanager-python.git)_** ini. untuk contoh filtering alert agar mengarah ke beberapa channel seperti di contoh. ikuti instruksi sesuai di githubnya.
+
+<br>
 
 ## Sample Visualisasi dan Dashboard
 ### A. Monitoring Node / Server
@@ -861,19 +876,22 @@ Langkah Instalasi di Page [ini](https://vianaja.github.io/blog-najwan/2024-10-19
     ![CPU](../assets/images/cpu.png)
   - Traffic
     ![Traffic](../assets/images/traffic.png)
-    
+
+<br>
+
 ### B. Monitoring Container
   - Container Status
     ![Container](../assets/images/container.png)
   - CPU Container
     ![CPU Container](../assets/images/cpu-container.png)
-    
+
+<br>
+
 ### C. Monitoring Web Server
   - Stats Web Server
     ![Stats Web Server](../assets/images/stats-web.png)
   - Total Requests Web Server
     ![Total Requests Web Server](../assets/images/total-request.png)
-
 
 ### Web Server Aplikasi Tic Tac Toe
 ![Branching](../assets/images/tic_tac_toe.png)
@@ -893,4 +911,3 @@ Langkah Instalasi di Page [ini](https://vianaja.github.io/blog-najwan/2024-10-19
 
 ### Alert Traffic
 ![Branching](../assets/images/alert_traffic.png)
-
