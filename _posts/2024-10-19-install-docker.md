@@ -9,13 +9,20 @@ tags: [Docker]
 author: Najwan Octavian Gerrard
 ---
 
+Docker adalah salah satu platform software yang digunakan untuk membuat, mengelola aplikasi yang nantinya dikemas dalam sebuah wadah yang terisolasi yaitu container. Docker nantinya akan mengemas aplikasi berserta dependensi yang diperlukan dalam satu paket yang ringan. Sehingga dapat dijalankan secara konsisten tanpa mengubah konfigurasi.
+
 ### Container
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Container adalah sebuah unit yang mengemas code dan semua dependensinya. Sehingga dapat berjalan atau berpindah environment dengan lebih cepat dan efisien. Container tersebut sangat ringan tidak seperti Virtual Machine (VM) yang memerlukan OS untuk setiap VM nya, karena dalam container hanya berisikan source code dan dependensinya saja, jadi memungkinkan menginstal apa yang di perlukan saja.
 
-### Docker
+### Kelebihan:
+- Portabilitas, kemampuan untuk menjalankan aplikasi dalam container yang sama di beberapa lingkungan (seperti cloud) tanpa perlu merubah konfigurasi yang banyak.
+- Penggunaan resource yang efisien. Dari pada menggunakan Virtual Machine (VM), container docker lebih ringan karena tidak perlu hypervisor.
+  
+### Kekurangan:
+- Kompatibilitas terbatas antar OS, walaupun selain di linux masih bisa digunakan, akan tetapi secara performanya tidak sebaik di Linux.
+- Kompleksitas orchestration, docker menggunakan tools Docker Swarm yang cukup sulit bagi pemula yang baru belajar.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Docker adalah salah satu platform software yang digunakan untuk membuat, mengelola aplikasi yang nantinya dikemas dalam sebuah wadah yang terisolasi yaitu container. Docker nantinya akan mengemas aplikasi berserta dependensi yang diperlukan dalam satu paket yang ringan. Sehingga dapat dijalankan secara konsisten tanpa mengubah konfigurasi.
 
 ### Installations
 - Update Package, install package untuk curl dan certificate.
