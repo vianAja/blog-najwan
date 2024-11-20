@@ -250,7 +250,7 @@ author: Najwan Octavian Gerrard
      ```bash
      sudo nano /etc/apache2/mods-available/ssl.conf
      ```
-     ```
+     ```apache
      SSLProtocol all -SSLv3 -TLSv1 -TLSv1.1 +TLSv1.2 +TLSv1.3
      ```
      ```bash
@@ -637,6 +637,7 @@ Langkah Instalasi di Page [ini](https://vianaja.github.io/blog-najwan/2024-10-19
     
   - Konfigurasi untuk rules yang mentrigger alert manager mengirim notifikasi.
     - Rules untuk Web Server Apache atau Nginx yang Down.
+      
       ```yaml
       groups:
       - name: nginx.rules
@@ -658,7 +659,8 @@ Langkah Instalasi di Page [ini](https://vianaja.github.io/blog-najwan/2024-10-19
             description: "Service Apache been down, sudah 1 menit, silahkan di cek dulu."
       ```
       
-    - Rules untuk jumlah Container yang Stopped atau Down. 
+    - Rules untuk jumlah Container yang Stopped atau Down.
+      
       ```yaml
       groups:
       - name: container.rules
