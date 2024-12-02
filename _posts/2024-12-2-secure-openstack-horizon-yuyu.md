@@ -111,6 +111,7 @@ Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang 
   (kolla-venv) student@controller:~$ kolla-ansible -i ./multinode certificates
   ```
   ---
+
 ### 3. Konfigurasi dan Installasi Horizon
 - Install dependencies yang dibutuhkan, dan clone repository atau ambil source code dari horizonnya.
 - pass
