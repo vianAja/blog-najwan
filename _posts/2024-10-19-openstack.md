@@ -42,13 +42,11 @@ Manfaat menggunakan Kolla-Ansible:
 
 ### Langkah Implementasi
 - Install dependencies yang dibutuhkan OpenStack dan Kolla-Ansible
-  
   ```bash
   sudo apt-get install python3-dev python3-selinux python3-setuptools python3-venv gcc libffi-dev libssl-dev -y
   ```
-  
+<br>
 - Membuat Virtual Environment Python, agar saat membutuhkan versi tertentu dari library python, tidak akan berpengaruh ke system host langsung. lalu aktifkan Virtual Env Pythonnya.
-  
   ```bash
   ~$ python3 -m venv kolla-venv
   ~$ source kolla-venv/bin/activate
