@@ -28,23 +28,20 @@ Selain itu, perusahaan ingin memantau dan menghitung penggunaan resource secara 
 ## Langkah Implementasi
 ### 1. Konfigurasi SSL Certificate untuk service Horizon dan Yuyu.
 - Buat file IP SAN untuk Node Controller karena Service Horizon dan Yuyu berada pada Node Controller.
-  
   ```bash
   sudo nano /etc/ssl/IP_SANS.txt
   ```
   ```bash
   subjectAltName=IP:<IP Server / Node>
   ```
-  
+  ---
 - Buat directory untuk menyimpan Certificate di dalam directory **_“/etc/ssl/”_** agar lebih rapi serta mudah di identifikasi.
-  
   ```bash
   ~$ sudo mkdir -p /etc/ssl/
   ~$ sudo mkdir -p /etc/ssl/
   ```
-  
+  ---
 - Buat certificate untuk service Horizon dan Yuyu
-  
   - Horizon
     
     ```bash
@@ -61,9 +58,8 @@ Selain itu, perusahaan ingin memantau dan menghitung penggunaan resource secara 
       -in /etc/ssl/horizon/horizon.csr\
       -out /etc/ssl/horizon/horizon.crt
     ```
-    
+    ---
   - Yuyu
-    
     ```bash
     sudo openssl genrsa -out /etc/ssl/yuyu/yuyu.key 2048
     
@@ -78,8 +74,8 @@ Selain itu, perusahaan ingin memantau dan menghitung penggunaan resource secara 
       -in /etc/ssl/yuyu/yuyu.csr\
       -out /etc/ssl/yuyu/yuyu.crt
     ```
+    ---
 - Kemudian pindahkan file certificate (dengan format .crt ) yang sudah dibuat tadi, agar certificate nya di akui oleh system operasi ubuntu, agar tidak menjadi certificate self-signed. Karena untuk Django di Horizon perlu di buat seperti itu.
-  
   ```bash
   ~$ sudo apt-get install ca-certificates
   ~$ sudo cp /etc/ssl/horizon/horizon.crt /usr/local/share/ca-certificates
@@ -87,7 +83,7 @@ Selain itu, perusahaan ingin memantau dan menghitung penggunaan resource secara 
 
   ~$ sudo update-ca-certificates
   ```
-
+---
 ### 2. Install OpenStack dengan Kolla-Ansible
 OpenStack terdiri dari beberapa service, yang nantinya berinteraksi satu sama dengan API dari setiap service yang ada, untuk service nya sendiri itu adalah sebagai berikut :
 - **Keystone**, untuk identity service (verifikasi akses).
@@ -97,6 +93,27 @@ OpenStack terdiri dari beberapa service, yang nantinya berinteraksi satu sama de
 - **Cinder**, untuk membuat Volume yang digunakan Instance
 - **RabbitMQ**, untuk Message Broker yang mengirim event dari komponen OpenStack.
 Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang [OpenStack](https://vianaja.github.io/blog-najwan/2024-10-19-openstack/).
+- Edit pada file global.yaml untuk opsi
+  ```yaml
+  kolla_enable_tls_internal: "yes"
+  kolla_certificates_dir: "{{ node_config }}/certificates"
+  kolla_admin_openrc_cacert: "/etc/kolla/certificates/ca/root.crt"
+  kolla_copy_ca_into_containers: "yes"
+  kolla_enable_tls_backend: "yes"
+  kolla_verify_tls_backend: "no"
+  kolla_tls_backend_cert: "{{ kolla_certificates_dir}}/backend-cert.pem"
+  kolla_tls_backend_key: "{{ kolla_certificates_dir}}/backend-key.pem"
+  ```
+  ---
+- lalu pada step sebelum deploy, jalankan perintah ini untuk membuat Certificate.
+  ```bash
+  (kolla-venv) student@controller:~$ kolla-ansible -i ./multinode certificates
+  ```
+  ---
+### 3. Konfigurasi dan Installasi Horizon
+- Install dependencies yang dibutuhkan, dan clone repository atau ambil source code dari horizonnya.
+- 
+
 
 
 
