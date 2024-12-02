@@ -41,8 +41,7 @@ Selain itu, perusahaan ingin memantau dan menghitung penggunaan resource secara 
   ```
   ---
 - Buat certificate untuk service Horizon dan Yuyu
-  - Horizon
-    
+  - Horizon.
     ```bash
     sudo openssl genrsa -out /etc/ssl/horizon/horizon.key 2048
     
@@ -58,7 +57,7 @@ Selain itu, perusahaan ingin memantau dan menghitung penggunaan resource secara 
       -out /etc/ssl/horizon/horizon.crt
     ```
     ---
-  - Yuyu
+  - Yuyu.
     ```bash
     sudo openssl genrsa -out /etc/ssl/yuyu/yuyu.key 2048
     
@@ -111,7 +110,7 @@ Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang 
   ---
 ### 3. Konfigurasi dan Installasi Horizon
 - Install dependencies yang dibutuhkan, dan clone repository atau ambil source code dari horizonnya.
-- 
+- pass
 
 
 
