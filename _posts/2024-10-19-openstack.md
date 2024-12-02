@@ -108,6 +108,7 @@ Manfaat menggunakan Kolla-Ansible:
   [deployment]
   localhost ansible_connection=local
   ```
+</br>
 
 - Konfigurasi untuk Ansible.cfg.
   ```bash
