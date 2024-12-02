@@ -42,17 +42,20 @@ Manfaat menggunakan Kolla-Ansible:
 
 ### Langkah Implementasi
 - Install dependencies yang dibutuhkan OpenStack dan Kolla-Ansible
+  
   ```bash
   sudo apt-get install python3-dev python3-selinux python3-setuptools python3-venv gcc libffi-dev libssl-dev -y
   ```
   
-- Membuat Virtual Environment Python, agar saat membutuhkan versi tertentu dari library python, tidak akan berpengaruh ke system host langsung. lalu aktifkan Virtual Env Pythonnya
+- Membuat Virtual Environment Python, agar saat membutuhkan versi tertentu dari library python, tidak akan berpengaruh ke system host langsung. lalu aktifkan Virtual Env Pythonnya.
+  
   ```bash
   ~$ python3 -m venv kolla-venv
   ~$ source kolla-venv/bin/activate
   ```
   
 - Install ansible dan kolla-ansible untuk deployment Openstack.
+  
   ```bash
   (kolla-venv) student@controller:~$ pip install -U pip
   (kolla-venv) student@controller:~$ pip install 'ansible>=6,<8'
@@ -61,6 +64,7 @@ Manfaat menggunakan Kolla-Ansible:
   ```
   
 - Buat directory untuk kolla, dan copy file “globals.yml”  dan “passwords.yml” untuk nanti memilih opsi untuk deployment OpenStack. Lalu konfigurasi file “globals.yml” , seperti dibawah ini.
+  
   ```bash
   (kolla-venv) student@controller:~$ sudo mkdir -p /etc/kolla
   (kolla-venv) student@controller:~$ sudo chown $USER:$USER /etc/kolla
@@ -81,6 +85,7 @@ Manfaat menggunakan Kolla-Ansible:
   ```
   
 - Copy file multimode, dan konfigurasi juga untuk komponen dari OpenStacknya mau di letakkan pada node mana. Sebagai contoh saya menggunakan 3 Node, 1 Controller dan 2 Compute.
+  
   ```bash
   (kolla-venv) student@controller:~$ cp kolla-venv/share/kolla-ansible/ansible/inventory/* .
   (kolla-venv) student@controller:~$ nano ~/multinode
@@ -109,11 +114,12 @@ Manfaat menggunakan Kolla-Ansible:
   ```
 
 - Konfigurasi untuk Ansible.cfg.
+  
   ```bash
   (kolla-venv) student@controller:~$ sudo mkdir -p /etc/ansible
   (kolla-venv) student@controller:~$ sudo nano /etc/ansible/ansible.cfg
   ```
-  ```cfg
+  ```yaml
   [defaults]
   host_key_checking=False
   pipelining=True
@@ -121,40 +127,48 @@ Manfaat menggunakan Kolla-Ansible:
   ```
   
 - Generate password untuk service OpenStack.
+  
   ```bash
   (kolla-venv) student@controller:~$ kolla-genpwd
   ```
   
 - Buat Physical Volume (PV) dan Volume Group (VG) yang nanti akan digunakan oleh service Cinder, untuk membuat Volume yang akan digunakan oleh OpenStack.
+  
   ```bash
   (kolla-venv) student@controller:~$ sudo pvcreate /dev/vdb
   (kolla-venv) student@controller:~$ sudo vgcreate cinder-volumes /dev/vdb
   ```
   
-- Lakukan bootstrap, yang nantinya pada setiap Node yang digunakan oleh cluster OpenStack, nantinya akan melakukan pengaturan awal seperti menginstall dependensi yang dibutuhkan untuk deployment OpenStack via Kolla-Ansible
+- Lakukan bootstrap, yang nantinya pada setiap Node yang digunakan oleh cluster OpenStack, nantinya akan melakukan pengaturan awal seperti menginstall dependensi yang dibutuhkan untuk deployment OpenStack via Kolla-Ansible.
+  
   ```bash
   (kolla-venv) student@controller:~$ kolla-ansible -i ./multinode bootstrap-servers
   ```
   
 - Lakukan pengecekan dari dependensi yang diperlukan saat ingin deploy Cluster OpenStack.
+  
   ```bash
   (kolla-venv) student@controller:~$ kolla-ansible -i ./multinode prechecks
   ```
   
 - Lakukan deployment Cluster OpenStack.
+  
   ```bash
   (kolla-venv) student@controller:~$ kolla-ansible -i ./multinode deploy
   ```
   
 - Lalu buat file openrc yang nantinya digunakan untuk login OpenStack via CLI.
+  
   ```bash
   (kolla-venv) student@controller:~$ kolla-ansible -i ./multinode post-deploy
   ```
   
 - Lalu install library python OpenStack client, dan login dengan file openrc, kemudian verifikasi juga untuk service yang sudah di deploy.
+  
   ```bash
   (kolla-venv) student@controller:~$ pip install openstackclient
   (kolla-venv) student@controller:~$ source /etc/kolla/admin-openrc.sh
+  
   (kolla-venv) student@controller:~$ openstack service list 
   +----------------------------------+-------------+----------------+
   | ID                               | Name        | Type           |
