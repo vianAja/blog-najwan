@@ -91,6 +91,7 @@ OpenStack terdiri dari beberapa service, yang nantinya berinteraksi satu sama de
 - **Glance**, untuk menyimpan Image yang digunakan untuk membuat Instance.
 - **Cinder**, untuk membuat Volume yang digunakan Instance
 - **RabbitMQ**, untuk Message Broker yang mengirim event dari komponen OpenStack.
+
 Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang [OpenStack](https://vianaja.github.io/blog-najwan/2024-10-19-openstack/).
 
 - Edit pada file global.yaml untuk opsi
