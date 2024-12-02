@@ -82,6 +82,7 @@ Selain itu, perusahaan ingin memantau dan menghitung penggunaan resource secara 
   ~$ sudo update-ca-certificates
   ```
 ---
+
 ### 2. Install OpenStack dengan Kolla-Ansible
 OpenStack terdiri dari beberapa service, yang nantinya berinteraksi satu sama dengan API dari setiap service yang ada, untuk service nya sendiri itu adalah sebagai berikut :
 - **Keystone**, untuk identity service (verifikasi akses).
@@ -91,6 +92,7 @@ OpenStack terdiri dari beberapa service, yang nantinya berinteraksi satu sama de
 - **Cinder**, untuk membuat Volume yang digunakan Instance
 - **RabbitMQ**, untuk Message Broker yang mengirim event dari komponen OpenStack.
 Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang [OpenStack](https://vianaja.github.io/blog-najwan/2024-10-19-openstack/).
+
 - Edit pada file global.yaml untuk opsi
   ```yaml
   kolla_enable_tls_internal: "yes"
