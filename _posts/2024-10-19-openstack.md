@@ -51,8 +51,9 @@ Manfaat menggunakan Kolla-Ansible:
   ~$ python3 -m venv kolla-venv
   ~$ source kolla-venv/bin/activate
   ```
-
+<br>
 - Install ansible dan kolla-ansible untuk deployment Openstack.
+
   ```bash
   (kolla-venv) student@controller:~$ pip install -U pip
   (kolla-venv) student@controller:~$ pip install 'ansible>=6,<8'
