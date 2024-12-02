@@ -53,7 +53,7 @@ Manfaat menggunakan Kolla-Ansible:
   ~$ python3 -m venv kolla-venv
   ~$ source kolla-venv/bin/activate
   ```
-  
+
 - Install ansible dan kolla-ansible untuk deployment Openstack.
   
   ```bash
@@ -62,7 +62,7 @@ Manfaat menggunakan Kolla-Ansible:
   (kolla-venv) student@controller:~$ pip install git+https://opendev.org/openstack/kolla-ansible@stable/2023.1
   (kolla-venv) student@controller:~$ kolla-ansible install-deps
   ```
-  
+
 - Buat directory untuk kolla, dan copy file “globals.yml”  dan “passwords.yml” untuk nanti memilih opsi untuk deployment OpenStack. Lalu konfigurasi file “globals.yml” , seperti dibawah ini.
   
   ```bash
@@ -125,44 +125,44 @@ Manfaat menggunakan Kolla-Ansible:
   pipelining=True
   forks=100
   ```
-  
+
 - Generate password untuk service OpenStack.
   
   ```bash
   (kolla-venv) student@controller:~$ kolla-genpwd
   ```
-  
+
 - Buat Physical Volume (PV) dan Volume Group (VG) yang nanti akan digunakan oleh service Cinder, untuk membuat Volume yang akan digunakan oleh OpenStack.
   
   ```bash
   (kolla-venv) student@controller:~$ sudo pvcreate /dev/vdb
   (kolla-venv) student@controller:~$ sudo vgcreate cinder-volumes /dev/vdb
   ```
-  
+
 - Lakukan bootstrap, yang nantinya pada setiap Node yang digunakan oleh cluster OpenStack, nantinya akan melakukan pengaturan awal seperti menginstall dependensi yang dibutuhkan untuk deployment OpenStack via Kolla-Ansible.
   
   ```bash
   (kolla-venv) student@controller:~$ kolla-ansible -i ./multinode bootstrap-servers
   ```
-  
+
 - Lakukan pengecekan dari dependensi yang diperlukan saat ingin deploy Cluster OpenStack.
   
   ```bash
   (kolla-venv) student@controller:~$ kolla-ansible -i ./multinode prechecks
   ```
-  
+
 - Lakukan deployment Cluster OpenStack.
   
   ```bash
   (kolla-venv) student@controller:~$ kolla-ansible -i ./multinode deploy
   ```
-  
+
 - Lalu buat file openrc yang nantinya digunakan untuk login OpenStack via CLI.
   
   ```bash
   (kolla-venv) student@controller:~$ kolla-ansible -i ./multinode post-deploy
   ```
-  
+
 - Lalu install library python OpenStack client, dan login dengan file openrc, kemudian verifikasi juga untuk service yang sudah di deploy.
   
   ```bash
