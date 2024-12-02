@@ -8,7 +8,6 @@ share-img: /assets/img/wallpaper2.png
 tags: [OpenStack, Container, Apache, Python]
 author: Najwan Octavian Gerrard
 ---
-
 Perusahaan pada zaman modern saat ini telah mengimplementasikan private cloud menggunakan OpenStack untuk mengelola infrastruktur TI secara lebih fleksibel dan efisien. Namun, dalam operasional sehari-hari, tantangan sering muncul terkait dengan pengelolaan sumber daya dan meminimalkan risiko human error, terutama ketika pengembang melakukan pengujian pada lingkungan yang sama dengan produksi. Risiko ini dapat mengganggu stabilitas sistem dan mengakibatkan pemanfaatan resource cloud tidak efisiensi. Untuk mengatasi tantangan tersebut, manajer tim operasional berencana untuk memisahkan lingkungan antara project developer dan production. 
 
 Selain itu, perusahaan ingin memantau dan menghitung penggunaan resource secara terukur menggunakan Yuyu, sebuah solusi untuk pencatatan dan perhitungan pemakaian resource OpenStack dengan integrasi Yuyu, karena dapat melacak penggunaan sumber daya mulai dari volume, flavor, image, dan lain – lain, bahkan sampai router pada OpenStack yang digunakan. Serta dapat menganalisa biaya penggunaan agar dapat menghemat pengeluaran operasional perusahaan.
