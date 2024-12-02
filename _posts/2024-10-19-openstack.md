@@ -121,6 +121,8 @@ Manfaat menggunakan Kolla-Ansible:
   pipelining=True
   forks=100
   ```
+  
+<hr>
 
 - Generate password untuk service OpenStack.
   ```bash
