@@ -125,12 +125,12 @@ author: Najwan Octavian Gerrard
        ```bash
        sudo openssl genrsa -out /etc/ssl/prometheus/cert/10.18.18.10:9090/10.18.18.10:9090.key 2048
        
-       sudo openssl req sha512-new \
+       sudo openssl req -sha512 -new \
          -subj "/C=IN/ST=jateng/L=kendal/0=Prometheus Najwan/OU=Prometheus Najwan/CN=Prometheus Najwan>" \
          -key /etc/ssl/prometheus/cert/10.18.18.10:9090/10.18.18.10:9090.key \
          -out /etc/ssl/prometheus/cert/10.18.18.10:9090/10.18.18.10:9090.csr
 
-       sudo openssl x509 -req-sha512 days 3650 \
+       sudo openssl x509 -req -sha512 -days 3650 \
          -key /etc/ssl/prometheus/cert/10.18.18.10:9090/10.18.18.10:9090.key \
          -extfile /etc/ssl/IP_SANS.txt \
          -in /etc/ssl/prometheus/cert/10.18.18.10:9090/10.18.18.10:9090.csr\
@@ -141,12 +141,12 @@ author: Najwan Octavian Gerrard
        ```
        sudo openssl genrsa -out /etc/ssl/node_exporter/node_exporter.key 2048
        
-       sudo openssl req sha512-new \
+       sudo openssl req -sha512 -new \
          -subj "/C=IN/ST=jateng/L=kendal/0=Node Exporter Najwan/OU=Node Exporter Najwan/CN=Node Exporter Najwan>" \
          -key /etc/ssl/node_exporter/node_exporter.key \
          -out /etc/ssl/node_exporter/node_exporter.csr
 
-       sudo openssl x509 -req-sha512 days 3650 \
+       sudo openssl x509 -req -sha512 -days 3650 \
          -key /etc/ssl/node_exporter/node_exporte.key \
          -extfile /etc/ssl/IP_SANS.txt \
          -in /etc/ssl/node_exporter/node_exporte.csr\
@@ -157,12 +157,12 @@ author: Najwan Octavian Gerrard
        ```
        sudo openssl genrsa -out /etc/ssl/apache/apache.key 2048
        
-       sudo openssl req sha512-new \
+       sudo openssl req -sha512 -new \
          -subj "/C=IN/ST=jateng/L=kendal/0=Apache Najwan/OU=Apache Najwan/CN=Apache Najwan>" \
          -key /etc/ssl/apache/apache.key \
          -out /etc/ssl/apache/apache.csr
 
-       sudo openssl x509 -req-sha512 days 3650 \
+       sudo openssl x509 -req -sha512 -days 3650 \
          -key /etc/ssl/apache/apache.key \
          -extfile /etc/ssl/IP_SANS.txt \
          -in /etc/ssl/apache/apache.csr\
@@ -173,12 +173,12 @@ author: Najwan Octavian Gerrard
        ```
        sudo openssl genrsa -out /etc/ssl/apache/client/client.key 2048
        
-       sudo openssl req sha512-new \
+       sudo openssl req -sha512 -new \
          -subj "/C=IN/ST=jateng/L=kendal/0=Apache Najwan/OU=Apache Najwan/CN=Apache Najwan>" \
          -key /etc/ssl/apache/client/client.key \
          -out /etc/ssl/apache/client/client.csr
 
-       sudo openssl x509 -req-sha512 days 3650 \
+       sudo openssl x509 -req -sha512 -days 3650 \
          -key /etc/ssl/apache/client/client.key \
          -extfile /etc/ssl/IP_SANS.txt \
          -in /etc/ssl/apache/client/client.csr\
@@ -189,12 +189,12 @@ author: Najwan Octavian Gerrard
        ```
        sudo openssl genrsa -out /etc/ssl/nginx/nginx.key 2048
        
-       sudo openssl req sha512-new \
+       sudo openssl req -sha512 -new \
          -subj "/C=IN/ST=jateng/L=kendal/0=Nginx Najwan/OU=Nginx Najwan/CN=Nginx Najwan>" \
          -key /etc/ssl/nginx/nginx.key \
          -out /etc/ssl/nginx/nginx.csr
 
-       sudo openssl x509 -req-sha512 days 3650 \
+       sudo openssl x509 -req -sha512 -days 3650 \
          -key /etc/ssl/nginx/nginx.key \
          -extfile /etc/ssl/IP_SANS.txt \
          -in /etc/ssl/nginx/nginx.csr\
