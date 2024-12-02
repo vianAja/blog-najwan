@@ -3,7 +3,7 @@ layout: post
 title: Secure Service OpenStack and Yuyu Biliing OpenStack with TLS
 subtitle: Explanation and Installation Grafana
 cover-img: /assets/img/wallpaper2.png
-thumbnail-img: https://user-images.githubusercontent.com/92439/89548426-51fb0f00-d807-11ea-890f-afb3f9d8110a.png
+thumbnail-img: https://banner2.cleanpng.com/20180602/jkl/avoucosdm.webp
 share-img: /assets/img/wallpaper2.png
 tags: [OpenStack, Container, Apache, Python]
 author: Najwan Octavian Gerrard
