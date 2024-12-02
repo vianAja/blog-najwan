@@ -80,7 +80,7 @@ Manfaat menggunakan Kolla-Ansible:
   enable_cinder: "yes"
   enable_cinder_backend_lvm: "yes"
   ```
-  
+  ---
 - Copy file multimode, dan konfigurasi juga untuk komponen dari OpenStacknya mau di letakkan pada node mana. Sebagai contoh saya menggunakan 3 Node, 1 Controller dan 2 Compute.
   ```bash
   (kolla-venv) student@controller:~$ cp kolla-venv/share/kolla-ansible/ansible/inventory/* .
