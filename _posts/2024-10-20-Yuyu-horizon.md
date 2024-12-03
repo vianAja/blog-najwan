@@ -212,7 +212,7 @@ Keuntungan Yuyu:
   (env) root@controller:~/yuyu# ./bin/setup_api.sh
   (env) root@controller:~/yuyu# systemctl enable yuyu_api
   (env) root@controller:~/yuyu# systemctl start yuyu_api
-  (env) root@controller:~/yuyu# systemctl status yuyu_api\
+  (env) root@controller:~/yuyu# systemctl status yuyu_api
   ```
   ```bash
   (env) root@controller:~/yuyu# ./bin/setup_event_monitor.sh
