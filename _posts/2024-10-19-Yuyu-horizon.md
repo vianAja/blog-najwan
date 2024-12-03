@@ -275,7 +275,7 @@ Dapat mengatur untuk Billing, di user Admin.
 ![Login Page](../assets/images/hasil_secure_openstack_set_billing.png)
 
 Dapat mengatur untuk Price/Harga dari resource yang digunakan.
-![Login Page](../assets/images/hasil_secure_openstack_ser_price.png)
+![Login Page](../assets/images/hasil_secure_openstack_set_price.png)
 
 Dapat melihat harga penggunaan resource di project tertentu. Sesuai pemakaian resource
 ![Login Page](../assets/images/hasil_secure_openstack_usage_cost.png)
