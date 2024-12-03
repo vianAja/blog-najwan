@@ -32,13 +32,14 @@ Keuntungan Menggunakan Openstack:
 - **Efisiensi Biaya**: Ini dapat membantu mengurangi total biaya kepemilikan karena gratis.
 - **Skalabilitas**: OpenStack mendukung penskalaan horizontal, yang berarti Anda dapat menambahkan lebih banyak mesin ke lingkungan cloud Anda untuk menangani peningkatan beban.
 - **Keamanan**: Ini memiliki fitur keamanan yang kuat yang dapat ditingkatkan oleh pengguna atau melalui layanan pihak ketiga.
+<br>
 
 ### Kolla-Ansible
 Kolla-Ansilbe adalah salah satu Tools Deployment Openstack Cluster untuk skala Production, yang scalable, cepat, dan mudah di upgrade yang menjadikannya banyak di pakai oleh perusahaan. Kolla-Ansible akan mendeploy Openstack pada sebuah Container, dan karena Kolla-Ansible menggunakan Ansible, jadi saat proses deployment akan lebih mudah, simple, serta cepat, dan juga lebih fleksible dalam konfigurasi sesuai yang dibutuhkan.
 Manfaat menggunakan Kolla-Ansible:
 - Praktis, karena menggunakan Ansible, jadi semua deployment dilakukan otomatis, tinggal menyesuaikan kebutuhan sesuai keinginan saja, misalkan service apa saja yang ingin di buat, sampai opsi TLS.
 - Mengurangi kelalaian manusia apabila melakukan deployment Openstack manual.
-
+<br>
 
 ### Langkah Implementasi
 - Install dependencies yang dibutuhkan OpenStack dan Kolla-Ansible
@@ -173,6 +174,9 @@ Manfaat menggunakan Kolla-Ansible:
   +----------------------------------+-------------+----------------+
   ```
 
+### Install Dashboard OpenStack
+Untuk Install Dashboard OpenStack (Horizon) bisa secara Otomatis saat melakukan deployment menggunakan Kolla-Ansible dengan mengubah pada opsi **"enable_horizon"** ke **"yes"**, maka akan otomatis mengkonfigurasi Horizon
 
+Akan tetapi apabila ingin di integrasikan dengan Plugin untuk Billing OpenStack (Yuyu), harus deployment Horizon secara Manual, untuk lebih detailnya sudah ada di Postingan saya yang ini [**Yuyu Billing in OpenStack Horizon**](https://vianaja.github.io/blog-najwan/2024-10-19-Yuyu-horizon/), dan apabila ingin di buat agar lebih aman atau dengan implementasi TLS, sudah ada Postingannya juga yaitu pada project saya yang berjudul [**Secure Service OpenStack and Yuyu Biliing OpenStack with TLS**](https://vianaja.github.io/blog-najwan/2024-12-02-secure-openstack-horizon-yuyu/)
 
 
