@@ -92,7 +92,7 @@ OpenStack terdiri dari beberapa service, yang nantinya berinteraksi satu sama de
 - **Cinder**, untuk membuat Volume yang digunakan Instance
 - **RabbitMQ**, untuk Message Broker yang mengirim event dari komponen OpenStack.
 
-Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang [OpenStack](https://vianaja.github.io/blog-najwan/2024-10-19-openstack/).
+Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang [OpenStack and Kolla-Ansible](https://vianaja.github.io/blog-najwan/2024-10-19-openstack/).
 
 - Edit pada file global.yaml untuk opsi berikut ini untuk enable TLS pada service internal OpenStack, untuk copy CA ke Container Service nya, 
   ```yaml
@@ -113,7 +113,7 @@ Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang 
   ---
 
 ### 3. Installasi Horizon dan Yuyu dengan TLS
-Service Horizon dan Yuyu atau lebih tepatnya Yuyu Api, keduanya menggunakan Django dalam Implementasinya, jadi untuk menambahkan opsi TLS, kita hanya perlu mengatur pada konfigurasi dari Django nya, untuk menambahkan file Certificate dan key Certificate. Untuk Installasi Horizon dan Yuyu, bisa kunjungi postingan saya yang ini [**"Yuyu Billing in OpenStack Horizon"**](https://vianaja.github.io/blog-najwan/2024-10-19-Yuyu-horizon/), untuk penjelasan serta hasil akhirnya juga.
+Service Horizon dan Yuyu atau lebih tepatnya Yuyu Api, keduanya menggunakan Django dalam Implementasinya, jadi untuk menambahkan opsi TLS, kita hanya perlu mengatur pada konfigurasi dari Django nya, untuk menambahkan file Certificate dan key Certificate. Untuk Installasi Horizon dan Yuyu, bisa kunjungi postingan saya yang ini [**Yuyu Billing in OpenStack Horizon**](https://vianaja.github.io/blog-najwan/2024-10-19-Yuyu-horizon/), untuk penjelasan serta hasil akhirnya juga.
 
 Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service ini, yaitu sebagai berikut langkah - langkahnya
 
@@ -179,31 +179,36 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
   ~# systemctl restart yuyu_api.service spache2.service memcached
   ```
   ---
+<br>
 
 ### Kendala yang mungkin dapat di terjadi saat pembuatan.
 - Error saat Login ke Project Admin
   Solusi:
-  - Ubah pada file Openrc untuk cacert yang digunakan ke “/etc/kolla/certificates/ca/root.crt”.
-  - Bisa gunakan ”/etc/ssl/certs/ca-certificate.crt”, apabila file “/etc/kolla/certificates/ca/root.crt” sudah di masukan ke ca-certificate.
+  - Ubah pada file Openrc untuk cacert yang digunakan ke **“/etc/kolla/certificates/ca/root.crt”**.
+  - Bisa gunakan **”/etc/ssl/certs/ca-certificate.crt”**, apabila file **“/etc/kolla/certificates/ca/root.crt”** sudah di masukan ke ca-certificate.
     
-- Error “SSLError at /admin/billing_overview/” saat membuka page Billing di Horizon,  karena Django yang digunakan oleh Horizon tidak diperbolehkan “Self-Signed Certificate”.
+---
+- Error **“SSLError at /admin/billing_overview/”** saat membuka page Billing di Horizon,  karena Django yang digunakan oleh Horizon tidak diperbolehkan **“Self-Signed Certificate”**.
   Solusi:
-  - Tambahkan certificate Horizon dan Yuyu ke "/usr/local/share/ca-certificates" lalu update ca-certificate, [referensi](https://ubuntu.com/server/docs/install-a-root-ca-certificate-in-the-trust-store)
+  - Tambahkan certificate Horizon dan Yuyu ke **"/usr/local/share/ca-certificates"** lalu update ca-certificate, [referensi](https://ubuntu.com/server/docs/install-a-root-ca-certificate-in-the-trust-store)
+   
+--- 
+- Error **“AttributeError at /auth/logout/”**  saat logout atau sign out project di Horizon.
+  Solusi:
+  - Versi dari library **“python-memcached”** harus menggunakan versi 1.59. kalau pake yang terbaru tidak bisa.
+   
+--- 
+- Error saat mencoba curl dan ada log error seperti ini, **“Invalid HTTP_HOST header: ’10.18.18.10:8183’, you may need to add ’10.18.18.10’ to ALLOWED_HOSTS”**.
+  Solusi:
+  - Bisa setting untuk **“ALLOWED_HOSTS“** pada file konfigurasi **“local_setting.py”** dari Yuyu, bisa langsung ke IP **10.18.18.10** (menyesuaikan IP Host masing - masing) atau tanda bintang **“ * ”** jika ingin semua IP boleh masuk.
     
-- Error “AttributeError at /auth/logout/”  saat logout / sign out project di Horizon.
+---
+- Error **“Did Not Connect: Potential Security Issue”** pada Console Instance di Horizon, bisa disebabkan karena Certificate tidak public (Tidak Berbayar), atau karena Image yang di pakai Instance error.
   Solusi:
-  - Versi dari library “python-memcached” harus menggunakan versi 1.59. kalau pake yang terbaru tidak bisa.
-    
-- Error saat mencoba curl dan ada log error seperti ini, “Invalid HTTP_HOST header: ’10.18.18.10:8183’, you may need to add ’10.18.18.10’ to ALLOWED_HOSTS”.
-  Solusi:
-  - Bisa setting untuk “ALLOWED_HOSTS “ pada file konfigurasi “local_setting.py” dari Yuyu, bisa langsung ke IP “10.18.18.10” atau tanda bintang “ * ” jika ingin semua IP boleh masuk.
-    
-- Error “Did Not Connect: Potential Security Issue” pada Console Instance di Horizon, bisa disebabkan karena Certificate tidak public (Tidak Berbayar), atau karena Image yang di pakai Instance error.
-  Solusi:
-  - Bisa coba klik di bawah kata “Instance Console” yang ada kotak biru, lalu klik “Click here to show only console”. Error itu bisa disebabkan karena Image yang dipakai rusak.
+  - Bisa coba klik di bawah kata **“Instance Console”** yang ada kotak biru, lalu klik **“Click here to show only console”.** Error itu bisa disebabkan karena Image yang dipakai rusak.
 <br>
 
-#### Untuk hasil akhir nya, kurang lebih sama seperti pada Postingan saya yang [**"Yuyu Billing in OpenStack Horizon"**](https://vianaja.github.io/blog-najwan/2024-10-19-Yuyu-horizon/)
+#### Untuk hasil akhir nya, kurang lebih sama seperti pada Postingan saya yang [**Yuyu Billing in OpenStack Horizon**](https://vianaja.github.io/blog-najwan/2024-10-19-Yuyu-horizon/)
 
 Di blog ini, saya berbagi pengalaman tentang bagaimana mengamankan layanan OpenStack, dashboard Horizon, dan Yuyu Billing OpenStack dengan menggunakan TLS (Transport Layer Security). Langkah-langkah yang saya jelaskan mencakup pembuatan sertifikat SSL, konfigurasi, hingga tips mengatasi masalah yang sering muncul.
 
