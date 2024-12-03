@@ -29,7 +29,7 @@ Keuntungan Yuyu:
   ```
   ---
   
-- Install bererapa dependensi dan library yang dibutuhkan oleh Horizon, dan pada file requirement pastikan tidak merubah versi dari “python-memcached” karena nantinya akan ada error tidak bisa logout jika di rubah versinya
+- Install bererapa dependensi dan library yang dibutuhkan oleh Horizon, dan pada file requirement pastikan tidak merubah versi dari **“python-memcached”** karena nantinya akan ada error tidak bisa logout jika di rubah versinya
   ```bash
   root@controller:~/horizon# pip install -U pip
   root@controller:~/horizon# wget https://opendev.org/openstack/requirements/raw/branch/stable/2023.1/upper-constraints.txt 
@@ -40,7 +40,7 @@ Keuntungan Yuyu:
   ```
   ---
   
-- Copy file sample “local_settings.py” , dan konfigurasi file tersebut seperti di bawah ini.
+- Copy file sample **“local_settings.py”**, dan konfigurasi file tersebut seperti di bawah ini.
   ```bash
   root@controller:~/horizon# cp openstack_dashboard/local/local_settings.py.example \
   openstack_dashboard/local/local_settings.py
@@ -115,7 +115,7 @@ Keuntungan Yuyu:
   
 ### Konfigurasi dan Installasi Yuyu Api dan Yuyu Event Monitoring
 - Setting pada beberapa file berikut agar beberapa service ini bisa mengirim data ke RabbitMQ yang nantinya akan digunakan oleh Yuyu.
-  - Konfigurasi “Nova” pada file ini “/etc/kolla/nova-scheduler/nova.conf”.
+  - Konfigurasi **“Nova”** pada file ini **“/etc/kolla/nova-scheduler/nova.conf”**.
     ```bash
     root@controller:~# nano /etc/kolla/nova-scheduler/nova.conf
     ```
@@ -129,7 +129,10 @@ Keuntungan Yuyu:
     notification_format = unversioned
     ```
     ---
-  - Lalu konfigurasi “Cinder” pada file ini “/etc/kolla/cinder-scheduler/cinder.conf”.
+  - Lalu konfigurasi **“Cinder”** pada file ini **“/etc/kolla/cinder-scheduler/cinder.conf”**.
+    ```bash
+    root@controller:~# nano /etc/kolla/cinder-scheduler/cinder.conf
+    ```
     ```yaml
     [oslo_messaging_notifications]
     driver = messagingv2
@@ -137,8 +140,27 @@ Keuntungan Yuyu:
     ```
     ---
     
-  - Lalu konfigurasi ”Neutron” pada file ini “/etc/kolla/neutron-server/neutron.conf”, lakukan sama seperti konfigurasi di “Cinder”.
-  - Lalu konfigurasi ”Keystone” pada file ini “/etc/kolla/keystone/keystone.conf”, lakukan sama seperti konfigurasi di “Cinder” .
+  - Lalu konfigurasi **”Neutron”** pada file ini **“/etc/kolla/neutron-server/neutron.conf”**.
+    ```bash
+    root@controller:~# nano /etc/kolla/neutron-server/neutron.conf
+    ```
+    ```yaml
+    [oslo_messaging_notifications]
+    driver = messagingv2 
+    topics = notifications
+    ```
+    ---
+    
+  - Lalu konfigurasi **”Keystone”** pada file ini **“/etc/kolla/keystone/keystone.conf”**.
+    ```bash
+    root@controller:~# nano /etc/kolla/keystone/keystone.conf
+    ```
+    ```yaml
+    [oslo_messaging_notifications]
+    driver = messagingv2 
+    topics = notifications
+    ```
+    ---
     
 - Lalu restart container dari service yang di setting tadi.
   ```bash
@@ -162,7 +184,7 @@ Keuntungan Yuyu:
   ```
   ---
   
-- Cek URL RabbitMQ dengan perintah berikut, yang nantinya digunakan saat konfigurasi “local_setting.py” pada Yuyu
+- Cek URL RabbitMQ dengan perintah berikut, yang nantinya digunakan saat konfigurasi **“local_setting.py”** pada Yuyu
   ```bash
   (env) root@controller:~/yuyu# cat /etc/kolla/neutron-server/neutron.conf | grep transport_url
   ```
@@ -173,7 +195,7 @@ Keuntungan Yuyu:
   (env) root@controller:~/yuyu# cp yuyu/local_settings.py.sample yuyu/local_settings.py
   (env) root@controller:~/yuyu# vim yuyu/local_settings.py
   ```
-  ---python
+  ```python
   YUYU_NOTIFICATION_URL = "rabbit://openstack:password@127.0.0.1:5672//"
   YUYU_NOTIFICATION_TOPICS = ["notifications"]
   ```
@@ -203,6 +225,7 @@ Keuntungan Yuyu:
 - Install Crontab untuk menjalankan script tersebut pada kurun waktu tertentu.
   ```bash
   (env) root@controller:~/yuyu# crontab -e
+  
   no crontab for root - using an empty one
   Select an editor. To change later, run 'select-editor'.
   1. /bin/nano          <---- easiest
@@ -211,10 +234,14 @@ Keuntungan Yuyu:
   4. /bin/ed
   Choose 1-4 [1]: [pilih file editor apa sesuai nomor di atas]
   ```
-  Nanti akan di arahkan ke file **_/tmp/crontab.uegsAD/crontab_**, lalu isikan seperti berikut ini. Lalu Save
-  ```
+  ---
+  
+- Nanti akan di arahkan ke file **_/tmp/crontab.uegsAD/crontab_**, lalu isikan seperti berikut ini. Lalu Save
+  ```bash
   1 0 1 * * /var/yuyu/bin/process_invoice.sh
   ```
+  ---
+  
 - Kemudian nonaktifkan virtual environment python nya.
   ```bash
   (env) root@controller:~/yuyu# deactivate
@@ -231,7 +258,7 @@ Keuntungan Yuyu:
   ```
   ---
   
-- Setup untuk Yuyu Dashboardnya. Nanti saat disuruh memasukan lokasi directory dari Horizon, jadi bisa di sesuaikan, contoh untuk horizonnya di “/var/www/html/horizon”.
+- Setup untuk Yuyu Dashboardnya. Nanti saat disuruh memasukan lokasi directory dari Horizon, jadi bisa di sesuaikan, contoh untuk horizonnya di **“/var/www/html/horizon”**.
   ```bash
   root@controller:~/yuyu_dashboard# ./setup_yuyu.sh
   
@@ -247,7 +274,7 @@ Keuntungan Yuyu:
   ```
   ---
 
-- Tambahkan setting untuk dibagian horizon **_local_settings.py_**, agar dapat menghubungkan Horizon dengan Yuyu. Dan Bind ke IP localhost karena masih dalam 1 host yang sama, agar tidak dapat di akses oleh luar.
+- Tambahkan setting untuk dibagian horizon **local_settings.py**, agar dapat menghubungkan Horizon dengan Yuyu. Dan Bind ke IP localhost karena masih dalam 1 host yang sama, agar tidak dapat di akses oleh luar.
   ```bash
   root@controller:~/yuyu_dashboard# vim /var/www/html/horizon/openstack_dashboard/local/local_settings.py
   ```
