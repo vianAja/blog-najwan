@@ -111,6 +111,7 @@ Keuntungan Yuyu:
   root@controller:~/horizon# chmod a+x openstack_dashboard/horizon_wsgi.py
   ```
   ---
+  <br>
   
 ### Konfigurasi dan Installasi Yuyu Api dan Yuyu Event Monitoring
 - Setting pada beberapa file berikut agar beberapa service ini bisa mengirim data ke RabbitMQ yang nantinya akan digunakan oleh Yuyu.
@@ -219,6 +220,7 @@ Keuntungan Yuyu:
   (env) root@controller:~/yuyu# deactivate
   ```
   ---
+  <br>
   
 ### Konfigurasi dan Installasi Yuyu Dashboard
 - Clone repository atau ambil source code Yuyu Dashboard
@@ -263,4 +265,26 @@ Keuntungan Yuyu:
   ```
   ---
 
-### Setelah selesai akan tampil seperti ini
+### Setelah selesai akan menjadi seperti ini
+
+Saat Login ke Dashboard, menggunakan credentials yang sesuai.
+![Login Page](../assets/images/hasil_secure_openstack_login.png)
+![Login Page](../assets/images/hasil_secure_openstack_home_page.png)
+
+Dapat mengatur untuk Billing, di user Admin.
+![Login Page](../assets/images/hasil_secure_openstack_set_billing.png)
+
+Dapat mengatur untuk Price/Harga dari resource yang digunakan.
+![Login Page](../assets/images/hasil_secure_openstack_ser_price.png)
+
+Dapat melihat harga penggunaan resource di project tertentu. Sesuai pemakaian resource
+![Login Page](../assets/images/hasil_secure_openstack_usage_cost.png)
+
+Dapat mendownload file usage cost, atau harga penggunaan resource
+![Login Page](../assets/images/hasil_secure_openstack_usage_cost_file.png)
+
+Dapat melihat invoice lewat Page Horizon
+![Login Page](../assets/images/hasil_secure_openstack_page_invoice.png)
+
+Dapat melihat invoice via file yang di download
+![Login Page](../assets/images/hasil_secure_openstack_invoice.png)
