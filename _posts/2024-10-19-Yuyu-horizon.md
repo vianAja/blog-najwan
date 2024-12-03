@@ -3,7 +3,7 @@ layout: post
 title: Yuyu Billing in OpenStack Horizon
 subtitle: Explanation and Installation Yuyu Billing OpenStack and Horizon
 cover-img: /assets/img/wallpaper2.png
-thumbnail-img: https://btech.id/media/images/Page/2022/09/07/logo-yuyu.png**
+thumbnail-img: https://btech.id/media/images/Page/2022/09/07/logo-yuyu.png
 share-img: /assets/img/wallpaper2.png
 tags: [OpenStack, Apache, Python]
 author: Najwan Octavian Gerrard
