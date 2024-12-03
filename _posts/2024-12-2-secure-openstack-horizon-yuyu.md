@@ -112,11 +112,104 @@ Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang 
   ```
   ---
 
-### 3. Konfigurasi dan Installasi Horizon
-- Install dependencies yang dibutuhkan, dan clone repository atau ambil source code dari horizonnya.
-- pass
+### 3. Installasi Horizon dan Yuyu dengan TLS
+Service Horizon dan Yuyu atau lebih tepatnya Yuyu Api, keduanya menggunakan Django dalam Implementasinya, jadi untuk menambahkan opsi TLS, kita hanya perlu mengatur pada konfigurasi dari Django nya, untuk menambahkan file Certificate dan key Certificate. Untuk Installasi Horizon dan Yuyu, bisa kunjungi postingan saya yang ini [**"Yuyu Billing in OpenStack Horizon"**](https://vianaja.github.io/blog-najwan/2024-10-19-Yuyu-horizon/), untuk penjelasan serta hasil akhirnya juga.
 
+Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service ini, yaitu sebagai berikut langkah - langkahnya
 
+#### A. Untuk di bagian Horizon
+- Update konfigurasi dari **"local_setting.py"** pada directory Horizon, seperti contoh saya letakan pada directory **/var/www/html/horizon/openstack_dashboard/local/** menjadi seperti dibawah ini.
+  ```python
+  WEBROOT = '/'
+  YUYU_URL = 'https://{IP HOST}:8182'
+
+  SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+  CSRF_COOKIE_SECURE = True
+  SESSION_COOKIE_SECURE = True
+
+  OPENSTACK_KEYSTONE_URL = 'https://{IP HOST}:5000/v3'
+  OPENSTACK_KEYSTONE_DEFAULT_ROLE = 'member'
+  OPENSTACK_SSL_NO_VERIFY = False
+  OPENSTACK_SSL_CACERT = '/etc/ssl/certs/ca-certificates.crt'
+
+  OPENSTACK_KEYSTONE_BACKEND = {
+    'name': 'native',
+    'can_edit_group': True,
+    'can_edit_user': True,
+    'can_edit_role': True,
+    'can_edit_project': True,
+    'can_edit_domain': True,
+  }
+  ```
+  ---
+  
+- pada saat generate file konfigurasi apache, tambahkan opsi seperti ini untuk auto generate apache conf dengan SSL/TLS.
+  ```bash
+  ~# ./manage.py make_web_conf --apache \
+    --sslkey  /etc/ssl/horizon/horizon.key \
+    --sslcert /etc/ssl/horizon/horizon.crt \
+    --cacert /etc/ssl/certs/ca-certificates.crt \
+    --ssl > /etc/apache2/sites-available/horizon.conf
+  ```
+  ---
+  
+- restart service Apache dan Memcached
+  ```bash
+  ~# systemctl restart spache2.service memcached
+  ```
+  ---
+  
+#### B. Untuk di bagian Yuyu Api
+- Update konfigurasi dari **"local_setting.py"** pada directory Yuyu API, seperti contoh, saya letakan pada directory **/var/yuyu/yuyu/** menjadi seperti dibawah ini.
+- Lalu edit pada service Yuyu API, menjadi seperti berikut untuk menambahkan opsi TLS.
+  ```bash
+  ~# nano /etc/systemd/system/yuyu_api.service
+  ---
+  ExecStart=/var/yuyu/env/bin/gunicorn yuyu.wsgi \
+	  --workers 2 \
+    --keyfile  /etc/ssl/yuyu/yuyu.key \
+	  --certfile /etc/ssl/yuyu/yuyu.crt \
+	  --bind 10.18.18.10:8182 \
+	  --log-file=logs/gunicorn.log
+  ```
+  ---
+  
+- lalu restart service Yuyu API, Apache dan Memcache.
+  ```bash
+  ~# systemctl restart yuyu_api.service spache2.service memcached
+  ```
+  ---
+
+### Kendala yang mungkin dapat di terjadi saat pembuatan.
+- Error saat Login ke Project Admin
+  Solusi:
+  - Ubah pada file Openrc untuk cacert yang digunakan ke “/etc/kolla/certificates/ca/root.crt”.
+  - Bisa gunakan ”/etc/ssl/certs/ca-certificate.crt”, apabila file “/etc/kolla/certificates/ca/root.crt” sudah di masukan ke ca-certificate.
+    
+- Error “SSLError at /admin/billing_overview/” saat membuka page Billing di Horizon,  karena Django yang digunakan oleh Horizon tidak diperbolehkan “Self-Signed Certificate”.
+  Solusi:
+  - Tambahkan certificate Horizon dan Yuyu ke "/usr/local/share/ca-certificates" lalu update ca-certificate, [referensi](https://ubuntu.com/server/docs/install-a-root-ca-certificate-in-the-trust-store)
+    
+- Error “AttributeError at /auth/logout/”  saat logout / sign out project di Horizon.
+  Solusi:
+  - Versi dari library “python-memcached” harus menggunakan versi 1.59. kalau pake yang terbaru tidak bisa.
+    
+- Error saat mencoba curl dan ada log error seperti ini, “Invalid HTTP_HOST header: ’10.18.18.10:8183’, you may need to add ’10.18.18.10’ to ALLOWED_HOSTS”.
+  Solusi:
+  - Bisa setting untuk “ALLOWED_HOSTS “ pada file konfigurasi “local_setting.py” dari Yuyu, bisa langsung ke IP “10.18.18.10” atau tanda bintang “ * ” jika ingin semua IP boleh masuk.
+    
+- Error “Did Not Connect: Potential Security Issue” pada Console Instance di Horizon, bisa disebabkan karena Certificate tidak public (Tidak Berbayar), atau karena Image yang di pakai Instance error.
+  Solusi:
+  - Bisa coba klik di bawah kata “Instance Console” yang ada kotak biru, lalu klik “Click here to show only console”. Error itu bisa disebabkan karena Image yang dipakai rusak.
+<br>
+
+#### Untuk hasil akhir nya, kurang lebih sama seperti pada Postingan saya yang [**"Yuyu Billing in OpenStack Horizon"**](https://vianaja.github.io/blog-najwan/2024-10-19-Yuyu-horizon/)
+
+Di blog ini, saya berbagi pengalaman tentang bagaimana mengamankan layanan OpenStack, dashboard Horizon, dan Yuyu Billing OpenStack dengan menggunakan TLS (Transport Layer Security). Langkah-langkah yang saya jelaskan mencakup pembuatan sertifikat SSL, konfigurasi, hingga tips mengatasi masalah yang sering muncul.
+
+Selain teknis, saya juga menambahkan gambaran topologi agar lebih mudah dipahami, terutama bagi yang baru terjun ke dunia cloud. Dengan langkah-langkah ini, layanan OpenStack jadi lebih aman, data yang dikirim juga terlindungi, dan pastinya bikin pengguna lebih percaya sama sistem yang kita bangun.
+
+Kalau kalian lagi cari cara untuk bikin OpenStack lebih aman atau ingin tahu tentang TLS, semoga tulisan ini bisa membantu ya!
 
 
 
