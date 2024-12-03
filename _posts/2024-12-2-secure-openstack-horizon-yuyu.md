@@ -1,11 +1,11 @@
 ---
 layout: post
 title: Secure Service OpenStack and Yuyu Biliing OpenStack with TLS
-subtitle: Explanation and Installation Grafana
+subtitle: Explanation and Implementation Project Secure Service OpenStack and Yuyu Biliing OpenStack with TLS
 cover-img: /assets/img/wallpaper2.png
 thumbnail-img: https://banner2.cleanpng.com/20180602/jkl/avoucosdm.webp
 share-img: /assets/img/wallpaper2.png
-tags: [OpenStack, Container, Apache, Python]
+tags: [Project ,OpenStack, Container, Apache, Python]
 author: Najwan Octavian Gerrard
 ---
 Perusahaan pada zaman modern saat ini telah mengimplementasikan private cloud menggunakan OpenStack untuk mengelola infrastruktur TI secara lebih fleksibel dan efisien. Namun, dalam operasional sehari-hari, tantangan sering muncul terkait dengan pengelolaan sumber daya dan meminimalkan risiko human error, terutama ketika pengembang melakukan pengujian pada lingkungan yang sama dengan produksi. Risiko ini dapat mengganggu stabilitas sistem dan mengakibatkan pemanfaatan resource cloud tidak efisiensi. Untuk mengatasi tantangan tersebut, manajer tim operasional berencana untuk memisahkan lingkungan antara project developer dan production. 
