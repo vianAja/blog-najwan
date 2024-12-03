@@ -94,7 +94,7 @@ OpenStack terdiri dari beberapa service, yang nantinya berinteraksi satu sama de
 
 Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang [OpenStack](https://vianaja.github.io/blog-najwan/2024-10-19-openstack/).
 
-- Edit pada file global.yaml untuk opsi
+- Edit pada file global.yaml untuk opsi berikut ini untuk enable TLS pada service internal OpenStack, untuk copy CA ke Container Service nya, 
   ```yaml
   kolla_enable_tls_internal: "yes"
   kolla_certificates_dir: "{{ node_config }}/certificates"
