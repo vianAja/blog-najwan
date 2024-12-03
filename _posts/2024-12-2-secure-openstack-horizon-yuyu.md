@@ -92,7 +92,7 @@ OpenStack terdiri dari beberapa service, yang nantinya berinteraksi satu sama de
 - **Cinder**, untuk membuat Volume yang digunakan Instance
 - **RabbitMQ**, untuk Message Broker yang mengirim event dari komponen OpenStack.
 
-Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang [OpenStack and Kolla-Ansible](https://vianaja.github.io/blog-najwan/2024-10-19-openstack/).
+Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Postingan saya, akan tetapi harus menjalankan perintah di bawah ini terlebih dahulu. Karena nanti akan ada tambahan penyesuaian dan harus redeploy ulang cluster OpenStacknya, jadi lumayan ribet. Baru bisa mengikuti dari Postingan ini [OpenStack and Kolla-Ansible](https://vianaja.github.io/blog-najwan/2024-10-19-openstack/).
 
 - Edit pada file global.yaml untuk opsi berikut ini untuk enable TLS pada service internal OpenStack, untuk copy CA ke Container Service nya, 
   ```yaml
@@ -102,8 +102,8 @@ Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang 
   kolla_copy_ca_into_containers: "yes"
   kolla_enable_tls_backend: "yes"
   kolla_verify_tls_backend: "no"
-  kolla_tls_backend_cert: "{{ kolla_certificates_dir}}/backend-cert.pem"
-  kolla_tls_backend_key: "{{ kolla_certificates_dir}}/backend-key.pem"
+  kolla_tls_backend_cert: "{{ kolla_certificates_dir }}/backend-cert.pem"
+  kolla_tls_backend_key: "{{ kolla_certificates_dir }}/backend-key.pem"
   ```
   ---
 - lalu pada step sebelum deploy, jalankan perintah ini untuk membuat Certificate.
@@ -113,7 +113,7 @@ Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Post saya yang 
   ---
 
 ### 3. Installasi Horizon dan Yuyu dengan TLS
-Service Horizon dan Yuyu atau lebih tepatnya Yuyu Api, keduanya menggunakan Django dalam Implementasinya, jadi untuk menambahkan opsi TLS, kita hanya perlu mengatur pada konfigurasi dari Django nya, untuk menambahkan file Certificate dan key Certificate. Untuk Installasi Horizon dan Yuyu, bisa kunjungi postingan saya yang ini [**Yuyu Billing in OpenStack Horizon**](https://vianaja.github.io/blog-najwan/2024-10-19-Yuyu-horizon/), untuk penjelasan serta hasil akhirnya juga.
+Service Horizon dan Yuyu atau lebih tepatnya Yuyu Api, keduanya menggunakan Django dalam Implementasinya, jadi untuk menambahkan opsi TLS, kita hanya perlu mengatur pada konfigurasi dari Django nya, untuk menambahkan file Certificate dan key Certificate. Untuk Installasi Horizon dan Yuyu, bisa kunjungi postingan saya yang ini [Yuyu Billing in OpenStack Horizon](https://vianaja.github.io/blog-najwan/2024-10-20-Yuyu-horizon/), untuk penjelasan serta hasil akhirnya juga. 
 
 Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service ini, yaitu sebagai berikut langkah - langkahnya
 
@@ -122,16 +122,16 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
   ```python
   WEBROOT = '/'
   YUYU_URL = 'https://{IP HOST}:8182'
-
+  
   SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
   CSRF_COOKIE_SECURE = True
   SESSION_COOKIE_SECURE = True
-
+  
   OPENSTACK_KEYSTONE_URL = 'https://{IP HOST}:5000/v3'
   OPENSTACK_KEYSTONE_DEFAULT_ROLE = 'member'
   OPENSTACK_SSL_NO_VERIFY = False
   OPENSTACK_SSL_CACERT = '/etc/ssl/certs/ca-certificates.crt'
-
+  
   OPENSTACK_KEYSTONE_BACKEND = {
     'name': 'native',
     'can_edit_group': True,
@@ -155,7 +155,7 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
   
 - restart service Apache dan Memcached
   ```bash
-  ~# systemctl restart spache2.service memcached
+  ~# systemctl restart apache2.service memcached
   ```
   ---
   
@@ -166,11 +166,11 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
   ~# nano /etc/systemd/system/yuyu_api.service
   ---
   ExecStart=/var/yuyu/env/bin/gunicorn yuyu.wsgi \
-	  --workers 2 \
-    --keyfile  /etc/ssl/yuyu/yuyu.key \
-	  --certfile /etc/ssl/yuyu/yuyu.crt \
-	  --bind 10.18.18.10:8182 \
-	  --log-file=logs/gunicorn.log
+	--workers 2 \
+  	--keyfile  /etc/ssl/yuyu/yuyu.key \
+	--certfile /etc/ssl/yuyu/yuyu.crt \
+	--bind 10.18.18.10:8182 \
+	--log-file=logs/gunicorn.log
   ```
   ---
   
@@ -184,8 +184,8 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
 ### Kendala yang mungkin dapat di terjadi saat pembuatan.
 - Error saat Login ke Project Admin
   Solusi:
-  - Ubah pada file Openrc untuk cacert yang digunakan ke **“/etc/kolla/certificates/ca/root.crt”**.
-  - Bisa gunakan **”/etc/ssl/certs/ca-certificate.crt”**, apabila file **“/etc/kolla/certificates/ca/root.crt”** sudah di masukan ke ca-certificate.
+  - Ubah pada file Openrc pada bagian **_export OS_CACERT=_**, kalau tidak ada bisa ditambahkan di line baru, isikan certificate ini **“/etc/kolla/certificates/ca/root.crt”**.
+  - Bisa gunakan **”/etc/ssl/certs/ca-certificate.crt”** pada saat berubah file openrc di bagian **_export OS_CACERT=_**, apabila file **“/etc/kolla/certificates/ca/root.crt”** sudah di masukan ke ca-certificate ubuntu, dengan cara copy file **“/etc/kolla/certificates/ca/root.crt”** ke **"/usr/local/share/ca-certificates"**, lalu update ca-certificates dengan perintah ini **_sudo update-ca-certificates_**.
     
 ---
 - Error **“SSLError at /admin/billing_overview/”** saat membuka page Billing di Horizon,  karena Django yang digunakan oleh Horizon tidak diperbolehkan **“Self-Signed Certificate”**.
@@ -208,7 +208,7 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
   - Bisa coba klik di bawah kata **“Instance Console”** yang ada kotak biru, lalu klik **“Click here to show only console”.** Error itu bisa disebabkan karena Image yang dipakai rusak.
 <br>
 
-#### Untuk hasil akhir nya, kurang lebih sama seperti pada Postingan saya yang [**Yuyu Billing in OpenStack Horizon**](https://vianaja.github.io/blog-najwan/2024-10-19-Yuyu-horizon/)
+#### Untuk hasil akhir nya, kurang lebih sama seperti pada Postingan saya yang [**Yuyu Billing in OpenStack Horizon**](https://vianaja.github.io/blog-najwan/2024-10-20-Yuyu-horizon/)
 
 Di blog ini, saya berbagi pengalaman tentang bagaimana mengamankan layanan OpenStack, dashboard Horizon, dan Yuyu Billing OpenStack dengan menggunakan TLS (Transport Layer Security). Langkah-langkah yang saya jelaskan mencakup pembuatan sertifikat SSL, konfigurasi, hingga tips mengatasi masalah yang sering muncul.
 
