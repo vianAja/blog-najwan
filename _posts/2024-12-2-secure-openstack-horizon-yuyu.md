@@ -177,11 +177,11 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
   ~# nano /etc/systemd/system/yuyu_api.service
   ---
   ExecStart=/var/yuyu/env/bin/gunicorn yuyu.wsgi \
-	--workers 2 \
-  	--keyfile  /etc/ssl/yuyu/yuyu.key \
-	--certfile /etc/ssl/yuyu/yuyu.crt \
-	--bind 10.18.18.10:8182 \
-	--log-file=logs/gunicorn.log
+    --workers 2 \
+    --keyfile  /etc/ssl/yuyu/yuyu.key \
+    --certfile /etc/ssl/yuyu/yuyu.crt \
+    --bind 10.18.18.10:8182 \
+    --log-file=logs/gunicorn.log
   ```
   ---
   
@@ -195,7 +195,7 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
 ### Kendala yang mungkin dapat di terjadi saat pembuatan.
 - Error saat Login ke Project Admin
   Solusi:
-  - Ubah pada file Openrc pada bagian **_export OS_CACERT=_**, kalau tidak ada bisa ditambahkan di line baru, isikan certificate ini **“/etc/kolla/certificates/ca/root.crt”**.
+  - Ubah pada file Openrc pada bagian **"export OS_CACERT"**, kalau tidak ada bisa ditambahkan di line baru, isikan certificate ini **“/etc/kolla/certificates/ca/root.crt”**.
   - Bisa gunakan **”/etc/ssl/certs/ca-certificate.crt”** pada saat berubah file openrc di bagian **_export OS_CACERT=_**, apabila file **“/etc/kolla/certificates/ca/root.crt”** sudah di masukan ke ca-certificate ubuntu, dengan cara copy file **“/etc/kolla/certificates/ca/root.crt”** ke **"/usr/local/share/ca-certificates"**, lalu update ca-certificates dengan perintah ini **_sudo update-ca-certificates_**.
     
 ---
@@ -217,6 +217,7 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
 - Error **“Did Not Connect: Potential Security Issue”** pada Console Instance di Horizon, bisa disebabkan karena Certificate tidak public (Tidak Berbayar), atau karena Image yang di pakai Instance error.
   Solusi:
   - Bisa coba klik di bawah kata **“Instance Console”** yang ada kotak biru, lalu klik **“Click here to show only console”.** Error itu bisa disebabkan karena Image yang dipakai rusak.
+  ---
 <br>
 
 #### Untuk hasil akhir nya, kurang lebih sama seperti pada Postingan saya yang [**Yuyu Billing in OpenStack Horizon**](https://vianaja.github.io/blog-najwan/2024-10-20-Yuyu-horizon/)
