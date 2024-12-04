@@ -102,7 +102,7 @@ Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Postingan saya,
   kolla_copy_ca_into_containers: "yes"
   kolla_enable_tls_backend: "yes"
   kolla_verify_tls_backend: "no"
-  kolla_tls_backend_cert: "{{ kolla_certificates_dir }}/backend-cert.pem"
+  kolla_tls_backend_cert: "/{/{ kolla_certificates_dir /}/}/backend-cert.pem"
   kolla_tls_backend_key: "{{ kolla_certificates_dir }}/backend-key.pem"
   ```
   ---
