@@ -97,7 +97,7 @@ Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Postingan saya,
 - Edit pada file global.yaml untuk opsi berikut ini untuk enable TLS pada service internal OpenStack, untuk copy CA ke Container Service nya, 
   ```yaml
   kolla_enable_tls_internal: "yes"
-  kolla_certificates_dir: "{{ node_config }}/certificates"
+  kolla_certificates_dir: "\{\{ node_config \}\}/certificates"
   kolla_admin_openrc_cacert: "/etc/kolla/certificates/ca/root.crt"
   kolla_copy_ca_into_containers: "yes"
   kolla_enable_tls_backend: "yes"
@@ -161,6 +161,17 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
   
 #### B. Untuk di bagian Yuyu Api
 - Update konfigurasi dari **"local_setting.py"** pada directory Yuyu API, seperti contoh, saya letakan pada directory **/var/yuyu/yuyu/** menjadi seperti dibawah ini.
+  ```python
+  ALLOWED_HOSTS = ['*']
+
+  SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+  SECURE_SSL_HOST = True
+  SECURE_SSL_REDIRECT = False
+  SESSION_COOKIE_SECURE = True
+  CSRF_COOKIE_SECURE = True
+  ```
+  ---
+  
 - Lalu edit pada service Yuyu API, menjadi seperti berikut untuk menambahkan opsi TLS.
   ```bash
   ~# nano /etc/systemd/system/yuyu_api.service
