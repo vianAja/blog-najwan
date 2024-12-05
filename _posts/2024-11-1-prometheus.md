@@ -23,7 +23,7 @@ Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang op
 - Download Package Prometheus.
   ```bash
   ~$ sudo su
-  ~# wget https://github.com/prometheus/prometheus/releases/download/v2.48.1prometheus-2.48.1.linux-amd64.tar.gz
+  ~# wget https://github.com/prometheus/prometheus/releases/download/v2.48.1/prometheus-2.48.1.linux-amd64.tar.gz
   ~# tar -xvfz prometheus-2.48.1.linux-amd64.tar.gz
   ~# cp prometheus-2.48.1.linux-amd64/ /etc/prometheus
   ```
@@ -42,7 +42,7 @@ Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang op
   ```
 
   ---
-  
+
 - Buat Service agar dapat berjalan di Background.
   ```bash
   ~$ sudo nano /etc/systemd/system/prometheus_server.service

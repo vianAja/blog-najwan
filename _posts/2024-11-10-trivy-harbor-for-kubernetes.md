@@ -8,9 +8,12 @@ share-img: /assets/img/wallpaper1.png
 tags: [Project, Kubernetes, Trivy, Harbor, Docker, Python, Slack]
 author: Najwan Octavian
 ---
+
 Pada Blog ini akan memberikan panduan lengkap dalam memanfaatkan Harbor dan Trivy sebagai solusi keamanan images container yang nantinya akan digunakan di dalam Kubernetes. Dengan Harbor, Anda bisa mengelola private registry yang terstruktur dan aman, sedangkan Trivy membantu mendeteksi kerentanan pada image container, menjaga standar keamanan aplikasi yang Anda gunakan.
 
 Tutorial ini juga menjelaskan cara mengintegrasikan Slack sebagai platform notifikasi, sehingga setiap hasil scan Trivy dapat langsung diinformasikan ke tim secara real-time. Notifikasi ini memungkinkan tim untuk merespons dengan cepat, memastikan langkah mitigasi yang efektif terhadap potensi ancaman.
+
+<br>
 
 ### Latar Belakang
 
@@ -19,6 +22,8 @@ Tutorial ini juga menjelaskan cara mengintegrasikan Slack sebagai platform notif
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Karena Hal tersebut juga menyebabkan adanya kebutuhan untuk penyimpanan Image private atau biasa disebut sebagai Private Registry agar menjaga keamanan dari perusahaannya, dan juga karena banyak nya kasus terkait pencurian data, menjadikan kebutuhan akan Scanning Vulnerability atau kerentanan menjadi cukup penting. Apalagi di era Cloud dan Containerisasi, Trivy dan Harbor merupakan salah satu solusi terkait dua hal tersebut. Yang dimana harbor sebagai tempat registry dan Trivy untuk scanning otomatis yang di trigger oleh Harbor saat ada event tertentu seperti Ada images yang baru di Push ke Harbor Registry.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Serta dibutuhkan juga Tools untuk mengirim notifikasi secara cepat dan otomatis, sehingga dapat secara cepat juga untuk mengatasi Vulnerability atau kerentanan terhadap Images yang akan di simpan di Harbor, malasah tersebut juga bisa diatasi dengan menggunakan Slack.
+
+<br>
 
 ### Tools
 
@@ -32,25 +37,29 @@ Tutorial ini juga menjelaskan cara mengintegrasikan Slack sebagai platform notif
 8. OpenSSL – 3.0.2
 9. Slack
 
+<br>
+
 ### Topologi
 
 ![Branching](../assets/images/topologi.png)
 
-### Harbor
+#### Harbor
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harbor adalah registry open source yang digunakan untuk menyimpan dan mengelola Images yang akan digunakan untuk membuat Container. Harbor sendiri cukup diminati karena mudahnya integrasi dengan tools scanning Vulnerability seperti Trivy atau Clair, yang memungkinkan untuk melakukan pengecekan kerentanan (Vulnerability) terhadap Images yang disimpan menjadi lebih mudah.
 
-### Trivy
+#### Trivy
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Trivy adalah salah satu tools scanning yang berbasis open source yang digunakan untuk mendeteksi kerentanan yang berfokus pada images container. Trivy memindai mulai dari Library atau Apps Dependencies (seperti Composer, npm, yarn) sampai kedalam Operating System (OS) yang digunakan, apakah aman atau tidak.
 
-### Slack
+#### Slack
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan pengguna untuk mengirim pesan, file dan tools. Slack memiliki 2 metode, yaitu Direct Message (pesan langsung dari satu user ke user lain) dan Channel Group. Dan juga Slack dapat di integrasikan dengan aplikasi atau tools lain juga yang memungkinkan melakukan otomatisasi untuk notifikasi dari suatu aplikasi.
 
-## Langkah Implementasi
+<br>
 
-### 1. Install Docker Untuk Harbor Registry
+### Langkah Implementasi
+
+#### 1. Install Docker Untuk Harbor Registry
 
 Panduan Dibahwah ini mencakup langkah-langkah konfigurasi Docker di sistem yang akan dibutuhkan, sehingga Anda dapat dengan mudah memahami dan mengimplementasikannya. Untuk dependensi yang dibutuhkan.
 
@@ -62,11 +71,11 @@ docker-buildx-plugin     # Package untuk Membuat Image Docker
 docker-compose-plugin    # Package untuk Docker Compose
 ```
 
-Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi postingan saya yang berjudul [Docker Container](https://vianaja.github.io/blog-najwan/2024-10-1-docker/)
+Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi postingan saya yang berjudul [Docker Container](https://vianaja.github.io/blog-najwan/2024-10-01-install-docker/)
 
 <br>
 
-### 2. Create SSL Certificate untuk Harbor
+#### 2. Create SSL Certificate untuk Harbor
 
 * Membuat file Config IP SAN, agar SSL Certificate dapat membaca akses jika melalui IP, dan di simpan di directory **_+“/etc/ssl/”_**.
   ```bash
@@ -94,7 +103,7 @@ Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi post
 
 <br>
 
-### 3. Install Harbor
+#### 3. Install Harbor
 
 * Download Source Code untuk harbor, lalu unzip file source code harbor yang sudah di download.
   ```bash
@@ -132,7 +141,7 @@ Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi post
 
 <br>
 
-### 4. Konfigurasi Harbor untuk Trigger Scan Trivy saat ada Image yang baru di Push dan mengatur agar user dapat Pull Image dengan tingkat kerentanan yang rendah atau aman
+#### 4. Konfigurasi Harbor untuk Trigger Scan Trivy saat ada Image yang baru di Push dan mengatur agar user dapat Pull Image dengan tingkat kerentanan yang rendah atau aman
 
 * Login ke Harbor dengan user **_“admin”_**, lalu masuk ke project yang ingin di konfigurasi.
   ![Branching](../assets/images/9.19.png)
@@ -140,20 +149,19 @@ Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi post
   ---
 * Lalu pilih **_“Configuration”_**, kemudian centang pada bagian
   * **_“Prevent vulnerable images from running.”_** Untuk mengatur agar user tidak dapat Pull Images dengan kerentanan yang tinggi. Contohnya di level **“Critical”** (yang berbahaya sekali) atau yang Levelnya diatasnya lagi.
-
-  ---
   * **_“Vulnerability Scanning”_**. Untuk mengatur agar saat ada Push images akan secara otomatis di scanning.
   ![Branching](../assets/images/harbor_config.png)
   ---
 
 <br>
 
-### 4. Install Kubernetes Cluster
+#### 5. Install Kubernetes Cluster
 
 Pada langkah Installasi Kubernetes Cluster, bisa mengikuti dari Postingan saya [K8S Kubernetes](https://vianaja.github.io/blog-najwan/2024-11-02-kubernetes/). Sudah ada juga penjelasan terkait Kubernetes Cluster.
 
+<br>
 
-### 5. Configuration SSL Certificate ke Cluster Kubernetes
+#### 6. Configuration SSL Certificate ke Cluster Kubernetes
 
 > **_Note: jalankan pada Node Master dan Worker_**
 
@@ -186,7 +194,7 @@ Pada langkah Installasi Kubernetes Cluster, bisa mengikuti dari Postingan saya [
 
   ---
 
-### 6. Konfigurasi kubernetes untuk Pull images ke Harbor
+#### 7. Konfigurasi kubernetes untuk Pull images ke Harbor
 
 > **_Note: jalankan pada Node Master_**
 
@@ -201,7 +209,7 @@ Pada langkah Installasi Kubernetes Cluster, bisa mengikuti dari Postingan saya [
 
   ---
 
-### 7. Konfigurasi Notifikasi Otomatis dari Hasil Scan Harbor ke Slack
+#### 8. Konfigurasi Notifikasi Otomatis dari Hasil Scan Harbor ke Slack
 
 * Login ke Website [Slack](https://slack.com/), Buat akun baru jika belum ada.
   ![Branching](../assets/images/9.1.png)
@@ -292,7 +300,7 @@ Pada langkah Installasi Kubernetes Cluster, bisa mengikuti dari Postingan saya [
   * Isikan Endpoint URL sesuai dari slack pada step sebelumnya.
   ![Branching](../assets/images/9.21.png)
   
-### 8. Konfigurasi SSH ke semua Node
+### 9. Konfigurasi SSH ke semua Node
 
 * Login ke Slack, lalu pergi ke pengaturan App, atau lewat [link ini](https://api.slack.com/apps/). Lalu pilih App yang sesuai, contohnya **_“python-harbor”_**.
   ![Branching](../assets/images/10.1.png)
