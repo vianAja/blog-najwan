@@ -54,7 +54,7 @@ Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang op
   User=root
   ExecStart=/etc/prometheus/prometheus \
       --config.file=/etc/prometheus/config.yml \
-      --web.external-url=http://IP_SERVER:9090/ 
+      --web.external-url=http://IP_SERVER:9090/
   [Install]
   WantedBy=default.target
   ```

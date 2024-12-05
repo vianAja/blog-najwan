@@ -151,13 +151,14 @@ Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi post
   * **_“Prevent vulnerable images from running.”_** Untuk mengatur agar user tidak dapat Pull Images dengan kerentanan yang tinggi. Contohnya di level **“Critical”** (yang berbahaya sekali) atau yang Levelnya diatasnya lagi.
   * **_“Vulnerability Scanning”_**. Untuk mengatur agar saat ada Push images akan secara otomatis di scanning.
   ![Branching](../assets/images/harbor_config.png)
+
   ---
 
 <br>
 
 #### 5. Install Kubernetes Cluster
 
-Pada langkah Installasi Kubernetes Cluster, bisa mengikuti dari Postingan saya [K8S Kubernetes](https://vianaja.github.io/blog-najwan/2024-11-02-kubernetes/). Sudah ada juga penjelasan terkait Kubernetes Cluster.
+Pada langkah Installasi Kubernetes Cluster, bisa mengikuti dari Postingan saya [K8S Kubernetes](https://vianaja.github.io/blog-najwan/2024-11-02-kubernetes/). Sudah ada juga penjelasan terkait Kubernetes Cluster. Pastikan Anda membaca panduan tersebut agar mendapatkan pemahaman yang menyeluruh sebelum melanjutkan untuk langkah berikutnya.
 
 <br>
 
@@ -300,9 +301,11 @@ Pada langkah Installasi Kubernetes Cluster, bisa mengikuti dari Postingan saya [
   * Isikan Endpoint URL sesuai dari slack pada step sebelumnya.
   ![Branching](../assets/images/9.21.png)
   
-### 9. Konfigurasi SSH ke semua Node
+<br>
 
-* Login ke Slack, lalu pergi ke pengaturan App, atau lewat [link ini](https://api.slack.com/apps/). Lalu pilih App yang sesuai, contohnya **_“python-harbor”_**.
+#### 9. Konfigurasi SSH ke semua Node
+
+* Login ke Slack, lalu pergi ke pengaturan App, atau lewat link [ini](https://api.slack.com/apps/). Lalu pilih App yang sesuai, contohnya **_“python-harbor”_**.
   ![Branching](../assets/images/10.1.png)
   
   ---
@@ -367,27 +370,27 @@ Pada langkah Installasi Kubernetes Cluster, bisa mengikuti dari Postingan saya [
 
 <br>
 
-## Hasil
+### Hasil Akhir Project
 
-### Tanpa menggunakan Program Pyhon
+#### Notifikasi Tanpa menggunakan Program Pyhon
 
 ![Branching](../assets/images/hasil_slack.1.png)
 
 ---
 
-### Menggunakan Program Python
+#### Notifikasi Menggunakan Program Python
 
 ![Branching](../assets/images/hasil_slack.2.png)
 
 ---
 
-### Tidak Bisa Pull Images jika level Vulnerability Critical atau yang lebih tingggi
+#### Tidak Bisa Pull Images jika level Vulnerability Critical atau yang lebih tingggi
 
 ![Branching](../assets/images/failed_pull.png)
 
 ---
 
-## Referensi
+### Referensi
 
 - [KubeAdm Tools](https://kubernetes.io/id/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 - [Install Harbor](https://medium.com/@tanmaybhandge/how-to-deploy-the-harbor-on-vm-using-self-signed-certificate-ebfe29c4803a).

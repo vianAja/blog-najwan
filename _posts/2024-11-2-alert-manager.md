@@ -40,9 +40,10 @@ Exporter Prometheus adalah suatu tools yang digunakan untuk mengubah data metric
   
   ---
 - Atur untuk File Rules / aturan yang akan digunakan untuk alerting di file **_"etc/prometheus/config.yml"_**.
+
   ```yaml
   rule_files:
-    - "FILE_RULES.yml"
+  - "FILE_RULES.yml"
   ```
 
   ---
@@ -70,6 +71,7 @@ Exporter Prometheus adalah suatu tools yang digunakan untuk mengubah data metric
   ---
 - Konfigurasi untuk rules yang mentrigger alert manager mengirim notifikasi.
   Rules untuk Web Server Apache atau Nginx yang Down.
+
   ```yaml
   groups:
   - name: NAME_RULES
