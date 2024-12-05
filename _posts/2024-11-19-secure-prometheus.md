@@ -798,7 +798,8 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
     - name: traffic-monitoring.rules
       rules:
       - alert: traffic-monitoring
-        expr: job:node_network_receive_total_monitoring:rate50s > 3     for: 0s
+        expr: job:node_network_receive_total_monitoring:rate50s > 3     
+        for: 0s
         labels:
           nodeName: "Node Monitoring"
           trafficUsage: "{{ $value }}"
@@ -829,7 +830,8 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 0s
         labels:
           nodeName: "Node Client 2"
-          trafficUsage: "{{ {{ $value }}}}"
+          trafficUsage: "{{ $p }} {{ {{ $p }}}}"
+          $value
     ```
   
     ---
