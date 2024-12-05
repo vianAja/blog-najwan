@@ -680,7 +680,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         expr: engine_daemon_container_states_containers{state="stopped"} > 0
         for: 1m
         labels:
-          valueService: "{{ $value }}"
+          valueService: "\{\{ $value }}"
         annotations:
           summary: "{{ $value }} Service container Down"
           description: "{{ $value }} Service container Down, sudah 1 menit, silahkan di cek dulu"
