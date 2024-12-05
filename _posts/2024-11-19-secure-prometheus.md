@@ -829,7 +829,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 0s
         labels:
           nodeName: "Node Client 2"
-          trafficUsage: "{{{{$value}}}}"
+          trafficUsage: "{{}}{{ $value }}}}"
     ```
   
     ---
@@ -840,7 +840,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
 
 - Ambil Token Discord agar program python nya dapat mengirim notifikasi ke channe Discorrd yang sesuai, dari referensi video **_[YouTube](https://youtu.be/UYJDKSah-Ww?si=2SYaHg74DT47RuGS)_** ini (cukup sampai pengambilan Token Discord).
     
-- Donwload contoh sample program python di github**_[ini](https://github.com/vianAja/Discord-alertmanager-python.git)_**. untuk contoh filtering alert agar mengarah ke beberapa channel seperti di contoh. ikuti instruksi sesuai di githubnya.
+- Donwload contoh sample program python di github **_[ini](https://github.com/vianAja/Discord-alertmanager-python.git)_**. untuk contoh filtering alert agar mengarah ke beberapa channel seperti di contoh. ikuti instruksi sesuai di githubnya.
 
 <br>
 
