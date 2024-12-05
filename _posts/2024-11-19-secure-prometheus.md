@@ -830,7 +830,8 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 0s
         labels:
           nodeName: "Node Client 2"
-          trafficUsage: "{{ $p }} {{valu {{ $p }}}}"
+          trafficUsage: "{{
+          }}"
           $value
     ```
   
