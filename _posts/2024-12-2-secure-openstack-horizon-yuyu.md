@@ -8,11 +8,13 @@ share-img: /assets/img/wallpaper2.png
 tags: [Project ,OpenStack, Container, Apache, Python]
 author: Najwan Octavian Gerrard
 ---
-Perusahaan pada zaman modern saat ini telah mengimplementasikan private cloud menggunakan OpenStack untuk mengelola infrastruktur TI secara lebih fleksibel dan efisien. Namun, dalam operasional sehari-hari, tantangan sering muncul terkait dengan pengelolaan sumber daya dan meminimalkan risiko human error, terutama ketika pengembang melakukan pengujian pada lingkungan yang sama dengan produksi. Risiko ini dapat mengganggu stabilitas sistem dan mengakibatkan pemanfaatan resource cloud tidak efisiensi. Untuk mengatasi tantangan tersebut, manajer tim operasional berencana untuk memisahkan lingkungan antara project developer dan production. 
+
+Perusahaan pada zaman modern saat ini telah mengimplementasikan private cloud menggunakan OpenStack untuk mengelola infrastruktur TI secara lebih fleksibel dan efisien. Namun, dalam operasional sehari-hari, tantangan sering muncul terkait dengan pengelolaan sumber daya dan meminimalkan risiko human error, terutama ketika pengembang melakukan pengujian pada lingkungan yang sama dengan produksi. Risiko ini dapat mengganggu stabilitas sistem dan mengakibatkan pemanfaatan resource cloud tidak efisiensi. Untuk mengatasi tantangan tersebut, manajer tim operasional berencana untuk memisahkan lingkungan antara project developer dan production.
 
 Selain itu, perusahaan ingin memantau dan menghitung penggunaan resource secara terukur menggunakan Yuyu, sebuah solusi untuk pencatatan dan perhitungan pemakaian resource OpenStack dengan integrasi Yuyu, karena dapat melacak penggunaan sumber daya mulai dari volume, flavor, image, dan lain – lain, bahkan sampai router pada OpenStack yang digunakan. Serta dapat menganalisa biaya penggunaan agar dapat menghemat pengeluaran operasional perusahaan.
 
-### Tools yang digunakan :
+### Tools yang digunakan
+
 - **OpenStack– Antelope – v2023.1**
 - **Kolla Ansible – v2023.1**
 - **Ansible – v2.14.18**
@@ -94,16 +96,16 @@ OpenStack terdiri dari beberapa service, yang nantinya berinteraksi satu sama de
 
 Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Postingan saya, akan tetapi harus menjalankan perintah di bawah ini terlebih dahulu. Karena nanti akan ada tambahan penyesuaian dan harus redeploy ulang cluster OpenStacknya, jadi lumayan ribet. Baru bisa mengikuti dari Postingan ini [OpenStack and Kolla-Ansible](https://vianaja.github.io/blog-najwan/2024-10-19-openstack/).
 
-- Edit pada file global.yaml untuk opsi berikut ini untuk enable TLS pada service internal OpenStack, untuk copy CA ke Container Service nya, 
+- Edit pada file global.yaml untuk opsi enable TLS pada service internal OpenStack dan untuk copy CA ke Container Service nya, pada **_{DIR_KOLLA}_** ubah menjadi **\{\{ node_config }}** dan **{DIR_KOLLA_CERT}** pada ubah menjadi **\{\{ kolla_certificates_dir }}**.
   ```yaml
   kolla_enable_tls_internal: "yes"
-  kolla_certificates_dir: "\{\{ node_config \}\}/certificates"
+  kolla_certificates_dir: "{DIR_KOLLA}/certificates"
   kolla_admin_openrc_cacert: "/etc/kolla/certificates/ca/root.crt"
   kolla_copy_ca_into_containers: "yes"
   kolla_enable_tls_backend: "yes"
   kolla_verify_tls_backend: "no"
-  kolla_tls_backend_cert: "/{/{ kolla_certificates_dir /}/}/backend-cert.pem"
-  kolla_tls_backend_key: "{{ kolla_certificates_dir }}/backend-key.pem"
+  kolla_tls_backend_cert: "{DIR_KOLLA_CERT}/backend-cert.pem"
+  kolla_tls_backend_key: "{DIR_KOLLA_CERT}/backend-key.pem"
   ```
   ---
 - lalu pada step sebelum deploy, jalankan perintah ini untuk membuat Certificate.
@@ -190,14 +192,19 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
   ~# systemctl restart yuyu_api.service spache2.service memcached
   ```
   ---
+
 <br>
 
 ### Kendala yang mungkin dapat di terjadi saat pembuatan.
 - Error saat Login ke Project Admin
   Solusi:
   - Ubah pada file Openrc pada bagian **"export OS_CACERT"**, kalau tidak ada bisa ditambahkan di line baru, isikan certificate ini **“/etc/kolla/certificates/ca/root.crt”**.
-  - Bisa gunakan **”/etc/ssl/certs/ca-certificate.crt”** pada saat berubah file openrc di bagian **_export OS_CACERT=_**, apabila file **“/etc/kolla/certificates/ca/root.crt”** sudah di masukan ke ca-certificate ubuntu, dengan cara copy file **“/etc/kolla/certificates/ca/root.crt”** ke **"/usr/local/share/ca-certificates"**, lalu update ca-certificates dengan perintah ini **_sudo update-ca-certificates_**.
-    
+  - Bisa gunakan **”/etc/ssl/certs/ca-certificate.crt”** pada saat berubah file openrc di bagian **_export OS_CACERT_**, apabila file **“/etc/kolla/certificates/ca/root.crt”** sudah di masukan ke ca-certificate ubuntu, dengan cara copy file **“/etc/kolla/certificates/ca/root.crt”** ke **"/usr/local/share/ca-certificates"**, lalu update ca-certificates dengan perintah ini **_"sudo update-ca-certificates"_**.
+    ```bash
+    ~$ sudo cp /etc/kolla/certificates/ca/root.crt /usr/local/share/ca-certificates
+    ~$ sudo update-ca-certificates
+    ```
+  
 ---
 - Error **“SSLError at /admin/billing_overview/”** saat membuka page Billing di Horizon,  karena Django yang digunakan oleh Horizon tidak diperbolehkan **“Self-Signed Certificate”**.
   Solusi:
