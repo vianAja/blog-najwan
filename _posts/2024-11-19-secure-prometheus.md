@@ -645,7 +645,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
   ```
   
   ---
-- Konfigurasi untuk rules yang mentrigger alert manager mengirim notifikasi.
+- Konfigurasi untuk rules yang mentrigger alert manager mengirim notifikasi. Lalu Edit pada bagian **_{PERLU_UBAH}_** menjadi **_{{ $value }}_**.
   - Rules untuk Web Server Apache atau Nginx yang Down.
 
     ```yaml
@@ -830,9 +830,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 0s
         labels:
           nodeName: "Node Client 2"
-          trafficUsage: "{{
-          }}"
-          $value
+          trafficUsage: "{PERLU_UBAH}"
     ```
   
     ---
