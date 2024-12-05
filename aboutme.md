@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Najwan Octavian Gerrard
-subtitle: Test
+title: About Me
+subtitle: Najwan Octavian Gerrard
 ---
 
 My name is Inigo Montoya. I have the following qualities:
