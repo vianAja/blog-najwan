@@ -8,12 +8,11 @@ share-img: /assets/img/wallpaper1.png
 tags: [Project, Kubernetes, Trivy, Harbor, Docker, Python, Slack]
 author: Najwan Octavian
 ---
+Pada Blog ini akan memberikan panduan lengkap dalam memanfaatkan Harbor dan Trivy sebagai solusi keamanan images container yang nantinya akan digunakan di dalam Kubernetes. Dengan Harbor, Anda bisa mengelola private registry yang terstruktur dan aman, sedangkan Trivy membantu mendeteksi kerentanan pada image container, menjaga standar keamanan aplikasi yang Anda gunakan.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pada Blog ini akan memberikan panduan lengkap dalam memanfaatkan Harbor dan Trivy sebagai solusi keamanan images container yang nantinya akan digunakan di dalam Kubernetes. Dengan Harbor, Anda bisa mengelola private registry yang terstruktur dan aman, sedangkan Trivy membantu mendeteksi kerentanan pada image container, menjaga standar keamanan aplikasi yang Anda gunakan.
+Tutorial ini juga menjelaskan cara mengintegrasikan Slack sebagai platform notifikasi, sehingga setiap hasil scan Trivy dapat langsung diinformasikan ke tim secara real-time. Notifikasi ini memungkinkan tim untuk merespons dengan cepat, memastikan langkah mitigasi yang efektif terhadap potensi ancaman.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tutorial ini juga menjelaskan cara mengintegrasikan Slack sebagai platform notifikasi, sehingga setiap hasil scan Trivy dapat langsung diinformasikan ke tim secara real-time. Notifikasi ini memungkinkan tim untuk merespons dengan cepat, memastikan langkah mitigasi yang efektif terhadap potensi ancaman.
-
-# Latar Belakang
+### Latar Belakang
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di Era digitalisasi sekarang yang semakin pesat, banyak perusahaan yang memerlukan solusi yang efektif dan handal dalam mengelola aplikasi yang bersifat fleksibel, otomatis serta aman dari kejahatan digital. Serta dengan adanya Cloud Computing menjadikan banyak perusahaan membutuhkan tools yang dapat di jalankan pada environment tersebut. Kubernetes menjadi salah satu tools yang paling banyak diminati oleh beberapa perusahaan, karena kemampuannya dalam mengelola container dalam skala besar.
 
@@ -21,7 +20,8 @@ author: Najwan Octavian
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Serta dibutuhkan juga Tools untuk mengirim notifikasi secara cepat dan otomatis, sehingga dapat secara cepat juga untuk mengatasi Vulnerability atau kerentanan terhadap Images yang akan di simpan di Harbor, malasah tersebut juga bisa diatasi dengan menggunakan Slack.
 
-# Tools
+### Tools
+
 1. Kubernetes – v1.28.15
 2. Kubeadm
 3. Kubectl
@@ -32,199 +32,200 @@ author: Najwan Octavian
 8. OpenSSL – 3.0.2
 9. Slack
 
-# Topologi
+### Topologi
+
 ![Branching](../assets/images/topologi.png)
 
-## Container
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Container adalah sebuah unit yang mengemas code dan semua dependensinya. Sehingga dapat berjalan atau berpindah environment dengan lebih cepat dan efisien. Container tersebut sangat ringan tidak seperti Virtual Machine (VM) yang memerlukan OS untuk setiap VM nya, karena dalam container hanya berisikan source code dan dependensinya saja, jadi memungkinkan menginstal apa yang di perlukan saja.
-
-## Docker
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Docker adalah salah satu platform software yang digunakan untuk membuat, mengelola aplikasi yang nantinya dikemas dalam sebuah wadah yang terisolasi yaitu container. Docker nantinya akan mengemas aplikasi berserta dependensi yang diperlukan dalam satu paket yang ringan. Sehingga dapat dijalankan secara konsisten tanpa mengubah konfigurasi.
-
-## Kubernetes (K8s)
+### Kubernetes (K8s)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kubernetes merupakan platform container orchestration yang berbasis open source, yang digunakan untuk management workload suatu aplikasi yang dikontainerisasi. Kubernetes juga menyediakan konfigurasi dan automation untuk mengelola aplikasi berbasis container, serta dapat mengelola Workload / beban kerja dari sebuah container apps secara Efisien dengan menggunakan fitur Horizontal Pod auto Scaling (HPA).
 
-## Harbor
+### Harbor
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harbor adalah registry open source yang digunakan untuk menyimpan dan mengelola Images yang akan digunakan untuk membuat Container. Harbor sendiri cukup diminati karena mudahnya integrasi dengan tools scanning Vulnerability seperti Trivy atau Clair, yang memungkinkan untuk melakukan pengecekan kerentanan (Vulnerability) terhadap Images yang disimpan menjadi lebih mudah.
 
-## Trivy
+### Trivy
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Trivy adalah salah satu tools scanning yang berbasis open source yang digunakan untuk mendeteksi kerentanan yang berfokus pada images container. Trivy memindai mulai dari Library atau Apps Dependencies (seperti Composer, npm, yarn) sampai kedalam Operating System (OS) yang digunakan, apakah aman atau tidak.
 
-## SSL (Secure Sockets Layer)
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SSL merupakan Protocol keamanan yang digunakan untuk mengenkrip si data seperti informasi pribadi, password, rekening, dan data lain yang bersifat sensitif, saat data dikirim kan ke server, data tersebut akan di enkripsi untuk menjaga keamanan dari data tersebut. SSL sertifikat yaitu sertifikat digital digunakan untuk autentikasi indentitas dari situs web yang memungkinkan koneksi enkripsi yang aman. Dan sering digunakan untuk menjaga keamanan data pengguna yang perlu memverifikasi kepemilikan situs website.
-
-## Slack
+### Slack
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan pengguna untuk mengirim pesan, file dan tools. Slack memiliki 2 metode, yaitu Direct Message (pesan langsung dari satu user ke user lain) dan Channel Group. Dan juga Slack dapat di integrasikan dengan aplikasi atau tools lain juga yang memungkinkan melakukan otomatisasi untuk notifikasi dari suatu aplikasi.
 
-# Langkah Implementasi
-## 1. Konfigurasi SSH.
-> **_Note: jalankan pada Semua Node_**
+## Langkah Implementasi
 
-  * Ubah Hostname pada Node agar memudahkan dalam mengidentifikasi Node yang ada.
-    ```
-    node-master   :~$ sudo hostnamectl set-hostname pod-master
-    node-worker01 :~$ sudo hostnamectl set-hostname pod-worker01
-    node-worker02 :~$ sudo hostnamectl set-hostname pod-worker02
-    node-harbor   :~$ sudo hostnamectl set-hostname pod-harbor
-    ```
+### 1. Install Docker Untuk Harbor Registry
 
-    
-  * Menambahkan IP dari Node dan Hostname semua Node ke **_“/etc/hosts”_** agar dapat di akses dengan menggunakan Hostname yang sudah di konfigurasi.
-    ```
-    ~$ sudo nano /etc/hosts
-
-    10.18.18.10 pod-master
-    10.18.18.20 pod-worker01
-    10.18.18.30 pod-worker02
-    10.18.18.40 pod-harbor
-    ```
-  * Buat Public dan Private key, lalu copy public key dari setiap Node ke dalam Node yang lain. Agar dapat melakukan SSH tanpa password.
-     ```
-     ~$ ssh-keygen
-
-     ~$ ssh-copy-id user@pod-master
-     ~$ ssh-copy-id user@pod-worker01
-     ~$ ssh-copy-id user@pod-worker02
-     ~$ ssh-copy-id user@pod-harbor
-     ```
-## 2. Install Docker Untuk Harbor Registry
-> **_Note: jalankan pada Node Harbor_**
 Panduan Dibahwah ini mencakup langkah-langkah konfigurasi Docker di sistem yang akan dibutuhkan, sehingga Anda dapat dengan mudah memahami dan mengimplementasikannya. Untuk dependensi yang dibutuhkan.
-```
+
+```css
 docker-ce                # Package utama Docker
 docker-ce-cli            # Package untuk CLI Docker
 containerd.io            # Package untuk Container RunTime Docker
 docker-buildx-plugin     # Package untuk Membuat Image Docker
-docker-compose-plugin    # Package untuk Docker compose
+docker-compose-plugin    # Package untuk Docker Compose
 ```
-Langkah Installasi bisa menggunakan dari page di bawah ini.
-#### [Page Install Docker](https://vianaja.github.io/blog-najwan/2024-10-19-install-docker/)
 
-## 3. Create SSL Certificate untuk Harbor
-> **_Note: jalankan pada Node Harbor_**
+Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi postingan saya yang berjudul [Docker Container](https://vianaja.github.io/blog-najwan/2024-10-1-docker/)
 
-  * Membuat file Config IP SAN, agar SSL Certificate dapat membaca akses jika melalui IP, dan di simpan di directory **_+“/etc/ssl/harbor/”_**.
-    ```
-    ~$ echo "subjectAltName=IP:<IP Address Node Harbor>" > harbor.txt
-    ```
-  * Membuat Certificate dan Key untuk koneksi https pada Harbor, yang nantinya di simpan di directory **_“/etc/ssl/harbor/”_**.
-    ```
-    ~$ sudo openssl genrsa -out harbor.key 4096
+<br>
 
-    ~$ sudo openssl req -sha512 -new \
-         -subj "/C=IN/ST=jateng/L=kendal/O=<Company Name>/OU=Personal/CN=<Domain>" \
-         -key harbor.key \
-         -out harbor.csr
+### 2. Create SSL Certificate untuk Harbor
 
-    ~$ sudo openssl x509 -req -sha512 -days 3650 \
-         -extfile harbor.ext \
-         -in harbor.csr \
-         -out harbor.crt
+* Membuat file Config IP SAN, agar SSL Certificate dapat membaca akses jika melalui IP, dan di simpan di directory **_+“/etc/ssl/”_**.
 
-    ```
-## 4. Install Harbor
-> **_Note: jalankan pada Node Harbor_**
+  ```bash
+  ~$ echo "subjectAltName=IP:<IP Address Node>" > IP_SANS.txt
+  ```
 
-  * Download Source Code untuk harbor, lalu unzip file source code harbor yang sudah di download.
-    ```
-    ~$ wget https://github.com/goharbor/harbor/releases/download/v2.10.0/harbor-offline-installer-v2.10.0.tgz
-    ~$ tar -xvzf harbor-offline-installer-v2.10.0.tgz
-    ```
-  * Lalu edit pada file ”harbor.yaml”. sesuaikan seperti di contoh berikut.
-    ```
-    ~$ cp harbor.yml.tmpl harbor.yml
-    ~$ nano harbor.yml
-    ```
-    ```
-    hostname: <IP or Domain> #10.18.18.40
-    http:
-        port: 80
-    https:
-        port: 443
-        certificate: /path/to/ca_harbor.crt
-        private_key: /path/to/ca_habror.key
+  ---
+* Membuat Certificate dan Key untuk koneksi https pada Harbor, yang nantinya disimpan di directory **_“/etc/ssl/harbor/”_**.
 
-    harbor_admin_password: <password admin harbor>
-    ```
-  * Lalu jalankan script **_“install.sh”_** dengan parameter **_“--with-trivy”_** untuk secara otomatis integrasi Harbor dengan Trivy. Lalu verifikasi container komponen dari harbor nya berjalan dengan baik tanpa error.
-    ```
-    ~$ sudo ~/harbor/install.sh --with-trivy
-    ~$ docker ps -a
-    ```
-## 5. Konfigurasi Harbor untuk Trigger Scan Trivy saat ada Image yang baru di Push dan mengatur agar user dapat Pull Image dengan tingkat kerentanan yang rendah atau aman.
-  * Login ke Harbor dengan user **_“admin”_**, lalu masuk ke project yang ingin di konfigurasi.
-    ![Branching](../assets/images/9.19.png)
-    
-  * Lalu pilih **_“Configuration”_**, kemudian centang pada bagian :
-      - **_“Prevent vulnerable images from running.”_** Untuk mengatur agar user tidak dapat Pull Images dengan kerentanan yang tinggi. Contohnya di level **_“Critical”_** (yang berbahaya sekali) atau yang Levelnya diatasnya lagi.
-      - **_“Vulnerability Scanning”_**. Untuk mengatur agar saat ada Push images akan secara otomatis di scanning.
-    ![Branching](../assets/images/harbor_config.png)
-    
+  ```bash
+  ~$ sudo openssl genrsa -out harbor.key 4096
+
+  ~$ sudo openssl req -sha512 -new \
+      -subj "/C=IN/ST=jateng/L=kendal/O=<Company Name>/OU=Personal/CN=<Domain>"\
+      -key harbor.key \
+      -out harbor.csr
+      
+  ~$ sudo openssl x509 -req -sha512 -days 3650 \
+      -key harbor.key
+      -extfile /etc/ssl/IP_SANS.ext \
+      -in harbor.csr \
+      -out harbor.crt
+  ```
+
+  ---
+
+<br>
+
+### 3. Install Harbor
+
+* Download Source Code untuk harbor, lalu unzip file source code harbor yang sudah di download.
+
+  ```bash
+  ~$ wget https://github.com/goharbor/harbor/releases/download/v2.10.0/harbor-offline-installer-v2.10.0.tgz
+  ~$ tar -xvzf harbor-offline-installer-v2.10.0.tgz
+  ```
+
+  ---
+* Lalu edit pada file ”harbor.yaml”. sesuaikan seperti di contoh berikut.
+
+  ```bash
+  ~$ cp harbor.yml.tmpl harbor.yml
+  ~$ nano harbor.yml
+  ```
+
+  ```bash
+  hostname: <IP or Domain> 
+  http:
+      port: 80
+  https:
+      port: 443
+      certificate: /path/to/ca_harbor.crt
+      private_key: /path/to/ca_habror.key
+
+  harbor_admin_password: <password admin harbor>
+  ```
+
+  ---
+* Lalu jalankan script **_“install.sh”_** dengan parameter **_“--with-trivy”_**untuk secara otomatis integrasi Harbor dengan Trivy. Lalu verifikasi container komponen dari harbor nya berjalan dengan baik tanpa error.
+
+  ```bash
+  ~$ sudo ~/harbor/install.sh --with-trivy
+  ~$ docker ps -a
+  ```
+
+  ---
+
+<br>
+
+### 4. Konfigurasi Harbor untuk Trigger Scan Trivy saat ada Image yang baru di Push dan mengatur agar user dapat Pull Image dengan tingkat kerentanan yang rendah atau aman
+
+* Login ke Harbor dengan user **_“admin”_**, lalu masuk ke project yang ingin di konfigurasi.
+  ![Branching](../assets/images/9.19.png)
   
-## 6. Install Kubernetes Cluster
-> **_Note: jalankan pada Node Master dan Worker_**
+  ---
+* Lalu pilih **_“Configuration”_**, kemudian centang pada bagian
+  * **_“Prevent vulnerable images from running.”_** Untuk mengatur agar user tidak dapat Pull Images dengan kerentanan yang tinggi. Contohnya di level **“Critical”** (yang berbahaya sekali) atau yang Levelnya diatasnya lagi.
 
-  * Update dan Upgrade packages.
-    ```
-    ~$ sudo apt update && \
-        sudo apt upgrade -y && \
-        sudo apt autoremove -y
-    ```
-  * Install dependensi dan menambah repository untuk install containerd.
-    ```
-    ~$ sudo apt install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates
+  * **_“Vulnerability Scanning”_**. Untuk mengatur agar saat ada Push imagesakansecara otomatis di scanning.
+  ![Branching](../assets/images/harbor_config.png)
+  
+### 5. Install Kubernetes Cluster
 
-    ~$ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/docker.gpg
-    ~$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-    ```
-  * Install Containerd lalu Config Containerd.
-    ```
-    ~$ sudo apt update
-    ~$ sudo apt install -y containerd.io
+* Update dan Upgrade packages.
+  ```bash
+  ~$ sudo apt update && \
+      sudo apt upgrade -y && \
+      sudo apt autoremove -y
+  ```
 
-    ~$ containerd config default | sudo tee /etc/containerd/config.toml >/dev/null 2>&1
-    ~$ sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
+  ---
+* Install dependensi dan menambah repository untuk install containerd.
 
-    ~$ sudo systemctl restart containerd
-    ~$ sudo systemctl enable containerd
-    ```
-  * Add kernel setting overlay.
-    ```
-    ~$ cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-        overlay
-        br_netfilter
-        EOF
+  ```bash
+  ~$ sudo apt install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates
 
-    ~$ sudo modprobe overlay
-    ~$ sudo modprobe br_netfilter
-    ```
-  * Konfigurasi iptables.
-    ```
-    ~$ cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-        net.bridge.bridge-nf-call-iptables  = 1
-        net.bridge.bridge-nf-call-ip6tables = 1
-        net.ipv4.ip_forward = 1
-        EOF
+  ~$ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/docker.gpg
+  ~$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  ```
 
-    ~$ sudo sysctl --system
-    ```
-  * Menambahkan repository untuk kubectl, kubelet, dan kubeadm dan Install tools tersebut.
-    ```
-    ~$ sudo apt-get install -y apt-transport-https ca-certificates
-    ~$ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  ---
+* Install Containerd lalu Config Containerd.
 
-    ~$ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+  ```bash
+  ~$ sudo apt update
+  ~$ sudo apt install -y containerd.io
+  ~$ containerd config default | sudo tee /etc/containerd/config.toml >/dev/null 2>&1
+  ~$ sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
 
-    ~$ sudo apt-get update && sudo apt-get install -y kubelet kubeadm kubectl
-    ~$ sudo apt-mark hold kubelet kubeadm kubectl
-    ```
+  ~$ sudo systemctl restart containerd
+  ~$ sudo systemctl enable containerd
+  ```
+
+  ---
+* Add kernel setting overlay.
+
+  ```bash
+  ~$ cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+    overlay
+    br_netfilter
+    EOF
+
+  ~$ sudo modprobe overlay
+  ~$ sudo modprobe br_netfilter
+  ```
+
+  ---
+* Konfigurasi iptables.
+
+  ```bash
+  ~$ cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+    net.bridge.bridge-nf-call-iptables  = 1
+    net.bridge.bridge-nf-call-ip6tables = 1
+    net.ipv4.ip_forward = 1
+    EOF
+
+  ~$ sudo sysctl --system
+  ```
+
+  ---
+* Menambahkan repository untuk kubectl, kubelet, dan kubeadm dan Install tools tersebut.
+
+  ```bash
+  ~$ sudo apt-get install -y apt-transport-https ca-certificates
+  ~$ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+  ~$ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+  ~$ sudo apt-get update && sudo apt-get install -y kubelet kubeadm kubectl
+  ~$ sudo apt-mark hold kubelet kubeadm kubectl
+  ```
+
+  ---
+  
 > **_Note: jalankan pada Node Master_**
 
   * Initialze untuk membuat Cluster Kubernetes di Master Node.

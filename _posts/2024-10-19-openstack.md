@@ -9,17 +9,20 @@ tags: [OpenStack, Container]
 author: Najwan Octavian Gerrard
 ---
 
-OpenStack adalah salah satu platform open-source yang digunakan untuk membuat atau mengelola infrastruktur cloud computing, dan Openstack dapat dikelola melalui dashboard berbasis web. 
+OpenStack adalah salah satu platform open-source yang digunakan untuk membuat atau mengelola infrastruktur cloud computing, dan Openstack dapat dikelola melalui dashboard berbasis web.
+
 Cloud computing, atau komputasi awan, itu merupakan teknologi yang memungkinkan pengguna untuk mengakses sumber daya komputasi melalui internet. Sumber daya komputasi tersebut mencakup server, penyimpanan, jaringan, dan perangkat lunak
-Beberapa manfaat cloud computing, antara lain:
+Beberapa manfaat cloud computing, antara lain
+
 - Fleksibilitas, karena dapat di akses dari mana saja, tanpa harus pergi ke server fisiknya langsung, dengan ketentuan harus terhubung ke internet
 - Skalabilitas, karena dapat di scale up dengan lebih mudah, tidak seperti server fisik yang harus mengganti komponennya untuk scale up
 - Efisiensi modal biaya, karena tidak perlu beli komponen fisik secara utuh.
 - Kemudahan mengakses informasi dan data karena dapat di akses lewat internet.
 - Kemudahan menjalankan program tanpa harus memasang terlebih dahulu.
 
-OpenStack sendiri terdiri dari beberapa Componen, sebagai berikut :
-- **Keystone**, aadalah indentity service, semua komponen pada openstack akan melewati keystone untuk melakukan verifikasi akses,
+OpenStack sendiri terdiri dari beberapa Componen, sebagai berikut
+
+- **Keystone**, aadalah indentity service, semua komponen pada openstack akan melewati keystone untuk melakukan verifikasi akses.
 - **Neutron**,  service untuk networking pada openstack. Yang mengatur jaringan internal dan external dari Cluster Openstack.
 - **Nova**, sebagai compute service, yang nantinya bertugas untuk membuat instance (atau VM) di dalam Cluster Openstack
 - **Glance**, berfungsi sebagai tempat menyimpan images OS yang nantinya akan digunakan saat membuat suatu Instance.
@@ -28,31 +31,40 @@ OpenStack sendiri terdiri dari beberapa Componen, sebagai berikut :
 - **RabbitMQ**, salah satu Message Broker yang bertugas untuk mengirimkan pesan yang nantinya akan di diterima oleh client dari RabbitMQ.
 
 Keuntungan Menggunakan Openstack:
+
 - **Fleksibilitas dan Kustomisasi**: OpenStack memungkinkan pengguna untuk menyesuaikan lingkungan cloud mereka sesuai dengan kebutuhan spesifik mereka.
 - **Efisiensi Biaya**: Ini dapat membantu mengurangi total biaya kepemilikan karena gratis.
 - **Skalabilitas**: OpenStack mendukung penskalaan horizontal, yang berarti Anda dapat menambahkan lebih banyak mesin ke lingkungan cloud Anda untuk menangani peningkatan beban.
 - **Keamanan**: Ini memiliki fitur keamanan yang kuat yang dapat ditingkatkan oleh pengguna atau melalui layanan pihak ketiga.
+
 <br>
 
 ### Kolla-Ansible
+
 Kolla-Ansilbe adalah salah satu Tools Deployment Openstack Cluster untuk skala Production, yang scalable, cepat, dan mudah di upgrade yang menjadikannya banyak di pakai oleh perusahaan. Kolla-Ansible akan mendeploy Openstack pada sebuah Container, dan karena Kolla-Ansible menggunakan Ansible, jadi saat proses deployment akan lebih mudah, simple, serta cepat, dan juga lebih fleksible dalam konfigurasi sesuai yang dibutuhkan.
-Manfaat menggunakan Kolla-Ansible:
+Manfaat menggunakan Kolla-Ansible
+
 - Praktis, karena menggunakan Ansible, jadi semua deployment dilakukan otomatis, tinggal menyesuaikan kebutuhan sesuai keinginan saja, misalkan service apa saja yang ingin di buat, sampai opsi TLS.
 - Mengurangi kelalaian manusia apabila melakukan deployment Openstack manual.
 <br>
 
 ### Langkah Implementasi
+
 - Install dependencies yang dibutuhkan OpenStack dan Kolla-Ansible
+
   ```bash
   sudo apt-get install python3-dev python3-selinux python3-setuptools python3-venv gcc libffi-dev libssl-dev -y
   ```
+
   ---
 - Membuat Virtual Environment Python, agar saat membutuhkan versi tertentu dari library python, tidak akan berpengaruh ke system host langsung. lalu aktifkan Virtual Env Pythonnya.
+
   ```bash
   ~$ python3 -m venv kolla-venv
   ~$ source kolla-venv/bin/activate
   ```
----
+
+  ---
 - Install ansible dan kolla-ansible untuk deployment Openstack.
 
   ```bash
