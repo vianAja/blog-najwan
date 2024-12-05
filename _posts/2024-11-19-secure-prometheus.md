@@ -31,13 +31,19 @@ Serta dibutuhkan juga Alerting agar dapat memberikan peringatan dini terkait sem
 - **Discord**
 - **Email**
 
+<br>
+
 ### Topologi
 
 ![Topologi](../assets/images/topologi_secure_prome.png).
 
+<br>
+
 ### Alur kerja
 
 ![Branching](../assets/images/alur-kerja.png)
+
+<br>
 
 #### Apache
 
@@ -150,7 +156,8 @@ Serta dibutuhkan juga Alerting agar dapat memberikan peringatan dini terkait sem
     ~$ sudo openssl req -sha512 -new \
         -subj "/C=IN/ST=jateng/L=kendal/0=Apache Najwan/OU=Apache Najwan/CN=Apache Najwan>" \
         -key /etc/ssl/apache/apache.key \
-        -out /etc/ssl/apache/apache.cs  
+        -out /etc/ssl/apache/apache.csr
+
     ~$ sudo openssl x509 -req -sha512 -days 3650 \
         -key /etc/ssl/apache/apache.key \
         -extfile /etc/ssl/IP_SANS.txt \
@@ -162,7 +169,7 @@ Serta dibutuhkan juga Alerting agar dapat memberikan peringatan dini terkait sem
   - Client Web Server Apache2
     ```bash
     ~$ sudo openssl genrsa -out /etc/ssl/apache/client/client.key 2048
-       
+    
     ~$ sudo openssl req -sha512 -new \
         -subj "/C=IN/ST=jateng/L=kendal/0=Apache Najwan/OU=Apache Najwan/CN=Apache Najwan>" \
         -key /etc/ssl/apache/client/client.key \
@@ -200,7 +207,7 @@ Serta dibutuhkan juga Alerting agar dapat memberikan peringatan dini terkait sem
 
 - Install Package Node Exporter, lalu pindahkan ke directory **_"/etc"_**.
   ```bash
-  ~$ wget https://github.com/prometheus/node_exporter/releases/download/ v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
+  ~$ wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
   ~$ sudo cp node_exporter-1.8.2.linux-amd64 /etc/node_exporter/
   ```
 
@@ -304,7 +311,7 @@ Serta dibutuhkan juga Alerting agar dapat memberikan peringatan dini terkait sem
 
 #### 4. Install dan Konfigurasi Nginx dengan SSL
 
-- Install Package Apache2, dan Download Source Code untuk aplikasi **_[Tic TaToe](https://github.com/Aklilu-Mandefro/javascript-Tic-Tac-Toe-game-app)_**.
+- Install Package Apache2, dan Download Source Code untuk aplikasi **_[Tic Tac Toe](https://github.com/Aklilu-Mandefro/javascript-Tic-Tac-Toe-game-app)_**.
   ```bash
   ~$ sudo apt install nginx -y
   ~$ git clone https://github.com/Aklilu-Mandefro/javascript-Tic-Tac-Toe-game-app)
@@ -462,11 +469,11 @@ containerd.io            # Package untuk Container RunTime Docker
 docker-buildx-plugin     # Package untuk Membuat Image Docker
 docker-compose-plugin    # Package untuk Docker compose
 ```
-Langkah Installasi lebih detail bisa kunjungi post saya yang **_[Install Docker](https://vianaja.github.io/blog-najwan/2024-10-19-install-docker/)_**.
+Langkah Installasi lebih detail bisa kunjungi post saya yang **_[Install Docker](https://vianaja.github.io/blog-najwan/2024-10-01-install-docker/)_**.
 
 <br>
 
-### 8. Install CAdvisor untuk Monitoring Container Docker
+#### 8. Install CAdvisor untuk Monitoring Container Docker
 
 - Jalankan Container CAdvisor.
   ```bash
@@ -491,7 +498,6 @@ Langkah Installasi lebih detail bisa kunjungi post saya yang **_[Install Docker]
 #### 9. Install dan Konfigurasi Prometheus dengan SSL
 
 - Untuk langkah - langkah Installasi Prometheus bisa mengikuti dari postingan saya yang  **_[Prometheus](https://vianaja.github.io/blog-najwan/2024-11-01-prometheus/)_**. Dan dilanjutkan dengan konfigurasi di bwah ini untuk menambahkan TLS ke Prometheusnya.
-
 - Buat file **_“web-config.yml”_** di directory **_“/etc/prometheus/”_**  yang nantinya digunakan untuk koneksi ssl.
   ```yaml
   tls_server_config:
@@ -500,7 +506,7 @@ Langkah Installasi lebih detail bisa kunjungi post saya yang **_[Install Docker]
   ```
 
   ---
-- Lalu edit di bagian Service, di bagian **_ExecStart_**. terus tambahkan untuk path dari file config untuk TLS/SSL dengan **_"--web.config.file="_**.
+- Lalu edit di bagian Service, di bagian **_ExecStart_**. terus tambahkan untuk path dari file config untuk TLS/SSL dengan **_"--web.config.file"_**.
   ```bash
   ~$ sudo nano /etc/systemd/system/prometheus_server.service
   ```
@@ -516,9 +522,9 @@ Langkah Installasi lebih detail bisa kunjungi post saya yang **_[Install Docker]
 
   ---
 - Edit di file **_/etc/prometheus/config.yml_** untuk Mengatur alerting ke AlertManager, Rules untuk Alerting, serta Targets yang akan di Pantau, dan konfigurasi untuk koneksi TLS/SSL nya juga. contohnya seperti berikut, saya monitoring untuk:
-  - 3 Node Server (menggunakan Node Exporter)
-  - Web Service (Apache2 dan Nginx)
-  - Container Docker
+  - **3 Node Server (menggunakan Node Exporter)**
+  - **Web Service (Apache2 dan Nginx)**
+  - **Container Docker**
   
   ```yaml
   global:
@@ -595,13 +601,13 @@ Langkah Installasi lebih detail bisa kunjungi post saya yang **_[Install Docker]
 
 #### 10. Install Grafana
 
-Bisa ikuti panduan Dibahwah ini mencakup langkah-langkah Installasi, konfigurasi Grafana hingga cara menambahkan Data Source, baik yang menggunakan HTTPS atau HTTP biasa. sehingga Anda dapat dengan mudah memahami dan mengimplementasikannya. [Page Install Grafana](https://vianaja.github.io/blog-najwan/2024-10-30-grafana/)
+Bisa ikuti panduan Dibahwah ini mencakup langkah-langkah Installasi, konfigurasi Grafana hingga cara menambahkan Data Source, baik yang menggunakan HTTPS atau HTTP biasa. sehingga Anda dapat dengan mudah memahami dan mengimplementasikannya. Kunjungi Postingan saya yang ini [Grafana](https://vianaja.github.io/blog-najwan/2024-10-30-grafana/).
 
 <br>
 
 #### 11. Install Alert Manager
 
-Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari page yang ada di bahwa ini. [Page Install Alert Manager](https://vianaja.github.io/blog-najwan/2024-11-02-alert-manager/)
+Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan saya yang ini. [Alert Manager](https://vianaja.github.io/blog-najwan/2024-11-02-alert-manager/). Sudah mencakup penjelasan juga agar lebih memahami terkait Alert Manager, lalu untuk Project yang saya buat, perlu ada konfigurasi tambahan lagi, mengikuti instruksi di bawah ini.
 
 - Konfigurasi untuk Alert Managernya untuk mengirim notifikasi ke mana, sebagai contoh di sini saya menggunakan 3, yaitu ke Email, Discord Webhook dan Endpoint Webhook URL (yang nantinya saya hubungkan ke Program Python yang akan memfilter Notification yang di kirim).
   ```yaml
@@ -641,6 +647,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari page yang a
   ---
 - Konfigurasi untuk rules yang mentrigger alert manager mengirim notifikasi.
   - Rules untuk Web Server Apache atau Nginx yang Down.
+
     ```yaml
     groups:
     - name: nginx.rules
@@ -664,7 +671,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari page yang a
   
     ---
   - Rules untuk jumlah Container yang Stopped atau Down.
-    
+
     ```yaml
     groups:
     - name: container.rules
@@ -681,6 +688,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari page yang a
   
     ---
   - Rules untuk CPU Available pada semua server atau node.
+
     ```yaml
     groups:
     - name: cpu-free-under-35-monitoring.rules
@@ -713,6 +721,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari page yang a
 
     ---
   - Rules untuk Memory Available pada semua server atau node.
+
     ```yaml
     groups:
     - name: memory-available-under-35-Monitoring.rules
@@ -745,6 +754,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari page yang a
   
     ---
   - Rules untuk Penyimpanan atau Disk jika penuh dari setiap server atau node.
+
     ```yaml
     groups:
     - name: disk-usage-75-persen-node-monitoring.rules
@@ -777,6 +787,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari page yang a
   
     ---
   - Rules untuk Traffic Networking jika ada lonjakan Traffic dari setiap server atau node.
+
     ```yaml
     groups:
     - name: record-traffic-node-monitoring
@@ -829,7 +840,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari page yang a
 
 - Ambil Token Discord agar program python nya dapat mengirim notifikasi ke channe Discorrd yang sesuai, dari referensi video **_[YouTube](https://youtu.be/UYJDKSah-Ww?si=2SYaHg74DT47RuGS)_** ini (cukup sampai pengambilan Token Discord).
     
-- Donwload contoh sample program python di **_[github](https://github.com/vianAja/Discord-alertmanager-python.git)_** ini. untuk contoh filtering alert agar mengarah ke beberapa channel seperti di contoh. ikuti instruksi sesuai di githubnya.
+- Donwload contoh sample program python di github**_[ini](https://github.com/vianAja/Discord-alertmanager-python.git)_**. untuk contoh filtering alert agar mengarah ke beberapa channel seperti di contoh. ikuti instruksi sesuai di githubnya.
 
 <br>
 
