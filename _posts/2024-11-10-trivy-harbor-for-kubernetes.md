@@ -142,7 +142,7 @@ Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi post
   * **_“Prevent vulnerable images from running.”_** Untuk mengatur agar user tidak dapat Pull Images dengan kerentanan yang tinggi. Contohnya di level **“Critical”** (yang berbahaya sekali) atau yang Levelnya diatasnya lagi.
 
   ---
-  * **_“Vulnerability Scanning”_**. Untuk mengatur agar saat ada Push imagesakansecara otomatis di scanning.
+  * **_“Vulnerability Scanning”_**. Untuk mengatur agar saat ada Push images akan secara otomatis di scanning.
   ![Branching](../assets/images/harbor_config.png)
   ---
 
