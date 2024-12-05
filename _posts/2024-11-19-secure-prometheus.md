@@ -698,7 +698,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 5s
         labels:
           nodeName: "Node Monitoring"
-          cpuUsage: "{{ $value }}"
+          cpuUsage: "{PERLU_UBAH}"
     
     - name: cpu-free-under-35-client01.rules
       rules:
@@ -707,7 +707,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 5s
         labels:
           nodeName: "Node Client 1"
-          cpuUsage: "{{ $value }}"
+          cpuUsage: "{PERLU_UBAH}"
 
     - name: cpu-free-under-35-client02.rules
       rules:
@@ -716,7 +716,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 5s
         labels:
           nodeName: "Node Client 2"
-          cpuUsage: "{{ $value }}"
+          cpuUsage: "{PERLU_UBAH}"
     ```
 
     ---
@@ -731,7 +731,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 5s
         labels:
           nodeName: "Node Monitoring"
-          memUsage: "{{ $value }}"
+          memUsage: "{PERLU_UBAH}"
     
     - name: memory-available-under-35-client01.rules
       rules:
@@ -740,7 +740,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 5s
         labels:
           nodeName: "Node Client 1"
-          memUsage: "{{ $value }}"
+          memUsage: "{PERLU_UBAH}"
     
     - name: memory-available-under-35-client02.rules
       rules:
@@ -749,7 +749,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 5s
         labels:
           nodeName: "Node Client 2"
-          memUsage: "{{ $value }}"
+          memUsage: "{PERLU_UBAH}"
     ```
   
     ---
@@ -764,7 +764,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 5s
         labels:
           nodeName: "Node Monitoring"
-          diskUsage: "{{ $value }}"
+          diskUsage: "{PERLU_UBAH}"
     
     - name: disk-usage-75-persen-node-client01.rules
       rules:
@@ -773,7 +773,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 5s
         labels:
           nodeName: "Node Client 1"
-          diskUsage: "{{ $value }}"
+          diskUsage: "{PERLU_UBAH}"
     
     - name: disk-usage-75-persen-node-client02.rules
       rules:
@@ -782,7 +782,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 5s
         labels:
           nodeName: "Node Client 2"
-          diskUsage: "{{ $value }}"
+          diskUsage: "{PERLU_UBAH}"
     ```
   
     ---
@@ -802,7 +802,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 0s
         labels:
           nodeName: "Node Monitoring"
-          trafficUsage: "{{ $value }}"
+          trafficUsage: "{PERLU_UBAH}"
     
     - name: record-traffic-node-client01
       rules:
@@ -816,7 +816,7 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
         for: 0s
         labels:
           nodeName: "Node Client 1"
-          trafficUsage: "{{ $value }}"
+          trafficUsage: "{PERLU_UBAH}"
     
     - name: record-traffic-node-client02
       rules:
