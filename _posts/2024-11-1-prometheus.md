@@ -11,8 +11,6 @@ author: Najwan Octavian Gerrard
 
 Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang open source, yang lebih berfokus pada pengelolaan metrics dari suatu aplikasi atau system. Metrics sendiri merupakan data angka yang menunjukan performa atau nilai kinerja suatu aplikasi atau system.
 
-<br>
-
 ### Keuntungan Menggunakan Prometheus
 
 - **Fleksibilitas**, karena prometheus bisa untuk memantau berbagai sistem dan layanan, dari yang kecil sampai yang skala besar. Dan mudah di konfigurasikan dengan tools visualisasi atau alerting dengan cukup mudah.
@@ -20,20 +18,18 @@ Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang op
 
 <br>
 
-### Install dan Konfigurasi Prometheus dengan SSL
+### Install dan Konfigurasi Prometheus
 
 - Download Package Prometheus.
-
   ```bash
-  sudo su
-  wget https://github.com/prometheus/prometheus/releases/download/v2.48.1prometheus-2.48.1.linux-amd64.tar.gz
-  tar -xvfz prometheus-2.48.1.linux-amd64.tar.gz
-  cp prometheus-2.48.1.linux-amd64/ /etc/prometheus
+  ~$ sudo su
+  ~# wget https://github.com/prometheus/prometheus/releases/download/v2.48.1prometheus-2.48.1.linux-amd64.tar.gz
+  ~# tar -xvfz prometheus-2.48.1.linux-amd64.tar.gz
+  ~# cp prometheus-2.48.1.linux-amd64/ /etc/prometheus
   ```
   
   ---
 - Lalu Edit di file **_"/etc/prometheus/config.yml"_** untuk mengatur Targetsyang akan di Pantau.
-
   ```yaml
   global:
     scrape_interval: 15s
@@ -46,31 +42,11 @@ Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang op
   ```
 
   ---
-- Atur untuk Alerting, menggunakan Alert Manager di file **_"/etc/prometheusconfig.yml"_**.
-
-  ```yaml
-  alerting:
-    alertmanagers:
-      - static_configs:
-          - targets:
-            - IP_ALERT_MANAGER:PORT
-  ```
   
-  ---
-- Atur untuk File Rules / aturan yang akan digunakan untuk alerting di file **_"etc/prometheus/config.yml"_**.
-  
-  ```yaml
-  rule_files:
-    - "FILE_RULES.yml"
-  ```
-
-  ---
 - Buat Service agar dapat berjalan di Background.
-
   ```bash
-  sudo nano /etc/systemd/system/prometheus_server.service
+  ~$ sudo nano /etc/systemd/system/prometheus_server.service
   ```
-
   ```bash
   [Unit]
   Description=Prometheus Server
@@ -85,14 +61,17 @@ Prometheus adalah salah satu tools monitoring system yang berbasis Cloud yang op
   
   ---
 - Restart Daemon dan jalankan Service Prometheus nya.
-
   ```bash
-  sudo systemctl daemon-reload
-  sudo systemctl start prometheus_server.service
-  sudo systemctl enable prometheus_server.service
-  sudo systemctl status prometheus_server.service
+  ~$ sudo systemctl daemon-reload
+  ~$ sudo systemctl start prometheus_server.service
+  ~$ sudo systemctl enable prometheus_server.service
+  ~$ sudo systemctl status prometheus_server.service
   ```
   
   ---
 
-Untuk Konfigurasi TLS/SSL pada Prometheus, bisa ke Postingan Blog saya berikut ini, **_[Secure Prometheus](https://vianaja.github.io/blog-najwan/2024-11-19-secure-prometheus/)_** pada Langkah Implementasi nomor 9.
+> Untuk Konfigurasi TLS/SSL pada Prometheus, bisa kunjungi Postingan saya berikut ini, **_[Secure Prometheus](https://vianaja.github.io/blog-najwan/2024-11-19-secure-prometheus/)_**.
+
+Lalu setelah deployment Prometheus selesai, kalian bisa lanjut untuk mengkonfigurasi Alert Manager, apabila dibutuhkan. Sudah ada di Postingan saya yang [Alert Manager](https://vianaja.github.io/blog-najwan/2024-11-02-alert-manager/), di dalamnya disertakan penjelasn dan langkah konfigurasi.
+
+Kemudian bila ingin di integrasikan dengan Grafana untuk data Visualisasinya, saya sudah membuatkan Postingan sendiri terkait itu, bisa cek di Postingan saya yang ini [Grafana](https://vianaja.github.io/blog-najwan/2024-10-30-grafana/).

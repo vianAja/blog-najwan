@@ -11,17 +11,15 @@ author: Najwan Octavian
 
 Kubernetes merupakan platform Container Orchestration yang berbasis open source, yang digunakan sering untuk management workload suatu aplikasi yang dikontainerisasi. Kubernetes juga menyediakan konfigurasi dan automation untuk mengelola aplikasi berbasis container, serta dapat mengelola Workload / beban kerja dari sebuah container apps secara Efisien dengan menggunakan fitur Horizontal Pod auto Scaling (HPA).
 
-### Instalation
+### Installation
 
 * Update dan Upgrade packages.
-
   ```bash
   ~$ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
   ```
 
   ---
 * Install dependensi dan menambah repository untuk install containerd.
-
   ```bash
   ~$ sudo apt install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates
 
@@ -31,7 +29,6 @@ Kubernetes merupakan platform Container Orchestration yang berbasis open source,
 
   ---
 * Install Containerd lalu Config Containerd.
-
   ```bash
   ~$ sudo apt update
   ~$ sudo apt install -y containerd.io
@@ -44,7 +41,6 @@ Kubernetes merupakan platform Container Orchestration yang berbasis open source,
 
   ---
 * Add kernel setting overlay.
-
   ```bash
   ~$ cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
     overlay
@@ -57,7 +53,6 @@ Kubernetes merupakan platform Container Orchestration yang berbasis open source,
 
   ---
 * Konfigurasi iptables.
-
   ```bash
   ~$ cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
     net.bridge.bridge-nf-call-iptables  = 1
@@ -70,7 +65,6 @@ Kubernetes merupakan platform Container Orchestration yang berbasis open source,
 
   ---
 * Menambahkan repository untuk kubectl, kubelet, dan kubeadm dan Install tools tersebut.
-
   ```bash
   ~$ sudo apt-get install -y apt-transport-https ca-certificates
   ~$ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
@@ -86,7 +80,6 @@ Kubernetes merupakan platform Container Orchestration yang berbasis open source,
 > **_Note: jalankan pada Node Master_**
 
 * Initialze untuk membuat Cluster Kubernetes di Master Node.
-
   ```bash
   ~$ sudo kubeadm init --pod-network-cidr=10.244.XX.0/16
   ~$ mkdir -p $HOME/.kube
@@ -96,7 +89,6 @@ Kubernetes merupakan platform Container Orchestration yang berbasis open source,
 
   ---
 * Add Flannel.
-
   ```bash
   ~$ wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
   ~$ kubectl apply -f kube-flannel.yml
@@ -105,7 +97,6 @@ Kubernetes merupakan platform Container Orchestration yang berbasis open source,
   
   ---
 * Menampilkan Token dan CA Certificate.
-
   ```bash
   ~$ sudo kubeadm token list
   ~$ sudo openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
@@ -116,7 +107,6 @@ Kubernetes merupakan platform Container Orchestration yang berbasis open source,
 > **_Note: jalankan pada Node Worker_**
 
 * Initialze Node Worker
-
   ```bash
   ~$ sudo kubeadm join --token [TOKEN] [NODE-MASTER]:6443 --discovery-token-ca-cert-hash sha256:[TOKEN-CA-CERT-HASH]
   ```

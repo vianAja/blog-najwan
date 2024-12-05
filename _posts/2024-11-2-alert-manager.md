@@ -21,7 +21,6 @@ Exporter Prometheus adalah suatu tools yang digunakan untuk mengubah data metric
 ## Installations
 
 - Download Package Grafana, lalu pindahkan ke **_/etc_**.
-
   ```bash
   sudo su
   wget https://dl.grafana.com/oss/release/grafana-11.2.2.linux-amd64.tar.gz
@@ -30,8 +29,25 @@ Exporter Prometheus adalah suatu tools yang digunakan untuk mengubah data metric
   ```
   
   ---
-- Konfigurasi untuk Alert Managernya untuk mengirim notifikasi ke mana.
+- Atur di Prometheus untuk menggunakan Alert Manager di file **_"/etc/prometheusconfig.yml"_**.
+  ```yaml
+  alerting:
+    alertmanagers:
+      - static_configs:
+          - targets:
+            - IP_ALERT_MANAGER:PORT
+  ```
+  
+  ---
+- Atur untuk File Rules / aturan yang akan digunakan untuk alerting di file **_"etc/prometheus/config.yml"_**.
+  ```yaml
+  rule_files:
+    - "FILE_RULES.yml"
+  ```
 
+  ---
+
+- Konfigurasi untuk Alert Managernya untuk mengirim notifikasi ke mana. sebagai contoh saya menggunakan Alerting ke Email, untuk lebih detailnya terkait bisa di hubungkan dengan apa saja, bisa kunjungi website resmi dari [Prometheus](https://prometheus.io/docs/alerting/latest/configuration/#receiver) nya. 
   ```yaml
   global:
     resolve_timeout: 15s
@@ -54,7 +70,6 @@ Exporter Prometheus adalah suatu tools yang digunakan untuk mengubah data metric
   ---
 - Konfigurasi untuk rules yang mentrigger alert manager mengirim notifikasi.
   Rules untuk Web Server Apache atau Nginx yang Down.
-  
   ```yaml
   groups:
   - name: NAME_RULES
@@ -69,11 +84,9 @@ Exporter Prometheus adalah suatu tools yang digunakan untuk mengubah data metric
   
   ---
 - Lalu buat service, agar dapat berjalan di background.
-
   ```bash
   sudo nano /etc/systemd/system/alert_manager.service
   ```
-
   ```bash
   [Unit]
   Description=Alert Manager
@@ -91,7 +104,6 @@ Exporter Prometheus adalah suatu tools yang digunakan untuk mengubah data metric
   
   ---
 - Restart Daemon dan jalankan Service Alert Manager nya.
-
   ```bash
   sudo systemctl daemon-reload
   sudo systemctl start alert_manager.service

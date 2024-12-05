@@ -36,10 +36,6 @@ Tutorial ini juga menjelaskan cara mengintegrasikan Slack sebagai platform notif
 
 ![Branching](../assets/images/topologi.png)
 
-### Kubernetes (K8s)
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kubernetes merupakan platform container orchestration yang berbasis open source, yang digunakan untuk management workload suatu aplikasi yang dikontainerisasi. Kubernetes juga menyediakan konfigurasi dan automation untuk mengelola aplikasi berbasis container, serta dapat mengelola Workload / beban kerja dari sebuah container apps secara Efisien dengan menggunakan fitur Horizontal Pod auto Scaling (HPA).
-
 ### Harbor
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harbor adalah registry open source yang digunakan untuk menyimpan dan mengelola Images yang akan digunakan untuk membuat Container. Harbor sendiri cukup diminati karena mudahnya integrasi dengan tools scanning Vulnerability seperti Trivy atau Clair, yang memungkinkan untuk melakukan pengecekan kerentanan (Vulnerability) terhadap Images yang disimpan menjadi lebih mudah.
@@ -73,14 +69,12 @@ Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi post
 ### 2. Create SSL Certificate untuk Harbor
 
 * Membuat file Config IP SAN, agar SSL Certificate dapat membaca akses jika melalui IP, dan di simpan di directory **_+“/etc/ssl/”_**.
-
   ```bash
   ~$ echo "subjectAltName=IP:<IP Address Node>" > IP_SANS.txt
   ```
 
   ---
 * Membuat Certificate dan Key untuk koneksi https pada Harbor, yang nantinya disimpan di directory **_“/etc/ssl/harbor/”_**.
-
   ```bash
   ~$ sudo openssl genrsa -out harbor.key 4096
 
@@ -103,7 +97,6 @@ Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi post
 ### 3. Install Harbor
 
 * Download Source Code untuk harbor, lalu unzip file source code harbor yang sudah di download.
-
   ```bash
   ~$ wget https://github.com/goharbor/harbor/releases/download/v2.10.0/harbor-offline-installer-v2.10.0.tgz
   ~$ tar -xvzf harbor-offline-installer-v2.10.0.tgz
@@ -111,7 +104,6 @@ Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi post
 
   ---
 * Lalu edit pada file ”harbor.yaml”. sesuaikan seperti di contoh berikut.
-
   ```bash
   ~$ cp harbor.yml.tmpl harbor.yml
   ~$ nano harbor.yml
@@ -131,7 +123,6 @@ Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi post
 
   ---
 * Lalu jalankan script **_“install.sh”_** dengan parameter **_“--with-trivy”_**untuk secara otomatis integrasi Harbor dengan Trivy. Lalu verifikasi container komponen dari harbor nya berjalan dengan baik tanpa error.
-
   ```bash
   ~$ sudo ~/harbor/install.sh --with-trivy
   ~$ docker ps -a
@@ -150,266 +141,247 @@ Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi post
 * Lalu pilih **_“Configuration”_**, kemudian centang pada bagian
   * **_“Prevent vulnerable images from running.”_** Untuk mengatur agar user tidak dapat Pull Images dengan kerentanan yang tinggi. Contohnya di level **“Critical”** (yang berbahaya sekali) atau yang Levelnya diatasnya lagi.
 
+  ---
   * **_“Vulnerability Scanning”_**. Untuk mengatur agar saat ada Push imagesakansecara otomatis di scanning.
   ![Branching](../assets/images/harbor_config.png)
-  
-### 5. Install Kubernetes Cluster
-
-* Update dan Upgrade packages.
-  ```bash
-  ~$ sudo apt update && \
-      sudo apt upgrade -y && \
-      sudo apt autoremove -y
-  ```
-
   ---
-* Install dependensi dan menambah repository untuk install containerd.
 
-  ```bash
-  ~$ sudo apt install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates
+<br>
 
-  ~$ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/docker.gpg
-  ~$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  ```
+### 4. Install Kubernetes Cluster
 
-  ---
-* Install Containerd lalu Config Containerd.
+Pada langkah Installasi Kubernetes Cluster, bisa mengikuti dari Postingan saya [K8S Kubernetes](https://vianaja.github.io/blog-najwan/2024-11-02-kubernetes/). Sudah ada juga penjelasan terkait Kubernetes Cluster.
 
-  ```bash
-  ~$ sudo apt update
-  ~$ sudo apt install -y containerd.io
-  ~$ containerd config default | sudo tee /etc/containerd/config.toml >/dev/null 2>&1
-  ~$ sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
 
-  ~$ sudo systemctl restart containerd
-  ~$ sudo systemctl enable containerd
-  ```
+### 5. Configuration SSL Certificate ke Cluster Kubernetes
 
-  ---
-* Add kernel setting overlay.
-
-  ```bash
-  ~$ cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-    overlay
-    br_netfilter
-    EOF
-
-  ~$ sudo modprobe overlay
-  ~$ sudo modprobe br_netfilter
-  ```
-
-  ---
-* Konfigurasi iptables.
-
-  ```bash
-  ~$ cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-    net.bridge.bridge-nf-call-iptables  = 1
-    net.bridge.bridge-nf-call-ip6tables = 1
-    net.ipv4.ip_forward = 1
-    EOF
-
-  ~$ sudo sysctl --system
-  ```
-
-  ---
-* Menambahkan repository untuk kubectl, kubelet, dan kubeadm dan Install tools tersebut.
-
-  ```bash
-  ~$ sudo apt-get install -y apt-transport-https ca-certificates
-  ~$ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-
-  ~$ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
-
-  ~$ sudo apt-get update && sudo apt-get install -y kubelet kubeadm kubectl
-  ~$ sudo apt-mark hold kubelet kubeadm kubectl
-  ```
-
-  ---
-  
-> **_Note: jalankan pada Node Master_**
-
-  * Initialze untuk membuat Cluster Kubernetes di Master Node.
-    ```
-    ~$ sudo kubeadm init --pod-network-cidr=10.244.XX.0/16
-    ~$ mkdir -p $HOME/.kube
-    ~$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    ~$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
-    ```
-  * Add Flannel.
-    ```
-    ~$ wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-    ~$ kubectl apply -f kube-flannel.yml
-    ~$ kubectl get pods --all-namespaces
-    ```
-  * Menampilkan Token dan CA Certificate.
-    ```
-    ~$ sudo kubeadm token list
-    ~$ sudo openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
-    ```
-> **_Note: jalankan pada Node Worker_**
-
-  * Initialze Node Worker
-    ```
-    ~$ sudo kubeadm join --token [TOKEN] [NODE-MASTER]:6443 --discovery-token-ca-cert-hash sha256:[TOKEN-CA-CERT-HASH]
-    ```
-## 7. Configuration SSL Certificate ke Cluster Kubernetes
 > **_Note: jalankan pada Node Master dan Worker_**
 
-  * Mengatur letak SSL Certificate untuk containerd pada semua Node yang ada di Cluster Kubenetes.
-    ```
-    ~$ sudo mkdir -p /etc/containerd/certs.d/
-    ~$ sudo mkdir -p /etc/containerd/certs.d/<IP or Domain_registry>/
+* Mengatur letak SSL Certificate untuk containerd pada semua Node yang ada di Cluster Kubenetes.
+  ```bash
+  ~$ sudo mkdir -p /etc/containerd/certs.d/
+  ~$ sudo mkdir -p /etc/containerd/certs.d/<IP or Domain_registry>/
 
-    # Example
-    ~$ sudo mkdir -p /etc/containerd/certs.d/10.18.18.40:8443/    
-    ```
-  * Menambahkan / Copy SSL Certificate yang ada di Node Harbor atau yang digunakan oleh Harbor ke semua Node yang ada di Cluster Kubernetes.
-    ```
-    ~$ sudo nano /etc/containerd/certs.d/10.18.18.40:8443/са.crt
-        -----BEGIN CERTIFICATE-----
-        MIID6jCCAtKgAwIBAgIUJ@ipQt1@mbC+oFh7HqornSJ2UxAwDQYJKoZIhvcNAQEL
-        ...
-        eE6/aLPRXcF/72YD3eoER35h/@tnlPuuZTK7iCfYPOFTEsfa@cXGzRtXb2vV4A=
-        -----END CERTIFICATE-----
-    ~$ sudo nano /etc/containerd/certs.d/10.18.18.40:8443/ca.key
-        -----BEGIN PRIVATE KEY-----
-        MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDHj+SCxIwcgBlM
-        ...
-        Vkauk44NJ+0iyBPIzizD6qmY
-        -----END PRIVATE KEY-----
-    ```
-## 8. Konfigurasi kubernetes untuk Pull images ke Harbor
+  # Example
+  ~$ sudo mkdir -p /etc/containerd/certs.d/10.18.18.40:8443/    
+  ```
+
+  ---
+* Menambahkan / Copy SSL Certificate yang ada di Node Harbor atau yang digunakan oleh Harbor ke semua Node yang ada di Cluster Kubernetes.
+  ```bash
+  ~$ sudo nano /etc/containerd/certs.d/10.18.18.40:8443/са.crt
+    -----BEGIN CERTIFICATE-----
+    MIID6jCCAtKgAwIBAgIUJ@ipQt1@mbC+oFh7HqornSJ2UxAwDQYJKoZIhvcNAQEL
+    ...
+    eE6/aLPRXcF/72YD3eoER35h/@tnlPuuZTK7iCfYPOFTEsfa@cXGzRtXb2vV4A=
+    -----END CERTIFICATE-----
+
+  ~$ sudo nano /etc/containerd/certs.d/10.18.18.40:8443/ca.key
+    -----BEGIN PRIVATE KEY-----
+    MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDHj+SCxIwcgBlM
+    ...
+    Vkauk44NJ+0iyBPIzizD6qmY
+    -----END PRIVATE KEY-----
+  ```
+
+  ---
+
+### 6. Konfigurasi kubernetes untuk Pull images ke Harbor
+
 > **_Note: jalankan pada Node Master_**
 
-  * Atur untuk Credentials Harbor registry dengan secret. Yang nantinya akan digunakan saat membuat Pod atau saat Pull Images ke Registry tertentu.
-    ```
-    ~$ kubectl create secret docker-registry <name Secret> \
-        --docker-server=<IP or Domain Registry> \
-        --docker-username=<User> \
-        --docker-password=<Password user> \
-        --docker-email=<email for user>
-    ```
-## 9. Konfigurasi Notifikasi Otomatis dari Hasil Scan Harbor ke Slack
-  * Login ke Website [Slack](https://slack.com/), Buat akun baru jika belum ada.
-    ![Branching](../assets/images/9.1.png)
-    ![Branching](../assets/images/9.2.png)
-    
-  * Lalu isi nama untuk Company atau Team yang sesuai, contoh **_“Harbor Vuln Scan”_**.
-    ![Branching](../assets/images/9.3.png)
+* Atur untuk Credentials Harbor registry dengan secret. Yang nantinya akan digunakan saat membuat Pod atau saat Pull Images ke Registry tertentu.
+  ```bash
+  ~$ kubectl create secret docker-registry <name Secret> \
+      --docker-server=<IP or Domain Registry> \
+      --docker-username=<User> \
+      --docker-password=<Password user> \
+      --docker-email=<email for user>
+  ```
 
-  * Nama untuk user sendiri, contoh **_“Najwan”_**.
-    ![Branching](../assets/images/9.4.png)
+  ---
 
-  * Dibagian ini pilih yang **_“skip this step”_** jika tidak ingin invite user lain ke Slack.
-    ![Branching](../assets/images/9.5.png)
+### 7. Konfigurasi Notifikasi Otomatis dari Hasil Scan Harbor ke Slack
 
-  * Lalu isi nama untuk Channel nya, contoh **_“Harbor Vuln”_**.
-    ![Branching](../assets/images/9.6.png)
-
-  * Lalu pilih yang **_“Start with the limit free version”_** kalau ingin menggunakan yang gratis.
-    ![Branching](../assets/images/9.7.png)
-
-  * Lalu klik pada titik tiga di kanan atas, lalu klik yang **_“Edit Settings”_**.
-    ![Branching](../assets/images/9.8.png)
-
-  * Lalu pilih yang **_“Integrations”_**, lalu klik **_“Add an App”_**.
-    ![Branching](../assets/images/9.9.png)
-
-  * Lalu klik **_“Manage Apps…”_** di bagian kiri atas.
-    ![Branching](../assets/images/9.10.png)
-
-  * Lalu pilih **_“Build”_** di kanan atas.
-    ![Branching](../assets/images/9.11.png)
-
-  * Lalu klik **_“Create an App”_**.
-    ![Branching](../assets/images/9.12.png)
-
-  * Lalu pilih yang **_“From scratch”_** untuk lebih mudah, karena tidak perlu membuat template. Kalau **_“From a manifest”_** kita perlu membuat template dengan format **_“json”_** atau **_“YAML”_**.
-    ![Branching](../assets/images/9.13.png)
-
+* Login ke Website [Slack](https://slack.com/), Buat akun baru jika belum ada.
+  ![Branching](../assets/images/9.1.png)
+  ![Branching](../assets/images/9.2.png)
+  
+  ---
+* Lalu isi nama untuk Company atau Team yang sesuai, contoh **_“Harbor Vuln Scan”_**.
+  ![Branching](../assets/images/9.3.png)
+  
+  ---
+* Nama untuk user sendiri, contoh **_“Najwan”_**.
+  ![Branching](../assets/images/9.4.png)
+  
+  ---
+* Dibagian ini pilih yang **_“skip this step”_** jika tidak ingin invite user lain ke Slack.
+  ![Branching](../assets/images/9.5.png)
+  
+  ---
+* Lalu isi nama untuk Channel nya, contoh **_“Harbor Vuln”_**.
+  ![Branching](../assets/images/9.6.png)
+  
+  ---
+* Lalu pilih yang **_“Start with the limit free version”_** kalau ingin menggunakan yang gratis.
+  ![Branching](../assets/images/9.7.png)
+  
+  ---
+* Lalu klik pada titik tiga di kanan atas, lalu klik yang **_“Edit Settings”_**.
+  ![Branching](../assets/images/9.8.png)
+  
+  ---
+* Lalu pilih yang **_“Integrations”_**, lalu klik **_“Add an App”_**.
+  ![Branching](../assets/images/9.9.png)
+  
+  ---
+* Lalu klik **_“Manage Apps…”_** di bagian kiri atas.
+  ![Branching](../assets/images/9.10.png)
+  
+  ---
+* Lalu pilih **_“Build”_** di kanan atas.
+  ![Branching](../assets/images/9.11.png)
+  
+  ---
+* Lalu klik **_“Create an App”_**.
+  ![Branching](../assets/images/9.12.png)
+  
+  ---
+* Lalu pilih yang **_“From scratch”_** untuk lebih mudah, karena tidak perlu membuat template. Kalau **_“From a manifest”_** kita perlu membuat template dengan format **_“json”_** atau **_“YAML”_**.
+  ![Branching](../assets/images/9.13.png)
+  
+  ---
   * Lalu isi untuk nama App nya dan pilih Workspace yang sesuai. Lalu klik **_“Create App”_**.
-    ![Branching](../assets/images/9.14.png)
+  ![Branching](../assets/images/9.14.png)
+  
+  ---
+* Lalu setalah selesai membuat app, kita perlu membuat untuk endpoint webhook agar Harbor dapat mengirim ke Slack, dengan pilih **_“Incoming WebHooks”_**, lalu aktifkan **_“Activate Incoming WebHooks”_**.
+  ![Branching](../assets/images/9.15.png)
+  
+  ---
+* Lalu scroll kebawah, lalu klik **_“Add New WebHook to Workspace”_**.
+  ![Branching](../assets/images/9.16.png)
+  
+  ---
+* Lalu pilih tempat untuk mengirim pesan dari WebHook nya, bisa ke Channel dari Slack, atau Direct Message ke user tertentu. Contoh misalkan ke channel **_“harbor-vuln”_**.
+  ![Branching](../assets/images/9.17.png)
+  
+  ---
+* Lalu copy link yang sudah di berikan.
+  ![Branching](../assets/images/9.18.png)
+  
+  ---
+* Lalu login ke Harbor dengan user **_“admin”_** dengan password yang sesuai. Pilih project yang ingin di konfigurasi. Contoh **_“testing”_**.
+  ![Branching](../assets/images/9.19.png)
+  
+  ---
+* Lalu pilih **_“Webhooks”_**, lalu klik **_“+ New WebHook”_**.
+  ![Branching](../assets/images/9.20.png)
+  
+  ---
+* Lalu isikan data berikut :
+  * Nama WebHook.
+  * Deskripsi apabila ada.
+  * Pada bagian **_“Notify Type”_** pilih yang **_“Slack”_**.
+  * Pada bagian **_“Event Type”_** untuk memilih saat apa Harbor mengirim notif ke Slack (Trigger), centang pada bagian:
+    *	**_Scanning failed_**.
+    *	**_Scanning stopped_**.
+    * **_Scanning finished_**.
 
-  * Lalu setalah selesai membuat app, kita perlu membuat untuk endpoint webhook agar Harbor dapat mengirim ke Slack, dengan pilih **_“Incoming WebHooks”_**, lalu aktifkan **_“Activate Incoming WebHooks”_**.
-    ![Branching](../assets/images/9.15.png)
+  * Isikan Endpoint URL sesuai dari slack pada step sebelumnya.
+  ![Branching](../assets/images/9.21.png)
+  
+### 8. Konfigurasi SSH ke semua Node
 
-  * Lalu scroll kebawah, lalu klik **_“Add New WebHook to Workspace”_**.
-    ![Branching](../assets/images/9.16.png)
+* Login ke Slack, lalu pergi ke pengaturan App, atau lewat [link ini](https://api.slack.com/apps/). Lalu pilih App yang sesuai, contohnya **_“python-harbor”_**.
+  ![Branching](../assets/images/10.1.png)
+  
+  ---
+* lalu pilih yang **_“OAuth & Permissions”_**.
+  ![Branching](../assets/images/10.2.png)
+  
+  ---
+* Lalu Scroll kebawah sampai ke bagian **_“Scopes”_**, lalu pilih **_“Add an QAuth Scope”_**, lalu pilih yang **_“chat:write”_** untuk mengatur role agar dapat menulis pesan atau chat.
+  ![Branching](../assets/images/10.3.png)
+  
+  ---
+* Lalu Scroll ke atas sampai di bagian **_"OAuth Tokens”_**, lalu **_“Install to Harbor Vuln Scan”_**.
+  ![Branching](../assets/images/10.4.png)
+  
+  ---
+* Lalu pada bagian ini klik **_“Allow”_**.
+  ![Branching](../assets/images/10.5.png)
+  
+  ---
+* Lalu Copy **_“Bot User OAuth Token”_**.
+  ![Branching](../assets/images/10.6.png)
+  
+  ---
+* Ambil Sample aplikasi sederhana untuk filter data hasil Scanning Trivy dari Harbor dan nanti akan dikirim ke Slack di [github ini](https://github.com/vianAja/python-slack-harbor.git). Lalu sesuaikan untuk data berikut ini.
 
-  * Lalu pilih tempat untuk mengirim pesan dari WebHook nya, bisa ke Channel dari Slack, atau Direct Message ke user tertentu. Contoh misalkan ke channel **_“harbor-vuln”_**.
-    ![Branching](../assets/images/9.17.png)
+  ```css
+  token_slack = "TOKEN_OAUTH"
+  channel_id = "CHANNEL_ID_SLACK"
+  name_bot = "NAME_BOT"
+  ```
+  
+  ---
+* Install Library yang dibutuhkan Python. 
+  ```bash
+  ~$ sudo pip3 install -r requirement.txt
+  ~$ sudo cp main.py /usr/local/bin/
+  ```
 
-  * Lalu copy link yang sudah di berikan.
-    ![Branching](../assets/images/9.18.png)
+  ---
+* Copy file service ke **_“/etc/system/system/”_**.
+  ```bash
+  ~$ sudo cp python-slack.service /etc/systemd/system/
+  ```
 
-  * Lalu login ke Harbor dengan user **_“admin”_** dengan password yang sesuai. Pilih project yang ingin di konfigurasi. Contoh **_“testing”_**.
-    ![Branching](../assets/images/9.19.png)
+  ---
+* Copy file **_“main.py”_** ke **_“/usr/local/bin/”_**, menyesuaikan dari konfigurasi yang ada di file service nya.
+  ```bash
+  ~$ sudo cp main.py /usr/local/bin/
+  ```
 
-  * Lalu pilih **_“Webhooks”_**, lalu klik **_“+ New WebHook”_**.
-    ![Branching](../assets/images/9.20.png)
+  ---
 
-  * Lalu isikan data berikut :
-    - Nama WebHook.
-    - Deskripsi apabila ada.
-    - Pada bagian **_“Notify Type”_** pilih yang **_“Slack”_**.
-    - Pada bagian **_“Event Type”_** untuk memilih saat apa Harbor mengirim notif ke Slack (Trigger), centang pada bagian:
-      -	**_Scanning failed_**
-      -	**_Scanning stopped_**
-      - **_Scanning finished_**
-    - Isikan Endpoint URL sesuai dari slack pada step sebelumnya.
-    ![Branching](../assets/images/9.21.png)
-    
-## 10. Konfigurasi SSH ke semua Node
-  * Login ke Slack, lalu pergi ke pengaturan App, atau lewat [link ini] (https://api.slack.com/apps/). Lalu pilih App yang sesuai, contohnya **_“python-harbor”_**.
-    ![Branching](../assets/images/10.1.png)
+* Reload system daemon untuk update service. Lalu start dan lihat status service yang sudah di Copy tadi.
+  ```bash
+  ~$ sudo systemctl daemon-reload
+  
+  ~$ sudo systemctl start python-slack.service
+  ~$ sudo systemctl status python-slack.service
+  ```
 
-  * lalu pilih yang **_“OAuth & Permissions”_**.
-    ![Branching](../assets/images/10.2.png)
+  ---
 
-  * Lalu Scroll kebawah sampai ke bagian **_“Scopes”_**, lalu pilih **_“Add an QAuth Scope”_**, lalu pilih yang **_“chat:write”_** untuk mengatur role agar dapat menulis pesan atau chat.
-    ![Branching](../assets/images/10.3.png)
+<br>
 
-  * Lalu Scroll ke atas sampai di bagian **_"OAuth Tokens”_**, lalu **_“Install to Harbor Vuln Scan”_**.
-    ![Branching](../assets/images/10.4.png)
-    
-  * Lalu pada bagian ini klik **_“Allow”_**.
-    ![Branching](../assets/images/10.5.png)
+## Hasil
 
-  * Lalu Copy **_“Bot User OAuth Token”_**.
-    ![Branching](../assets/images/10.6.png)
+### Tanpa menggunakan Program Pyhon
 
-  * Ambil Sample aplikasi sederhana untuk filter data hasil Scanning Trivy dari Harbor dan nanti akan dikirim ke Slack di [github ini](https://github.com/vianAja/python-slack-harbor.git). Lalu sesuaikan untuk data berikut ini.
-    ```
-    token_slack = "TOKEN_OAUTH"
-    channel_id = "CHANNEL_ID_SLACK"
-    name_bot = "NAME_BOT"
-    ```
-  * Lalu jalankan perintah ini :
-      a)	Install Library yang dibutuhkan Python. 
-      b)	Copy file service ke **_“/etc/system/system/”_**.
-      c)	Copy file **_“main.py”_** ke **_“/usr/local/bin/”_**, menyesuaikan dari konfigurasi yang ada di file service nya.
-    ```
-    ~$ sudo pip3 install -r requirement.txt
-    ~$ sudo cp python-slack.service /etc/systemd/system/
-    ~$ sudo cp main.py /usr/local/bin/
-    ```
-  * Reload system daemon untuk update service. Lalu start dan lihat status service yang sudah di Copy tadi.
-    ```
-    ~$ sudo systemctl daemon-reload
-    
-    ~$ sudo systemctl start python-slack.service
-    ~$ sudo systemctl status python-slack.service
-    ```
-# Hasil
-## Tanpa menggunakan Program Pyhon.
 ![Branching](../assets/images/hasil_slack.1.png)
-## Menggunakan Program Python.
+
+---
+
+### Menggunakan Program Python
+
 ![Branching](../assets/images/hasil_slack.2.png)
-## Tidak Bisa Pull Images jika level Vulnerability Critical atau yang lebih tingggi.
+
+---
+
+### Tidak Bisa Pull Images jika level Vulnerability Critical atau yang lebih tingggi
+
 ![Branching](../assets/images/failed_pull.png)
 
-# Referensi
-- [KubeAdm Tools](https://kubernetes.io/id/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+---
+
+## Referensi
+
+- [KubeAdm Tools](https://kubernetes.io/id/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 - [Install Harbor](https://medium.com/@tanmaybhandge/how-to-deploy-the-harbor-on-vm-using-self-signed-certificate-ebfe29c4803a).
 - [Trivy Scanner](https://www.jit.io/resources/appsec-tools/when-and-how-to-use-trivy-to-scan-containers-for-vulnerabilities).
 - [Trivy Scanner](https://medium.com/@maheshwar.ramkrushna/scanning-docker-images-for-vulnerabilities-using-trivy-for-effective-security-analysis-fa3e2844db22).
