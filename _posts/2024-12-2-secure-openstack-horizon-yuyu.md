@@ -201,10 +201,6 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
   Solusi:
   - Ubah pada file Openrc pada bagian **"export OS_CACERT"**, kalau tidak ada bisa ditambahkan di line baru, isikan certificate ini **“/etc/kolla/certificates/ca/root.crt”**.
   - Bisa gunakan **”/etc/ssl/certs/ca-certificate.crt”** pada saat berubah file openrc di bagian **_export OS_CACERT_**, apabila file **“/etc/kolla/certificates/ca/root.crt”** sudah di masukan ke ca-certificate ubuntu, dengan cara copy file **“/etc/kolla/certificates/ca/root.crt”** ke **"/usr/local/share/ca-certificates"**, lalu update ca-certificates dengan perintah ini **_"sudo update-ca-certificates"_**.
-    ```bash
-    ~$ sudo cp /etc/kolla/certificates/ca/root.crt /usr/local/share/ca-certificates
-    ~$ sudo update-ca-certificates
-    ```
   
 ---
 - Error **“SSLError at /admin/billing_overview/”** saat membuka page Billing di Horizon,  karena Django yang digunakan oleh Horizon tidak diperbolehkan **“Self-Signed Certificate”**.
