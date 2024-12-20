@@ -98,6 +98,7 @@ Untuk lebih detail terkait Penjelasan dan Installasi nya bisa ke Postingan saya,
 
 - Edit pada file global.yaml untuk opsi enable TLS pada service internal OpenStack dan untuk copy CA ke Container Service nya, pada **_{DIR_KOLLA}_** ubah menjadi **\{\{ node_config }}** dan **{DIR_KOLLA_CERT}** pada ubah menjadi **\{\{ kolla_certificates_dir }}**.
   ```yaml
+  openstack_cacert: "/etc/ssl/certs/ca-certificates.crt"
   kolla_enable_tls_internal: "yes"
   kolla_certificates_dir: "{DIR_KOLLA}/certificates"
   kolla_admin_openrc_cacert: "/etc/kolla/certificates/ca/root.crt"
