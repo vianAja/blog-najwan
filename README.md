@@ -1,3 +1,6 @@
+# Link For my Blog
+[My Blog](https://vianaja.github.io/blog-najwan/)
+
 # Beautiful Jekyll
 
 [![Gem Version](https://badge.fury.io/rb/beautiful-jekyll-theme.svg)](https://badge.fury.io/rb/beautiful-jekyll-theme)
