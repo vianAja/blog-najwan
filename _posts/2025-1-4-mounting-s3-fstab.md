@@ -23,7 +23,8 @@ author: Najwan Octavian Gerrard
   - Menggunakan file **/etc/passwd-s3fs** yang di isikan **ACCESS_KEY_ID:SECRET_ACCESS_KEY** dengan permission / hak akses 640.
   - Menggunakan environment variables **AWS_ACCESS_KEY_ID** dan **AWS_SECRET_ACCESS_KEY** yang nanti akan secara otomatis di baca oleh s3fs.
   Sebagai contoh saya menggunakan yang pertama atau yang  **aws configure**, atau di **.aws/credentials**. Karena pada Kesempatan kali ini saya menggunakan akun aws academy yang sifatnya temporary.
-
+  ---
+  
 - untuk lebih mempermudah, hubungkan Ec2 ke IAM yang sesuai, bisa buat IAM baru akan tetapi harus yang ada permission untuk akses ke S3, atau pakai yang sudah ada, untuk kali ini saya menggunakan bawaan yang sudah ada, karena pakai akun academy
   
   ---
@@ -32,7 +33,7 @@ author: Najwan Octavian Gerrard
   ```bash
   s3fs bucket-name directory-mount -o iam_role=auto
   ```
-  exmaple:
+  example:
   ```bash
   s3fs test-bucket /etc/test-s3 -o iam_role=auto
   ```
@@ -49,10 +50,6 @@ author: Najwan Octavian Gerrard
   ---
   
 - Kemudian setelah di pastikan bisa, berarti credentials yang di atur sudah sesuai. Kemudian lanjut untuk konfigurasi di fstab agar permanent saat reboot ec2 tidak lepas. Konfigurasi seperti berikut ini.
-  - Opsi **_netdev** digunakan untuk menandakan bahwa block device terhubung lewat networking.
-  - Opsi **allow_other** digunakan untuk agar user lain dapat menggunakan block device itu, tidak terbatas user tertentu.
-  - Opsi **nonempty** digunakan untuk mengizinkan mounting saat directory yang di pakai mounting ada isi nya, atau ada file di dalam directory itu.
-  
   ```bash
   sudo nano /etc/fstab
   ```
@@ -63,7 +60,10 @@ author: Najwan Octavian Gerrard
   ```bash
   bucket-name:/ /dir-mount fuse.s3fs _netdev,allow_other,nonempty 0 0
   ```
-  Pastikan untuk tidak melupakan bagian titik dua setelah nama bucket nya, karena nanti akan ada error [**_s3fs -- bucket name contains illegal character_**](https://stackoverflow.com/questions/64584917/s3fs-bucket-name-contains-illegal-character). Dan di belakangnya menyesuaikan prefix yang di S3 nya, jadi jika ada folder di S3 misalkan folder **"test"**, bisa dibuat spesifik ke folder tersebut dengan **"bucket-name:/test**.
+  - Opsi **_netdev** digunakan untuk menandakan bahwa block device terhubung lewat networking.
+  - Opsi **allow_other** digunakan untuk agar user lain dapat menggunakan block device itu, tidak terbatas user tertentu.
+  - Opsi **nonempty** digunakan untuk mengizinkan mounting saat directory yang di pakai mounting ada isi nya, atau ada file di dalam directory itu.
+  Pastikan untuk tidak melupakan bagian titik dua setelah nama bucket nya, karena nanti akan ada error [**_s3fs -- bucket name contains illegal character_**](https://stackoverflow.com/questions/64584917/s3fs-bucket-name-contains-illegal-character). Dan di belakangnya menyesuaikan prefix yang di S3 nya, jadi jika ada folder di S3 misalkan folder **"test"**, bisa dibuat spesifik ke folder tersebut dengan **"bucket-name:/test"**.
   Example:
   ```bash
   s3fs#test-bucket:/ /etc/test-s3 fuse _netdev,allow_other,nonempty 0 0
