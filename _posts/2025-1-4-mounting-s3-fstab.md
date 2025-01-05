@@ -93,3 +93,18 @@ author: Najwan Octavian Gerrard
   /etc/test-s3   : successfully mounted
   ```
   ---
+
+- Jika menemukan error tidak dapat mount padahal sudah di cek dengan **"mount -fav"** sudah **"successfully mounted"**, coba cek dengan perintah ini.
+  ```bash
+  sudo journalctl -b | grep mount
+  ```
+  Dan coba cek apakah ada error, seperti contoh jika tidak menggunakan opsi **iam_role**, akan ada error seperti ini.
+  ```bash
+  ... systemd[1]: Mounting home-ubuntu-testaja.mount - /home/ubuntu/testaja...
+  ... mount[537]: s3fs: could not determine how to establish security credentials.
+  ... systemd[1]: Mounted home-ubuntu-backup\x2ds3.mount - /home/ubuntu/backup-s3.
+  ... systemd[1]: home-ubuntu-testaja.mount: Mount process exited, code=exited, status=1/FAILURE
+  ... systemd[1]: home-ubuntu-testaja.mount: Failed with result 'exit-code'.
+  ... systemd[1]: Failed to mount home-ubuntu-testaja.mount - /home/ubuntu/testaja.
+  ```
+  ---
