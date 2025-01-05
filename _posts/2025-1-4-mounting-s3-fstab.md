@@ -64,7 +64,8 @@ author: Najwan Octavian Gerrard
   - Opsi **_netdev** digunakan untuk menandakan bahwa block device terhubung lewat networking.
   - Opsi **allow_other** digunakan untuk agar user lain dapat menggunakan block device itu, tidak terbatas user tertentu.
   - Opsi **nonempty** digunakan untuk mengizinkan mounting saat directory yang di pakai mounting ada isi nya, atau ada file di dalam directory itu.
-  - Opsi **,iam_role=auto** akan melakukan verifikasi menggunakan iam role yang di pasang ke Ec2 nya, jadi otomatis menyesuaikan. **_Wajib ada, jika tidak akan error credential_**
+  - Opsi **iam_role=auto** akan melakukan verifikasi menggunakan iam role yang di pasang ke Ec2 nya, jadi otomatis menyesuaikan. **_Wajib ada, jika tidak akan error credential_**.
+  
   Pastikan untuk tidak melupakan bagian titik dua setelah nama bucket nya, karena nanti akan ada error [**_s3fs -- bucket name contains illegal character_**](https://stackoverflow.com/questions/64584917/s3fs-bucket-name-contains-illegal-character). Dan di belakangnya menyesuaikan prefix yang di S3 nya, jadi jika ada folder di S3 misalkan folder **"test"**, bisa dibuat spesifik ke folder tersebut dengan **"bucket-name:/test"**.
 
   Example:
