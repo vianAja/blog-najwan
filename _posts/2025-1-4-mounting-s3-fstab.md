@@ -108,3 +108,7 @@ author: Najwan Octavian Gerrard
   ... systemd[1]: Failed to mount home-ubuntu-testaja.mount - /home/ubuntu/testaja.
   ```
   ---
+
+
+### Konfigurasi jika menggunakan Ubuntu 20.04
+- update IMDSv2 (Instance MetaData Service) dari yang tadinya IMDSv2, menjadi IMDSv1 dan v2
