@@ -39,7 +39,7 @@ round-avatar: true
 
 # If you want to have an image logo in the top-left corner instead of having the title of the website,
 # then specify the following parameter
-#title-img: /assets/img/walpaper6.png
+title-img: "/assets/img/avatar-icon.png"
 
 
 #####################################
@@ -50,7 +50,7 @@ round-avatar: true
 # You can change the order that they show up on the page by changing the order here.
 # Uncomment the links you want to show and add your information to each one.
 social-network-links:
-  email: "someone@example.com"
+  email: "najwanoctavian@gmail.com"
 #  rss: true  # remove this line if you don't want to show an RSS link at the bottom
 #  facebook: deanattali
   github: vianAja
@@ -202,7 +202,7 @@ navbar-img: "/assets/img/wallpaper6.png"
 #fb_comment_id: ""
 
 # To use CommentBox, sign up for a Project ID on https://commentbox.io
-#commentbox: "" # Project ID, e.g. "5694267682979840-proj"
+commentbox: "5669555229687808-proj" # Project ID, e.g. "5694267682979840-proj"
 
 # To use Utterances comments: (0) uncomment the following section, (1) fill in
 # "repository" (make sure the repository is public), (2) Enable Issues in your repository,
