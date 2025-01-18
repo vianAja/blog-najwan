@@ -9,7 +9,7 @@ tags: [Aws, Ec2, Ubuntu, S3]
 author: Najwan Octavian Gerrard
 ---
 
-### Konfigurasi
+### Konfigurasi untuk Ubuntu 24.04
 - Install dependencies yang dibutuhkan
   ```bash
   sudo snap install aws-cli --classic
