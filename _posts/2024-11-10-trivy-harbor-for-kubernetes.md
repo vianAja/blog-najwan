@@ -41,7 +41,7 @@ Tutorial ini juga menjelaskan cara mengintegrasikan Slack sebagai platform notif
 
 ### Topologi
 
-![Branching](../assets/images/topologi.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/topologi.png)
 
 #### Harbor
 
@@ -144,13 +144,13 @@ Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi post
 #### 4. Konfigurasi Harbor untuk Trigger Scan Trivy saat ada Image yang baru di Push dan mengatur agar user dapat Pull Image dengan tingkat kerentanan yang rendah atau aman
 
 * Login ke Harbor dengan user **_“admin”_**, lalu masuk ke project yang ingin di konfigurasi.
-  ![Branching](../assets/images/9.19.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.19.png)
   
   ---
 * Lalu pilih **_“Configuration”_**, kemudian centang pada bagian
   * **_“Prevent vulnerable images from running.”_** Untuk mengatur agar user tidak dapat Pull Images dengan kerentanan yang tinggi. Contohnya di level **“Critical”** (yang berbahaya sekali) atau yang Levelnya diatasnya lagi.
   * **_“Vulnerability Scanning”_**. Untuk mengatur agar saat ada Push images akan secara otomatis di scanning.
-  ![Branching](../assets/images/harbor_config.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/harbor_config.png)
 
   ---
 
@@ -213,80 +213,80 @@ Pada langkah Installasi Kubernetes Cluster, bisa mengikuti dari Postingan saya [
 #### 8. Konfigurasi Notifikasi Otomatis dari Hasil Scan Harbor ke Slack
 
 * Login ke Website [Slack](https://slack.com/), Buat akun baru jika belum ada.
-  ![Branching](../assets/images/9.1.png)
-  ![Branching](../assets/images/9.2.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.1.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.2.png)
   
   ---
 * Lalu isi nama untuk Company atau Team yang sesuai, contoh **_“Harbor Vuln Scan”_**.
-  ![Branching](../assets/images/9.3.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.3.png)
   
   ---
 * Nama untuk user sendiri, contoh **_“Najwan”_**.
-  ![Branching](../assets/images/9.4.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.4.png)
   
   ---
 * Dibagian ini pilih yang **_“skip this step”_** jika tidak ingin invite user lain ke Slack.
-  ![Branching](../assets/images/9.5.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.5.png)
   
   ---
 * Lalu isi nama untuk Channel nya, contoh **_“Harbor Vuln”_**.
-  ![Branching](../assets/images/9.6.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.6.png)
   
   ---
 * Lalu pilih yang **_“Start with the limit free version”_** kalau ingin menggunakan yang gratis.
-  ![Branching](../assets/images/9.7.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.7.png)
   
   ---
 * Lalu klik pada titik tiga di kanan atas, lalu klik yang **_“Edit Settings”_**.
-  ![Branching](../assets/images/9.8.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.8.png)
   
   ---
 * Lalu pilih yang **_“Integrations”_**, lalu klik **_“Add an App”_**.
-  ![Branching](../assets/images/9.9.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.9.png)
   
   ---
 * Lalu klik **_“Manage Apps…”_** di bagian kiri atas.
-  ![Branching](../assets/images/9.10.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.10.png)
   
   ---
 * Lalu pilih **_“Build”_** di kanan atas.
-  ![Branching](../assets/images/9.11.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.11.png)
   
   ---
 * Lalu klik **_“Create an App”_**.
-  ![Branching](../assets/images/9.12.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.12.png)
   
   ---
 * Lalu pilih yang **_“From scratch”_** untuk lebih mudah, karena tidak perlu membuat template. Kalau **_“From a manifest”_** kita perlu membuat template dengan format **_“json”_** atau **_“YAML”_**.
-  ![Branching](../assets/images/9.13.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.13.png)
   
   ---
   * Lalu isi untuk nama App nya dan pilih Workspace yang sesuai. Lalu klik **_“Create App”_**.
-  ![Branching](../assets/images/9.14.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.14.png)
   
   ---
 * Lalu setalah selesai membuat app, kita perlu membuat untuk endpoint webhook agar Harbor dapat mengirim ke Slack, dengan pilih **_“Incoming WebHooks”_**, lalu aktifkan **_“Activate Incoming WebHooks”_**.
-  ![Branching](../assets/images/9.15.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.15.png)
   
   ---
 * Lalu scroll kebawah, lalu klik **_“Add New WebHook to Workspace”_**.
-  ![Branching](../assets/images/9.16.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.16.png)
   
   ---
 * Lalu pilih tempat untuk mengirim pesan dari WebHook nya, bisa ke Channel dari Slack, atau Direct Message ke user tertentu. Contoh misalkan ke channel **_“harbor-vuln”_**.
-  ![Branching](../assets/images/9.17.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.17.png)
   
   ---
 * Lalu copy link yang sudah di berikan.
-  ![Branching](../assets/images/9.18.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.18.png)
   
   ---
 * Lalu login ke Harbor dengan user **_“admin”_** dengan password yang sesuai. Pilih project yang ingin di konfigurasi. Contoh **_“testing”_**.
-  ![Branching](../assets/images/9.19.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.19.png)
   
   ---
 * Lalu pilih **_“Webhooks”_**, lalu klik **_“+ New WebHook”_**.
-  ![Branching](../assets/images/9.20.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.20.png)
   
   ---
 * Lalu isikan data berikut :
@@ -299,34 +299,34 @@ Pada langkah Installasi Kubernetes Cluster, bisa mengikuti dari Postingan saya [
     * **_Scanning finished_**.
 
   * Isikan Endpoint URL sesuai dari slack pada step sebelumnya.
-  ![Branching](../assets/images/9.21.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/9.21.png)
   
 <br>
 
 #### 9. Konfigurasi SSH ke semua Node
 
 * Login ke Slack, lalu pergi ke pengaturan App, atau lewat link [ini](https://api.slack.com/apps/). Lalu pilih App yang sesuai, contohnya **_“python-harbor”_**.
-  ![Branching](../assets/images/10.1.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/10.1.png)
   
   ---
 * lalu pilih yang **_“OAuth & Permissions”_**.
-  ![Branching](../assets/images/10.2.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/10.2.png)
   
   ---
 * Lalu Scroll kebawah sampai ke bagian **_“Scopes”_**, lalu pilih **_“Add an QAuth Scope”_**, lalu pilih yang **_“chat:write”_** untuk mengatur role agar dapat menulis pesan atau chat.
-  ![Branching](../assets/images/10.3.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/10.3.png)
   
   ---
 * Lalu Scroll ke atas sampai di bagian **_"OAuth Tokens”_**, lalu **_“Install to Harbor Vuln Scan”_**.
-  ![Branching](../assets/images/10.4.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/10.4.png)
   
   ---
 * Lalu pada bagian ini klik **_“Allow”_**.
-  ![Branching](../assets/images/10.5.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/10.5.png)
   
   ---
 * Lalu Copy **_“Bot User OAuth Token”_**.
-  ![Branching](../assets/images/10.6.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/10.6.png)
   
   ---
 * Ambil Sample aplikasi sederhana untuk filter data hasil Scanning Trivy dari Harbor dan nanti akan dikirim ke Slack di [github ini](https://github.com/vianAja/python-slack-harbor.git). Lalu sesuaikan untuk data berikut ini.
@@ -374,19 +374,19 @@ Pada langkah Installasi Kubernetes Cluster, bisa mengikuti dari Postingan saya [
 
 #### Notifikasi Tanpa menggunakan Program Pyhon
 
-![Branching](../assets/images/hasil_slack.1.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/hasil_slack.1.png)
 
 ---
 
 #### Notifikasi Menggunakan Program Python
 
-![Branching](../assets/images/hasil_slack.2.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/hasil_slack.2.png)
 
 ---
 
 #### Tidak Bisa Pull Images jika level Vulnerability Critical atau yang lebih tingggi
 
-![Branching](../assets/images/failed_pull.png)
+![Branching](../assets/images/trivy-harbor-for-kubernetes/failed_pull.png)
 
 ---
 

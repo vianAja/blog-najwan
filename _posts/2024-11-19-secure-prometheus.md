@@ -41,7 +41,7 @@ Serta dibutuhkan juga Alerting agar dapat memberikan peringatan dini terkait sem
 
 ### Alur kerja
 
-![Branching](../assets/images/alur-kerja.png)
+![Branching](../assets/images/secure-prometheus/alur-kerja.png)
 
 <br>
 
@@ -904,37 +904,37 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
   
 ### Web Server Aplikasi Tic Tac Toe
 
-![Branching](../assets/images/tic_tac_toe.png)
+![Branching](../assets/images/secure-prometheus/tic_tac_toe.png)
 
   ---
   
 ### Web Server Aplikasi 2048
 
-![Branching](../assets/images/web_2048.png)
+![Branching](../assets/images/secure-prometheus/web_2048.png)
 
   ---
   
 ### Alert Nginx
 
-![Branching](../assets/images/alert_nginx.png)
+![Branching](../assets/images/secure-prometheus/alert_nginx.png)
 
   ---
   
 ### Alert Apache
 
-![Branching](../assets/images/alert_apache.png)
+![Branching](../assets/images/secure-prometheus/alert_apache.png)
 
   ---
   
 ### Alert Container
 
-![Branching](../assets/images/alert_container.png)
+![Branching](../assets/images/secure-prometheus/alert_container.png)
 
   ---
   
 ### Alert Traffic
 
-![Branching](../assets/images/alert_traffic.png)
+![Branching](../assets/images/secure-prometheus/alert_traffic.png)
 
   ---
   
