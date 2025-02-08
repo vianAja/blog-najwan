@@ -24,7 +24,7 @@ Selain itu, perusahaan ingin memantau dan menghitung penggunaan resource secara 
 
 ## Topologi
 
-![Topologi](../assets/images/topologi_secure_openstack.png)
+![Branching](../assets/images/secure-openstack-horizon-yuyu/topologi_secure_openstack.png)
 
 ## Langkah Implementasi
 ### 1. Konfigurasi SSL Certificate untuk service Horizon dan Yuyu.
@@ -198,32 +198,32 @@ Ada beberapa penyesuaian apabila ingin di tambahkan opsi TLS pada kedua service 
 
 ### Kendala yang mungkin dapat di terjadi saat pembuatan.
 - Error saat debug Login ke Project Admin via CLI dengan File Openrc.
-  ![Topologi](../assets/images/error_ssl_openstack_cli.png)
+![Branching](../assets/images/secure-openstack-horizon-yuyu/error_ssl_openstack_cli.png)
   Solusi:
   - Ubah pada file Openrc pada bagian **"export OS_CACERT"**, kalau tidak ada bisa ditambahkan di line baru, isikan certificate ini **“/etc/kolla/certificates/ca/root.crt”**.
   - Bisa gunakan **”/etc/ssl/certs/ca-certificate.crt”** pada saat berubah file openrc di bagian **_export OS_CACERT_**, apabila file **“/etc/kolla/certificates/ca/root.crt”** sudah di masukan ke ca-certificate ubuntu, dengan cara copy file **“/etc/kolla/certificates/ca/root.crt”** ke **"/usr/local/share/ca-certificates"**, lalu update ca-certificates dengan perintah ini **_"sudo update-ca-certificates"_**.
   
 ---
 - Error **“SSLError at /admin/billing_overview/”** saat membuka page Billing di Horizon,  karena Django yang digunakan oleh Horizon tidak diperbolehkan **“Self-Signed Certificate”**.
-  ![Topologi](../assets/images/error_ssl_openstack.png)
+![Branching](../assets/images/secure-openstack-horizon-yuyu/error_ssl_openstack.png)
   Solusi:
   - Tambahkan certificate Horizon dan Yuyu ke **"/usr/local/share/ca-certificates"** lalu update ca-certificate, [referensi](https://ubuntu.com/server/docs/install-a-root-ca-certificate-in-the-trust-store)
   
   --- 
 - Error **“AttributeError at /auth/logout/”**  saat logout atau sign out project di Horizon.
-  ![Topologi](../assets/images/error_logout_openstack.png)
+![Branching](../assets/images/secure-openstack-horizon-yuyu/error_logout_openstack.png)
   Solusi:
   - Versi dari library **“python-memcached”** harus menggunakan versi 1.59. kalau pake yang terbaru tidak bisa.
   
 ---
 - Error saat mencoba curl dan ada log error seperti ini, **“Invalid HTTP_HOST header: ’10.18.18.10:8183’, you may need to add ’10.18.18.10’ to ALLOWED_HOSTS”**.
-  ![Topologi](../assets/images/error_allow_host_openstack.png)
+![Branching](../assets/images/secure-openstack-horizon-yuyu/error_allow_host_openstack.png)
   Solusi:
   - Bisa setting untuk **“ALLOWED_HOSTS“** pada file konfigurasi **“local_setting.py”** dari Yuyu, bisa langsung ke IP **10.18.18.10** (menyesuaikan IP Host masing - masing) atau tanda bintang **“ * ”** jika ingin semua IP boleh masuk.
     
 ---
 - Error **“Did Not Connect: Potential Security Issue”** pada Console Instance di Horizon, bisa disebabkan karena Certificate tidak public (Tidak Berbayar), atau karena Image yang di pakai Instance error.
-  ![Topologi](../assets/images/error_console.png)
+![Branching](../assets/images/secure-openstack-horizon-yuyu/error_console.png)
   Solusi:
   - Bisa coba klik di bawah kata **“Instance Console”** yang ada kotak biru, lalu klik **“Click here to show only console”.** Error itu bisa disebabkan karena Image yang dipakai rusak.
 

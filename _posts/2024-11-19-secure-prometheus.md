@@ -35,7 +35,7 @@ Serta dibutuhkan juga Alerting agar dapat memberikan peringatan dini terkait sem
 
 ### Topologi
 
-![Topologi](../assets/images/topologi_secure_prome.png).
+![Branching](../assets/images/secure-prometheus/topologi_secure_prome.png)
 
 <br>
 
@@ -850,27 +850,27 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
 #### A. Monitoring Node / Server
 
 - Up Time Node / Server
-  ![Up Time](../assets/images/uptime.png)
+![Branching](../assets/images/secure-prometheus/uptime.png)
 
   ---
   
 - Disk
-  ![Disk](../assets/images/disk.png)
+![Branching](../assets/images/secure-prometheus/disk.png)
 
   ---
   
 - Memory
-  ![Memory](../assets/images/memory.png)
+![Branching](../assets/images/secure-prometheus/memory.png)
 
   ---
   
 - CPU
-  ![CPU](../assets/images/cpu.png)
+![Branching](../assets/images/secure-prometheus/cpu.png)
 
   ---
   
 - Traffic
-  ![Traffic](../assets/images/traffic.png)
+![Branching](../assets/images/secure-prometheus/traffic.png)
 
   ---
   
@@ -879,12 +879,12 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
 #### B. Monitoring Container
 
 - Container Status
-  ![Container](../assets/images/container.png)
+![Branching](../assets/images/secure-prometheus/container.png)
 
   ---
   
 - CPU Container
-  ![CPU Container](../assets/images/cpu-container.png)
+![Branching](../assets/images/secure-prometheus/cpu-container.png)
 
   ---
   
@@ -893,12 +893,12 @@ Untuk langkah - langkah Installasi Alert Manager bisa mengikuti dari Postingan s
 #### C. Monitoring Web Server
 
 - Stats Web Server
-  ![Stats Web Server](../assets/images/stats-web.png)
+![Branching](../assets/images/secure-prometheus/stats-web.png)
 
   ---
   
 - Total Requests Web Server
-  ![Total Requests Web Server](../assets/images/total-request.png)
+![Branching](../assets/images/secure-prometheus/total-request.png)
 
   ---
   

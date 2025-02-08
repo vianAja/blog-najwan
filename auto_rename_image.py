@@ -24,7 +24,7 @@ for post in list_posts:
     if os.path.isdir(path): continue
     with open(path, 'r', encoding='utf-8') as f:
         data = f.readlines()
-        daftar_img = [d.replace('\n', '') for d in data if '![Branching]' in d]
+        daftar_img = [d.replace('\n', '') for d in data if '(../assets/images' in d]
         database[name] = daftar_img
 
 #print(json.dumps(database, indent=4))
@@ -45,10 +45,13 @@ Pemindahan Gambar Sesuai Postingan
 for data in database.keys():
     path_make_post = os.path.join(path_gambar, data)
     for gambar in database[data]:
+        print(gambar)
         name = gambar[:-1].split('/')[-1]
+        print(gambar)
         path_gambar_asli = os.path.join(path_gambar, name)
         path_gambar_baru = os.path.join(path_make_post, name)
         
+        print(os.path.exists(path_gambar_asli))
         # jika gambar baru belum ada, maka copy gambar
         if os.path.exists(path_gambar_baru) != True:
             shutil.copy(path_gambar_asli, path_make_post)
@@ -57,6 +60,7 @@ for data in database.keys():
 '''
 Update lokasi file gambar untuk blog nya
 '''
+
 for post in list_posts:
     template = '![Branching](../assets/images/{}{})'
     

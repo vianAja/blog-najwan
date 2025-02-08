@@ -296,23 +296,23 @@ Keuntungan Yuyu:
 ### Setelah selesai akan menjadi seperti ini
 
 Saat Login ke Dashboard, menggunakan credentials yang sesuai.
-![Login Page](../assets/images/hasil_secure_openstack_login.png)
-![Login Page](../assets/images/hasil_secure_openstack_home_page.png)
+![Branching](../assets/images/Yuyu-horizon/hasil_secure_openstack_login.png)
+![Branching](../assets/images/Yuyu-horizon/hasil_secure_openstack_home_page.png)
 
 Dapat mengatur untuk Billing, di user Admin.
-![Login Page](../assets/images/hasil_secure_openstack_set_billing.png)
+![Branching](../assets/images/Yuyu-horizon/hasil_secure_openstack_set_billing.png)
 
 Dapat mengatur untuk Price/Harga dari resource yang digunakan.
-![Login Page](../assets/images/hasil_secure_openstack_set_price.png)
+![Branching](../assets/images/Yuyu-horizon/hasil_secure_openstack_set_price.png)
 
 Dapat melihat harga penggunaan resource di project tertentu. Sesuai pemakaian resource
-![Login Page](../assets/images/hasil_secure_openstack_usage_cost.png)
+![Branching](../assets/images/Yuyu-horizon/hasil_secure_openstack_usage_cost.png)
 
 Dapat mendownload file usage cost, atau harga penggunaan resource
-![Login Page](../assets/images/hasil_secure_openstack_usage_cost_file.png)
+![Branching](../assets/images/Yuyu-horizon/hasil_secure_openstack_usage_cost_file.png)
 
 Dapat melihat invoice lewat Page Horizon
-![Login Page](../assets/images/hasil_secure_openstack_page_invoice.png)
+![Branching](../assets/images/Yuyu-horizon/hasil_secure_openstack_page_invoice.png)
 
 Dapat melihat invoice via file yang di download
-![Login Page](../assets/images/hasil_secure_openstack_invoice.png)
+![Branching](../assets/images/Yuyu-horizon/hasil_secure_openstack_invoice.png)
