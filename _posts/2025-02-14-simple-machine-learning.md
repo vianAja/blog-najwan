@@ -40,18 +40,17 @@ Supervised Learning adalah salah satu terknik Machine Learning (ML) yang menggun
 Type Supervised Learning :
 - Classification
   Classification merupakan tipe Supervised Learning yang mana nantinya algoritma ini akan mengelompokan atau grouping data sesuai kategori label atau sesuai variable output yang di hasilkan dari data inputnya.
-
   Contoh:
-  - **Classification Email spam**
-    Dimana nantinya akan mengelompokan mana kategori email yang spam dan email yang penting
----
+  **Classification Email spam**
+  Dimana nantinya akan mengelompokan mana kategori email yang spam dan email yang penting
+
+  ---
 
 - Regresion
   Regresion merupakan tipe Supervised Learning yang akan memprediksi nilai numerik continuation berdasarkan hubungan antara variabel input dan output.
-
   Contoh:
-  - **Prediksi harga rumah berdasarkan luas tanah dan lokasi rumah**
-    Apabila luas tanah semakin luas, otomatis harganya akan mahal juga, begitu juga dengan lokasinya, apabila di dataran tinggi akan semakin mahal misalkan. Data itu semua akan di kalkulasi oleh Regression ini.
+  **Prediksi harga rumah berdasarkan luas tanah dan lokasi rumah**
+  Apabila luas tanah semakin luas, otomatis harganya akan mahal juga, begitu juga dengan lokasinya, apabila di dataran tinggi akan semakin mahal misalkan. Data itu semua akan di kalkulasi oleh Regression ini.
 
 
 ### 2. Unsupervised Learning
