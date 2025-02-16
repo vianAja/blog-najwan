@@ -24,18 +24,13 @@ Pada blog ini, saya akan sedikit menerangkan terkait salah satu jenis kecerdasan
 ## Machine Learning (ML)?
 Machine Learning (ML) sendiri merupakan cabang dari kecerdasan buatan atau Artificial Intelligence (AI) yang memungkinkan komputer untuk belajar dari data tanpa harus diprogram secara eksplisit atau secara mudahnya kita tidak perlu memberikan perintah misalkan suatu function akan menghasilkan penambahan, jadi saat saya mengisikan data 1 dan 4, akan menghasilkan nilai 5 (karena function penambahan). Dengan ML, komputer dapat mengenali pola, membuat prediksi, dan mengambil keputusan berdasarkan data yang diberikan.
 
-## Proses kerja Machine Learning melibatkan beberapa langkah:
+**Proses kerja Machine Learning melibatkan beberapa langkah:**
 
 1. Pengumpulan Data – Data dikumpulkan dari berbagai sumber, seperti sensor, database, atau teks.
-
 2. Preprocessing Data – Data dibersihkan, diubah, dan disiapkan agar bisa digunakan oleh model ML.
-
 3. Pemilihan Model – Memilih algoritma yang sesuai, seperti regresi, decision tree, atau neural networks.
-
 4. Pelatihan Model – Model dilatih dengan menggunakan dataset, di mana ia belajar untuk mengenali pola dan membuat prediksi.
-
 5. Evaluasi Model – Model diuji untuk mengukur kinerjanya dengan data yang belum pernah dilihat sebelumnya.
-
 6. Deployment & Penggunaan – Model yang sudah terlatih digunakan dalam sistem nyata untuk melakukan tugas tertentu.
 
 ## Jenis Machine Learning
@@ -44,13 +39,16 @@ Supervised Learning adalah salah satu terknik Machine Learning (ML) yang menggun
 
 Type Supervised Learning :
 - Classification
-  Classification merupakan tipe Supervised Learning yang mana nantinya algoritma ini akan mengelompokan atau grouping data sesuai kategori label atau sesuai variable output yang di hasilkan dari data inputnya
+  Classification merupakan tipe Supervised Learning yang mana nantinya algoritma ini akan mengelompokan atau grouping data sesuai kategori label atau sesuai variable output yang di hasilkan dari data inputnya.
+
   Contoh:
   - **Classification Email spam**
     Dimana nantinya akan mengelompokan mana kategori email yang spam dan email yang penting
+---
 
 - Regresion
-  Regresion merupakan tipe Supervised Learning yang akan memprediksi nilai numerik continuation berdasarkan hubungan antara variabel input dan output
+  Regresion merupakan tipe Supervised Learning yang akan memprediksi nilai numerik continuation berdasarkan hubungan antara variabel input dan output.
+
   Contoh:
   - **Prediksi harga rumah berdasarkan luas tanah dan lokasi rumah**
     Apabila luas tanah semakin luas, otomatis harganya akan mahal juga, begitu juga dengan lokasinya, apabila di dataran tinggi akan semakin mahal misalkan. Data itu semua akan di kalkulasi oleh Regression ini.
