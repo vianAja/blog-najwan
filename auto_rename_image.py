@@ -38,44 +38,49 @@ for data in database.keys():
     if os.path.exists(path_make_post) != True:
         os.mkdir(path_make_post)
 
-'''
-Pemindahan Gambar Sesuai Postingan
-'''
+def move_gambar():
+    '''
+    Pemindahan Gambar Sesuai Postingan
+    '''
+    for data in database.keys():
+        path_make_post = os.path.join(path_gambar, data)
+        for gambar in database[data]:
+            print(gambar)
+            name = gambar[:-1].split('/')[-1]
+            print(gambar)
+            path_gambar_asli = os.path.join(path_gambar, name)
+            path_gambar_baru = os.path.join(path_make_post, name)
 
-for data in database.keys():
-    path_make_post = os.path.join(path_gambar, data)
-    for gambar in database[data]:
-        print(gambar)
-        name = gambar[:-1].split('/')[-1]
-        print(gambar)
-        path_gambar_asli = os.path.join(path_gambar, name)
-        path_gambar_baru = os.path.join(path_make_post, name)
-        
-        print(os.path.exists(path_gambar_asli))
-        # jika gambar baru belum ada, maka copy gambar
-        if os.path.exists(path_gambar_baru) != True:
-            shutil.copy(path_gambar_asli, path_make_post)
+            print(os.path.exists(path_gambar_asli))
+            # jika gambar baru belum ada, maka copy gambar
+            if os.path.exists(path_gambar_baru) != True:
+                shutil.copy(path_gambar_asli, path_make_post)
 
+def update_lokasi_gambar_blog():
+    '''
+    Update lokasi file gambar untuk blog nya
+    '''
+    for post in list_posts:
+        template = '![Branching](../assets/images/{}{})'
 
-'''
-Update lokasi file gambar untuk blog nya
-'''
+        name = post.split('-', maxsplit=3)[-1]
+        name = name.replace('.md', '')
+        if database[name] == []: continue
+        path = os.path.join(path_post, post)
+        with open(path, 'r+', encoding='utf-8') as f:
+            content_data = f.read()
+            for replacement in database[name]:
+                name_file = replacement[:-1].split('/')[-1]
+                content_data = content_data.replace(
+                    replacement,
+                    template.format(name, '/'+name_file)
+                )
+                f.seek(0)
+                f.write(content_data)
+                f.truncate()
 
-for post in list_posts:
-    template = '![Branching](../assets/images/{}{})'
-    
-    name = post.split('-', maxsplit=3)[-1]
-    name = name.replace('.md', '')
-    if database[name] == []: continue
-    path = os.path.join(path_post, post)
-    with open(path, 'r+', encoding='utf-8') as f:
-        content_data = f.read()
-        for replacement in database[name]:
-            name_file = replacement[:-1].split('/')[-1]
-            content_data = content_data.replace(
-                replacement,
-                template.format(name, '/'+name_file)
-            )
-            f.seek(0)
-            f.write(content_data)
-            f.truncate()
+def main():
+    pass
+
+if __name__ == '__main__':
+    main()

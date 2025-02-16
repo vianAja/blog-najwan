@@ -4,15 +4,18 @@ with open('_posts/2024-10-19-openstack.md', encoding='utf-8',) as f:
     #print(type(data))
 
 import datetime
-
+import os
+os.system('cls')
 print(datetime.datetime.date)
 
+#full_path = os.getcwd()
+#path_post = os.path.join(full_path, '_posts')
 
 class MainAutoGenerateTemplate:
     def __init__(self):
         global command_name, type_command, command_list
+        self.full_path = os.getcwd()
         self.tanggal = datetime.datetime.now().strftime('%Y-%m-%d')
-        self.title = ''
         self.author = 'Najwan Octavian Gerrard'
         self.tags = []
         self.template_code =  '''
@@ -33,6 +36,7 @@ share-img: /assets/img/wallpaper2.png
 tags: {}
 author: {}
 ---'''
+        self.template_gambar = '![{}](../assets/images/{}{})'
     def JudulCreate(self):
         print('Masukan Nama Postingan Anda :')
         nama_postingan = str(input('\t=> ')).replace(' ','-')
@@ -54,8 +58,8 @@ author: {}
         self.tags = tags
     
     def generateTemplate(self):
-        
-        with open(self.nama_file, 'a') as file:
+        path_file = os.path.join(self.full_path, self.nama_file)
+        with open(path_file, 'a') as file:
             ## untuk membuat header awalan
             file.write(str(self.template_header.format(
                 self.title,
@@ -63,33 +67,7 @@ author: {}
                 self.tags,
                 self.author
             )))
-            i = 1
-            ## looping untuk banyaknya instruksi yang akan di jalankan
-            while True:
-                try:
-                    command_list = []
-                    print(f'Masukan Langkah ke {i}')
-                    command_name = str(input('   => '))
-                    type_command = 'bash'
-                    
-                    ## looping untuk banyaknya command / perintah yang akan di gunakan
-                    print(f'Masukan Code block command, klik CTRL + C untuk berhenti')
-                    while True:
-                        try:
-                            command = str(input('   => '))
-                            command_list.append(command)
-                        except KeyboardInterrupt:
-                            print('\n')
-                            break
-                    i += 1
-                    ## untuk membuat instruksi ke markdown
-                    file.write(self.template_code.format(
-                        command_name,
-                        type_command,
-                        "".join(["  "+d+"\n" for d in command_list]))
-                    )
-                except KeyboardInterrupt:
-                    break
+
     def main(self):
         print(self.tanggal)
         self.JudulCreate()
@@ -99,5 +77,6 @@ author: {}
         
         self.generateTemplate()
 
-p = MainAutoGenerateTemplate()
-p.main()
+if __name__ == "__main__":
+    p = MainAutoGenerateTemplate()
+    p.main()
