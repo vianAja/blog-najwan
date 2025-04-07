@@ -11,3 +11,10 @@ ehthumbs.db
 Gemfile.lock
 
 beautiful-jekyll-theme-*.gem
+
+
+_posts/2024-2-16-computer-vision.md
+_posts/2024-2-16-natural-language-processing.md
+_posts/2024-2-16-reinforcement-learning.md
+_posts/2024-2-16-robotics.md
+_posts/2024-2-16-speech-recognition.md

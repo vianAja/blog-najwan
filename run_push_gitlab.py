@@ -2,13 +2,6 @@ import subprocess
 from dotenv import load_dotenv
 import os
 
-load_dotenv('.creds/.env')
-
-## Credentials for GitLab project
-username_gitlab = os.getenv('GITLAB_USERNAME')
-password_gitlab = os.getenv('GITLAB_PASSWORD')
-
-
 def push_gitlab(commit_name: str,):
     subprocess.run([
         'git',
@@ -27,9 +20,6 @@ def push_gitlab(commit_name: str,):
         stderr=subprocess.PIPE,
         text=True
     )
-
-    proses_push.stdin.write(f'{username_gitlab}\n{password_gitlab}')
-    proses_push.stdin.close()
 
 if __name__ == '__main__':
     print('Masukan Commit Message:')
