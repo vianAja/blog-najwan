@@ -3,7 +3,7 @@ layout: post
 title: What is Machine Learning?
 subtitle: Explain about Machine Learning
 cover-img: /assets/img/wallpaper2.png
-thumbnail-img: 
+thumbnail-img: /assets/images/machine-learning/machine-learning-icon.jpg
 share-img: /assets/img/wallpaper2.png
 tags: ['Artificial Intelligence (AI)']
 author: Najwan Octavian Gerrard

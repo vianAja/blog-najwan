@@ -3,7 +3,7 @@ layout: post
 title: jupyter notebook
 subtitle: jupyter notebook
 cover-img: /assets/img/wallpaper2.png
-thumbnail-img: https://ant.ncc.asia/wp-content/uploads/2024/05/docker.png
+thumbnail-img: /assets/images/jupyter-notebook/jupyter-notebook.jpg
 share-img: /assets/img/wallpaper2.png
 tags: 2025-02-13
 author: 

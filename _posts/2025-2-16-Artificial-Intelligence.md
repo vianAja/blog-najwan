@@ -3,7 +3,7 @@ layout: post
 title: What is Artificial Intelligence (AI)
 subtitle: Definision, Benefits about Artificial Intelligence (AI)
 cover-img: /assets/img/wallpaper2.png
-thumbnail-img: https://ant.ncc.asia/wp-content/uploads/2024/05/docker.png
+thumbnail-img: /assets/images/Artificial-Intelligence/ai _logo.jpg
 share-img: /assets/img/wallpaper2.png
 tags: ['Artificial Intelligence (AI)']
 author: Najwan Octavian Gerrard

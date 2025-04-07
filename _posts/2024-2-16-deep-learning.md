@@ -3,7 +3,7 @@ layout: post
 title: Deep Learning
 subtitle: Explain about the Deep Learning
 cover-img: /assets/img/wallpaper2.png
-thumbnail-img: https://telliant.com/wp-content/uploads/2023/06/deep-machine-learning.jpg
+thumbnail-img: /assets/images/deep-learning/deep-learning.webp
 share-img: /assets/img/wallpaper2.png
 tags: ['Artificial Intelligence (AI)', 'Deep Learning']
 author: Najwan Octavian Gerrard
