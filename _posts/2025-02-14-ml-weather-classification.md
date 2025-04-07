@@ -3,7 +3,7 @@ layout: post
 title: Simple ML for Weather Classifications
 subtitle: Simple Machine Learning for Weather Classifications using XGBoost
 cover-img: /assets/img/wallpaper2.png
-thumbnail-img: /assets/images/ml-weather-classification/weather-icon.jpg
+thumbnail-img: /assets/images/ml-weather-classification/weather-icon.png
 share-img: /assets/img/wallpaper2.png
 tags: ['Artificial Intelligence (AI)', 'XGBoost', 'Classification']
 author: Najwan Octavian Gerrard

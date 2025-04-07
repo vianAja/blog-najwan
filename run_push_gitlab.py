@@ -20,7 +20,7 @@ def push_gitlab(commit_name: str,):
     ], text=False)
     proses_push = subprocess.Popen(
         [
-            'git','push','origin','main'
+            'git','push','origin','master'
         ],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
