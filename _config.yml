@@ -32,7 +32,7 @@ navbar-links:
 
 # Image to show in the navigation bar - works best with a square image
 # Remove this parameter if you don't want an image in the navbar
-avatar: "/assets/img/avatar-icon.png"
+avatar: "/assets/img/vestia-zeta.jpeg"
 
 # By default, the image is cut into a circle. You can disable this behaviour by setting 'round-avatar: false'
 round-avatar: true
@@ -103,8 +103,8 @@ share-links-active:
 url-pretty: "vianaja.id"
 
 # Add the website title to the title of every page
-title-on-all-pages: false
-#title-on-all-pages: true
+#title-on-all-pages: false
+title-on-all-pages: true
 
 # Excerpt word length - Truncate the excerpt of each 
 # post on the feed page to the specified number of words
