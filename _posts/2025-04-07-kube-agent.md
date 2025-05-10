@@ -9,8 +9,6 @@ tags: ['Kubernetes', 'GitLab CI/CD', 'Helm', 'DevOps']
 author: Najwan Octavian Gerrard
 ---
 
-[//]: # (Dalam era DevOps dan automasi modern, integrasi antara sistem kontrol versi seperti GitLab dengan platform orkestrasi container seperti Kubernetes menjadi kebutuhan utama. Banyak perusahaan dan tim pengembang mencari solusi yang dapat mempercepat proses build, testing, dan deployment secara otomatis ke dalam lingkungan Kubernetes. Melalui project ini, saya mengeksplorasi bagaimana GitLab Kubernetes Agent dan GitLab Runner dapat bekerja sama untuk menciptakan pipeline CI/CD yang aman, efisien, dan sepenuhnya terintegrasi dengan cluster Kubernetes.)
-
 Dalam praktik modern pengembangan perangkat lunak, automasi deployment ke lingkungan produksi menjadi salah satu prioritas utama. Penggunaan GitLab sebagai platform DevOps all-in-one dan Kubernetes sebagai orkestrator container telah menjadi kombinasi yang sangat umum di berbagai organisasi. Namun, integrasi antara keduanya seringkali menghadirkan tantangan tersendiri, terutama dalam hal keamanan dan manajemen akses.
 
 Untuk menjawab kebutuhan tersebut, GitLab menyediakan solusi bernama GitLab Kubernetes Agent (KAS), sebuah mekanisme komunikasi terenkripsi yang memungkinkan GitLab terhubung secara aman dan efisien ke cluster Kubernetes, tanpa perlu menyimpan kubeconfig atau token di dalam repository CI/CD.
