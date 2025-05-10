@@ -2,9 +2,9 @@
 layout: post
 title: jupyter notebook
 subtitle: jupyter notebook
-cover-img: /assets/img/wallpaper2.png
+cover-img: /assets/img/wallpaper7.png
 thumbnail-img: /assets/images/jupyter-notebook/jupyter-notebook.jpg
-share-img: /assets/img/wallpaper2.png
+share-img: /assets/img/wallpaper7.png
 tags: 2025-02-13
 author: 
 ---

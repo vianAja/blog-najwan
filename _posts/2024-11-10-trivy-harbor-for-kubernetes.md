@@ -2,9 +2,9 @@
 layout: post
 title: Harbor, Trivy Scanner for Kubernetes Cluster
 subtitle: Secure Kubernetes Cluster with Harbor and Trivy for Images Scanning Vulnerability.
-cover-img: /assets/img/wallpaper1.png
+cover-img: /assets/img/wallpaper3.png
 thumbnail-img: https://juststickers.in/wp-content/uploads/2018/11/kubernetes-wordmark.png
-share-img: /assets/img/wallpaper1.png
+share-img: /assets/img/wallpaper3.png
 tags: [Project, Kubernetes, Trivy, Harbor, Docker, Python, Slack]
 author: Najwan Octavian
 ---
@@ -77,7 +77,7 @@ Untuk lebih detail terkait pengertian dan langkah installasi, bisa kunjungi post
 
 #### 2. Create SSL Certificate untuk Harbor
 
-* Membuat file Config IP SAN, agar SSL Certificate dapat membaca akses jika melalui IP, dan di simpan di directory **_+“/etc/ssl/”_**.
+* Membuat file Config IP SAN, agar SSL Certificate dapat membaca akses jika melalui IP, dan di simpan di directory **_“/etc/ssl/”_**.
   ```bash
   ~$ echo "subjectAltName=IP:<IP Address Node>" > IP_SANS.txt
   ```

@@ -2,9 +2,9 @@
 layout: post
 title: Deep Learning
 subtitle: Explain about the Deep Learning
-cover-img: /assets/img/wallpaper2.png
+cover-img: /assets/img/wallpaper1.png
 thumbnail-img: /assets/images/deep-learning/deep-learning.webp
-share-img: /assets/img/wallpaper2.png
+share-img: /assets/img/wallpaper1.png
 tags: ['Artificial Intelligence (AI)', 'Deep Learning']
 author: Najwan Octavian Gerrard
 ---

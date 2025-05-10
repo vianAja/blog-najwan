@@ -28,7 +28,6 @@ Docker adalah salah satu platform software yang digunakan untuk membuat, mengelo
 ### Installations
 
 - Update Package, install package untuk curl dan certificate.
-
   ```bash
   sudo apt-get update
   sudo apt-get install ca-certificates curl -y
@@ -36,7 +35,6 @@ Docker adalah salah satu platform software yang digunakan untuk membuat, mengelo
 
   ---
 - Mengatur untuk kunci GPG docker, agar memastikan bahwa source code Docker nya itu legal.
-
   ```bash
   sudo install -m 0755 -d /etc/apt/keyrings
   sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
@@ -45,14 +43,12 @@ Docker adalah salah satu platform software yang digunakan untuk membuat, mengelo
   
   ---
 - Menambahkan Repositori docker agar dapat di install
-
   ```bash
   echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   ```
 
   ---
 - Install Docker.
-
   ```bash
   sudo apt-get update
   sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
@@ -60,7 +56,6 @@ Docker adalah salah satu platform software yang digunakan untuk membuat, mengelo
   
   ---
 - Mengatur agar user **_“biasa”_** atau user biasa (Bukan Root) dapat menggunakan perintah docker
-
   ```bash
   sudo usermod -aG docker $USER
   sudo chmod 666 /var/run/docker.sock
