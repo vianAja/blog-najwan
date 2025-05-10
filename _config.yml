@@ -20,7 +20,7 @@ author: Najwan Octavian Gerrard
 ###############################################
 
 navbar-links:
-  About Me: "aboutme"
+  About Me: "https://portfolio-najwan.pages.dev/about"
   #Resources:
     #- Beautiful Jekyll: "https://beautifuljekyll.com"
     #- Learn markdown: "https://www.markdowntutorial.com/"
@@ -35,7 +35,7 @@ navbar-links:
 avatar: "/assets/img/avatar-icon.png"
 
 # By default, the image is cut into a circle. You can disable this behaviour by setting 'round-avatar: false'
-round-avatar: true
+round-avatar: false
 
 # If you want to have an image logo in the top-left corner instead of having the title of the website,
 # then specify the following parameter
@@ -57,7 +57,7 @@ social-network-links:
 #  twitter: daattali
 #  patreon: DeanAttali
 #  youtube: "@daattali"
-#  whatsapp: 15551212
+  whatsapp: 62895414361074
 #  medium: yourname
 #  reddit: yourname or r/yoursubreddit
 #  linkedin: daattali
@@ -66,11 +66,11 @@ social-network-links:
 #  snapchat: deanat78
 #  instagram: deanat78
 #  spotify: yourname
-#  telephone: +14159998888
+  telephone: +62895414361074
 #  steam: deanat78
 #  twitch: yourname
 #  yelp: yourname
-#  telegram: yourname
+  telegram: najwanoctavian
 #  calendly: yourname
 #  mastodon: instance.url/@username
 #  bluesky: yourname
@@ -85,7 +85,7 @@ social-network-links:
 
 # If you want your website to generate an RSS feed, provide a description
 # The URL for the feed will be https://<your_website>/feed.xml
-rss-description: This website is a virtual proof that I'm awesome
+rss-description: This website blog Najwan Octavian Gerrard
 
 ###########################
 # --- General options --- #
@@ -103,7 +103,8 @@ share-links-active:
 url-pretty: "vianaja.id"
 
 # Add the website title to the title of every page
-title-on-all-pages: true
+title-on-all-pages: false
+#title-on-all-pages: true
 
 # Excerpt word length - Truncate the excerpt of each 
 # post on the feed page to the specified number of words
@@ -262,7 +263,8 @@ date_format: "%B %-d, %Y"
 timezone: "America/Toronto"
 markdown: kramdown
 highlighter: rouge
-permalink: /:year-:month-:day-:title/
+permalink: /:title/
+#permalink: /:year-:month-:day-:title/
 paginate: 5
 
 kramdown:
