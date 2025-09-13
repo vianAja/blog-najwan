@@ -31,8 +31,6 @@ OpenShift merupakan sebuah platform berbasis Kubernetes yang dirancang oleh Red 
   * Katalog bahasa, framework, dan middleware siap pakai
   * Operator Framework untuk otomatisasi aplikasi kompleks
 
----
-
 ### **Kekurangan OpenShift**
 
 * **Kompleksitas instalasi & operasional**
@@ -44,8 +42,6 @@ OpenShift merupakan sebuah platform berbasis Kubernetes yang dirancang oleh Red 
 * **Resource intensif**
 
   * Membutuhkan hardware/server cukup besar terutama untuk production
-
----
 
 Dengan kata lain, OpenShift menawarkan lebih dari sekadar orkestrasi kontainer: ia memberikan platform aplikasi menyeluruh yang mendukung kecepatan inovasi, menjaga standar keamanan, serta memastikan stabilitas operasional. Itulah mengapa OpenShift kini menjadi pilihan utama banyak perusahaan dalam perjalanan mereka membangun bisnis yang lebih gesit dan siap bersaing di dunia digital.
 
@@ -103,6 +99,8 @@ crc setup
 ```bash
 crc start
 ```
+---
+
 - Nanti akan ada diminta memasukan ***"Pull Secret"***, masukan ***"Pull Secret"*** yang sudah di copy saat di dashboard RedHat tadi, lalu tunggu hingga proses nya selesai, dan menampilkan output seperti berikut. Dan ini menampilkan credentials kita untuk login, user dan password default nya
 ```bash
 INFO A CRC VM for OpenShift 4.19.3 is already running 
@@ -124,11 +122,13 @@ Use the 'oc' command line interface:
   $ oc login -u developer https://api.crc.testing:6443
 ```
 ---
+
 - Lalu untuk menggunakan OpenShift nya, jalankan command berikutt ini.
 ```bash
 eval $(crc oc-env)
 ```
 ---
+
 - login ke OpenShift via CLI
 ```bash
 # Untuk login ke user ADMIN
@@ -143,6 +143,8 @@ oc login -u developer -p developer https://api.crc.testing:6443
 ```bash
 crc status
 ```
+---
+
 - Pastikan output nya seperti berikut ini, *"Running"* dan *"Starting"*
 ```bash
 CRC VM:          Running
@@ -159,6 +161,8 @@ Cache Directory: /home/student/.crc/cache
 The server is accessible via web console at:
   https://console-openshift-console.apps-crc.testing
 ```
+---
+
 - Jadi dari hasil comman tadi, open URL nya dengan Firefox, seperti contoh di saya URL adalah *"https://console-openshift-console.apps-crc.testing"*, nanti akan diarahkan ke dashboard Login sepeti ini. Bisa coba Login dengan Credentials yang di tampilan pada command *"crc start"* tadi
 ![](../assets/images/openshift-crc/dash-login.png)
 
