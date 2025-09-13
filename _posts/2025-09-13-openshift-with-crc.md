@@ -101,26 +101,27 @@ crc start
 ```
 ---
 
-- Nanti akan ada diminta memasukan ***"Pull Secret"***, masukan ***"Pull Secret"*** yang sudah di copy saat di dashboard RedHat tadi, lalu tunggu hingga proses nya selesai, dan menampilkan output seperti berikut. Dan ini menampilkan credentials kita untuk login, user dan password default nya
-```bash
-INFO A CRC VM for OpenShift 4.19.3 is already running 
-Started the OpenShift cluster.
+- Nanti akan ada diminta memasukan ***"Pull Secret"***, masukan ***"Pull Secret"*** yang sudah di copy saat di dashboard RedHat tadi, lalu tunggu hingga proses nya selesai, dan menampilkan output seperti berikut. Dan ini menampilkan credentials kita untuk login, user dan password default nya.
 
-The server is accessible via web console at:
-  https://console-openshift-console.apps-crc.testing
+    ```bash
+    INFO A CRC VM for OpenShift 4.19.3 is already running 
+    Started the OpenShift cluster.
 
-Log in as administrator:
-  Username: kubeadmin
-  Password: aTz4U-aaaa-iiii-uuuu
+    The server is accessible via web console at:
+      https://console-openshift-console.apps-crc.testing
 
-Log in as user:
-  Username: developer
-  Password: developer
+    Log in as administrator:
+      Username: kubeadmin
+      Password: aTz4U-aaaa-iiii-uuuu
 
-Use the 'oc' command line interface:
-  $ eval $(crc oc-env)
-  $ oc login -u developer https://api.crc.testing:6443
-```
+    Log in as user:
+      Username: developer
+      Password: developer
+
+    Use the 'oc' command line interface:
+      $ eval $(crc oc-env)
+      $ oc login -u developer https://api.crc.testing:6443
+    ```
 ---
 
 - Lalu untuk menggunakan OpenShift nya, jalankan command berikutt ini.
