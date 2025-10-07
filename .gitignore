@@ -11,6 +11,11 @@ ehthumbs.db
 Gemfile.lock
 
 beautiful-jekyll-theme-*.gem
+auto_gen_gui.py
+auto_generate.py
+auto_rename_image.py
+run_push_gitlab.py
+gui_post_2025.py
 
 
 _posts/2024-2-16-computer-vision.md
@@ -25,3 +30,5 @@ _posts/2024-11-04-*
 _posts/2024-11-05-*
 _posts/2024-11-06-*
 _posts/2024-11-07-*
+
+_posts/2025-10-4-reverse-proxy-public.md
