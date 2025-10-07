@@ -124,8 +124,6 @@ Pada case kali ini saya akan mencoba pakai sample Prometheus yang di deploy di c
   ---
 #### Penjelasan Konfigurasi
 
-<details>
- <summary><strong>Klik untuk Penjelasan Config</strong></summary>
 
 | Bagian | Baris Konfigurasi | Penjelasan Singkat | Detail Teknis |
 | :--- | :--- | :--- | :--- |
@@ -138,8 +136,6 @@ Pada case kali ini saya akan mencoba pakai sample Prometheus yang di deploy di c
 | | `"traefik.http.middlewares.prom-strip.stripprefix.prefixes=/prome"` | **Definisi *Middleware*:** Membuat *middleware* untuk menghapus awalan jalur. | Membuat *middleware* bernama **`prom-strip`** yang akan menghapus awalan **`/prome`** dari URL sebelum permintaannya diteruskan ke Prometheus. |
 | | `"traefik.http.routers.prom.middlewares=prom-strip"` | Menerapkan *middleware* ke *router*. | *Router* `prom` akan menggunakan *middleware* `prom-strip`. Jadi, saat Anda mengakses `http://.../prome/graph`, Traefik akan menghapus `/prome` dan meneruskan `http://.../graph` ke Prometheus. |
 | | `"traefik.http.services.prom.loadbalancer.server.port=9090"` | **Definisi *Service*:** Menentukan port tujuan di dalam *container*. | Memberi tahu Traefik bahwa *service* Prometheus berjalan di **port 9090** di dalam *container*, dan Traefik harus meneruskan semua permintaan ke port ini. |
-
-</details>
 
 - Buat konfigurasi file buat service Prometheus nya, untuk case ini saya spesifik di path `./prome/prometheus.yaml`
   ```bash
@@ -189,8 +185,6 @@ Pada case kali ini saya akan mencoba pakai sample Prometheus yang di deploy di c
   ---
 #### Penjelasan Konfigurasi
 
-<details>
- <summary><strong>Klik untuk Penjelasan Config</strong></summary>
 
 | Bagian | Baris Konfigurasi | Penjelasan Singkat | Detail Teknis |
 | :--- | :--- | :--- | :--- |
@@ -202,7 +196,6 @@ Pada case kali ini saya akan mencoba pakai sample Prometheus yang di deploy di c
 | | `"traefik.http.services.grafana.loadbalancer.server.port=3000"` | **Definisi *Service*:** Menentukan port Grafana di dalam *container*. | Traefik akan meneruskan lalu lintas yang masuk ke **port 3000** di dalam *container* Grafana. |
 | | `"traefik.http.routers.grafana.entrypoints=web"` | Menentukan *entrypoint* (port/protokol) yang digunakan *router*. | *Router* ini akan mendengarkan koneksi yang masuk melalui *entrypoint* bernama **`web`** (biasanya adalah port HTTP 80 atau 8080). |
 
-</details>
 
 
 ### 3. Configuration Traefik
@@ -257,9 +250,6 @@ Pada case kali ini saya akan mencoba pakai sample Prometheus yang di deploy di c
 
 #### Penjelasan Konfigurasi Docker-Compose
 
-<details>
- <summary><strong>Klik untuk Penjelasan Config</strong></summary>
-
 | Bagian | Baris Konfigurasi | Penjelasan Singkat | Detail Teknis |
 | :--- | :--- | :--- | :--- |
 | **`command`** | `--entrypoints.web.address=:9000` | Mendefinisikan *entrypoint* HTTP yang akan didengarkan oleh Traefik. | Membuat *entrypoint* bernama **`web`** yang akan mendengarkan koneksi pada port **`9000`** di dalam *container* Traefik. *Entrypoint* ini digunakan oleh *router* Prometheus dan Grafana sebelumnya. |
@@ -269,8 +259,6 @@ Pada case kali ini saya akan mencoba pakai sample Prometheus yang di deploy di c
 | | `--api.insecure=true` | Mengizinkan akses tidak aman (tanpa autentikasi) ke API dan Dashboard. | **Hanya direkomendasikan untuk lingkungan lokal atau pengembangan.** Ini membuat *dashboard* Traefik dapat diakses tanpa kredensial di *entrypoint* yang sama. |
 | **`ports`** | `9000:9000` | Membuka dan memetakan port Traefik ke *host* (komputer utama). | Memetakan port **`9000`** dari *container* ke port **`9000`** pada mesin *host*. Ini memungkinkan akses eksternal ke Traefik dan *service* yang melewatinya (Prome & Grafana). |
 | **`volumes`** | `/var/run/docker.sock:/var/run/docker.sock` | Menyediakan akses ke Docker *socket* *host*. | **Wajib** agar `--providers.docker=true` dapat berfungsi. Traefik menggunakan *socket* ini untuk berkomunikasi dengan *daemon* Docker dan membaca label konfigurasi dari *container* lain (Prometheus dan Grafana). |
-
-</details>
 
 
 ### 4. Configuration Ngrok
