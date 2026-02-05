@@ -2,9 +2,9 @@
 layout: post
 title: RedHat OpenShift Setup with CRC
 subtitle: Installing OpenShift on Local Machine using Ubuntu with CRC
-cover-img: /assets/img/wallpaper1.png
+cover-img: /assets/img/wallpaper3.webp
 thumbnail-img: /assets/img/OpenShift-Logo.png
-share-img: /assets/img/wallpaper3.png
+share-img: /assets/img/wallpaper3.webp
 tags: ['Kubernetes', 'OpenShift','RedHat', 'Cloud']
 author: Najwan Octavian Gerrard
 ---

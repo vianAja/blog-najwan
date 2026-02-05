@@ -2,9 +2,9 @@
 layout: post
 title: Alert Manager
 subtitle: Explanation and Installation Alert Manager Prometheus
-cover-img: /assets/img/wallpaper1.png
+cover-img: /assets/img/wallpaper1.webp
 thumbnail-img: https://user-images.githubusercontent.com/92439/89548426-51fb0f00-d807-11ea-890f-afb3f9d8110a.png
-share-img: /assets/img/wallpaper1.png
+share-img: /assets/img/wallpaper1.webp
 tags: [Prometheus, Alert Manager]
 author: Najwan Octavian Gerrard
 ---

@@ -2,9 +2,9 @@
 layout: post
 title: K8S Kubernetes
 subtitle: Explanation and Installation Kubernetes.
-cover-img: /assets/img/wallpaper2.png
+cover-img: /assets/img/wallpaper2.webp
 thumbnail-img: https://juststickers.in/wp-content/uploads/2018/11/kubernetes-wordmark.png
-share-img: /assets/img/wallpaper2.png
+share-img: /assets/img/wallpaper2.webp
 tags: [Kubernetes, Docker]
 author: Najwan Octavian
 ---

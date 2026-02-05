@@ -2,9 +2,9 @@
 layout: post
 title: Secure Service OpenStack and Yuyu Biliing OpenStack with TLS
 subtitle: Explanation and Implementation Project Secure Service OpenStack and Yuyu Biliing OpenStack with TLS
-cover-img: /assets/img/wallpaper5.png
+cover-img: /assets/img/wallpaper5.webp
 thumbnail-img: /assets/images/secure-openstack-horizon-yuyu/openstack_logo.png
-share-img: /assets/img/wallpaper5.png
+share-img: /assets/img/wallpaper5.webp
 tags: [Project ,OpenStack, Container, Apache, Python]
 author: Najwan Octavian Gerrard
 ---

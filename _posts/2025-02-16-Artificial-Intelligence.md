@@ -2,9 +2,9 @@
 layout: post
 title: What is Artificial Intelligence (AI)
 subtitle: Definision, Benefits about Artificial Intelligence (AI)
-cover-img: /assets/img/wallpaper2.png
+cover-img: /assets/img/wallpaper2.webp
 thumbnail-img: /assets/images/Artificial-Intelligence/ai _logo.jpg
-share-img: /assets/img/wallpaper2.png
+share-img: /assets/img/wallpaper2.webp
 tags: ['Artificial Intelligence (AI)']
 author: Najwan Octavian Gerrard
 ---

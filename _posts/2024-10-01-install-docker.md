@@ -2,9 +2,9 @@
 layout: post
 title: Docker Container
 subtitle: Explanation and Installation Docker Container 
-cover-img: /assets/img/wallpaper3.png
+cover-img: /assets/img/wallpaper3.webp
 thumbnail-img: https://ant.ncc.asia/wp-content/uploads/2024/05/docker.png
-share-img: /assets/img/wallpaper3.png
+share-img: /assets/img/wallpaper3.webp
 tags: [Docker]
 author: Najwan Octavian Gerrard
 ---

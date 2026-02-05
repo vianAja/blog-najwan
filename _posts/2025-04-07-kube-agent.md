@@ -2,9 +2,9 @@
 layout: post
 title: Kubenetes Agent Gitlab
 subtitle: Deploy Kubernetes Agent on Gitlab and use Pipeline CI/CD
-cover-img: /assets/img/wallpaper3.png
+cover-img: /assets/img/wallpaper3.webp
 thumbnail-img: /assets/images/kube-agent/kube_agent_gitlab.png
-share-img: /assets/img/wallpaper3.png
+share-img: /assets/img/wallpaper3.webp
 tags: ['Kubernetes', 'GitLab CI/CD', 'Helm', 'DevOps']
 author: Najwan Octavian Gerrard
 ---

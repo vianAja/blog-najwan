@@ -2,9 +2,9 @@
 layout: post
 title: Prometheus
 subtitle: Explanation and Installation Prometheus
-cover-img: /assets/img/wallpaper7.png
+cover-img: /assets/img/wallpaper7.webp
 thumbnail-img: https://user-images.githubusercontent.com/92439/89548426-51fb0f00-d807-11ea-890f-afb3f9d8110a.png
-share-img: /assets/img/wallpaper7.png
+share-img: /assets/img/wallpaper7.webp
 tags: [Prometheus]
 author: Najwan Octavian Gerrard
 ---

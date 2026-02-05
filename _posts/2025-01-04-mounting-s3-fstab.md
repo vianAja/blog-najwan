@@ -2,9 +2,9 @@
 layout: post
 title: Permanent Mounting S3 in Ubuntu Ec2 via fstab
 subtitle: Explanation and Configure Mounting 
-cover-img: /assets/img/wallpaper6.png
+cover-img: /assets/img/wallpaper6.webp
 thumbnail-img: https://miro.medium.com/v2/resize:fit:1200/1*Qz8qHl2TEWNK_1rmPZ-t-A.png
-share-img: /assets/img/wallpaper6.png
+share-img: /assets/img/wallpaper6.webp
 tags: [Aws, Ec2, Ubuntu, S3]
 author: Najwan Octavian Gerrard
 ---

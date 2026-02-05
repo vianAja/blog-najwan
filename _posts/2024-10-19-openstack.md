@@ -2,9 +2,9 @@
 layout: post
 title: OpenStack and Kolla-Ansible
 subtitle: Explanation and Installation OpenStack with Kolla-Ansible
-cover-img: /assets/img/wallpaper4.png
+cover-img: /assets/img/wallpaper4.webp
 thumbnail-img: /assets/images/openstack/openstack_logo.png
-share-img: /assets/img/wallpaper4.png
+share-img: /assets/img/wallpaper4.webp
 tags: [OpenStack, Container]
 author: Najwan Octavian Gerrard
 ---

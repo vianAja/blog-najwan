@@ -2,9 +2,9 @@
 layout: post
 title: Local Apps go to public with Traefik and Ngrok via Container Docker
 subtitle: Secure Gateway Ngrok - Bongkar Trik Path-Based Routing Traefik untuk Homelab/Dev Lokal agar public.
-cover-img: /assets/img/wallpaper3.png
+cover-img: /assets/img/wallpaper3.webp
 thumbnail-img: /assets/img/traefik-ngrok.png
-share-img: /assets/img/wallpaper3.png
+share-img: /assets/img/wallpaper3.webp
 tags: ['Networking']
 author: Najwan Octavian Gerrard
 ---
