@@ -3,7 +3,7 @@ layout: post
 title: Serverless Async Architecture Integrasi ALB, Lambda, SQS, dan DynamoDB
 subtitle: Handling High Traffic dengan Gaya Asinkronus di AWS
 cover-img: /assets/img/wallpaper4.webp
-thumbnail-img: /assets/images/lks/alb1.png
+thumbnail-img: /assets/images/lks/serverless.png
 share-img: /assets/img/wallpaper4.webp
 tags: ['AWS', 'Serverless', 'Cloud']
 author: Najwan Octavian Gerrard
@@ -17,7 +17,7 @@ Gas langsung aja kita bedah arsitekturnya!
 
 # Pembahasan Arsitektur
 
-![topology](/assets/images/lks/topology-serverless.png)
+![topology](../assets/images/lks/topology-serverless.png)
 ---
 
 Konsepnya sederhana tapi *powerful*. Kita gak mau user nunggu lama cuma buat nunggu proses database selesai. Jadi kita pake metode **Asinkronus**.
@@ -36,7 +36,16 @@ Dengan cara ini, frontend user bakal ngerasa aplikasinya ngebut banget, padahal 
 
 Biar gak bingung, kita bagi jadi beberapa *part* ya. Siapin kopi kalian, *let's dive in!*
 
-### 1. Siapin Database (DynamoDB)
+### 1. persyaratan awal
+- VPC sudah ada dengan configurasi
+    - 4 Subnet (Public dan Private masing - masing 2)
+    - Internet Gateway
+    - RTB untuk subnet Public dan RTB untuk masing - masing subnet Private 
+- SG dengan Inbound Port
+    - HTTP: 80
+    - HTTPS: 443
+
+### 2. Siapin Database (DynamoDB)
 Pertama, kita butuh tempat buat nyimpen data akhirnya. Kita pake DynamoDB karena dia *serverless* dan *fast*.
 
 *   Buka console DynamoDB, klik **Create table**.
@@ -45,51 +54,51 @@ Pertama, kita butuh tempat buat nyimpen data akhirnya. Kita pake DynamoDB karena
     * Sort Key: `item`
 
 
-![DynamoDB Setup](/assets/images/lks/dynamodb1.png)
+![DynamoDB Setup](../assets/images/lks/dynamodb1.png)
 ---
 
-### 2. Buat Antrian (SQS)
+### 3. Buat Queue Service (SQS)
 Ini dia pahlawan kita, si penampung load data.
 
 *   Masuk ke service SQS, pilih **Create queue**. 
 
-![SQS Setup 1](/assets/images/lks/sqs1.png)
+![SQS Setup 1](../assets/images/lks/sqs1.png)
 ---
 
 * Pilih tipe **Standard** aja biar throughput-nya tinggi dan prosesnya lebih cepat. Lalu fill nama nya, exp `vian-sqs`. lalu klik `Create`.
 
-![SQS Setup 2](/assets/images/lks/sqs2.png)
+![SQS Setup 2](../assets/images/lks/sqs2.png)
 ---
 
 * Kemudian simpan link hasil SQS untuk di pakai di Lambda Ingest.
 
-![SQS Setup 3](/assets/images/lks/sqs3.png)
+![SQS Setup 3](../assets/images/lks/sqs3.png)
 ---
 
-### 3. Lambda Ingest
+### 4. Lambda Ingest
 Sekarang kita buat Lambda function pertama, si `IngestFunction`. Tugasnya cuma nerima data dari ALB terus lempar ke SQS.
 
 *   Buat function baru, kasih nama yang kece (misal: `Ingest-vian`).
 *   Pilih Runtime Python.
 
-![Create Lambda Ingest 1](/assets/images/lks/lambda1.png)
+![Create Lambda Ingest 1](../assets/images/lks/lambda1.png)
 ---
 
 *   Pastiin IAM Role-nya punya akses buat **sqs:SendMessage** ke SQS Queue yang udah kita buat. Pada kali ini karena saya pakai AWS Academy, jadi bisa pakai `LabRole`
 
 
-![Create Lambda Ingest 2](/assets/images/lks/lambda2.png)
+![Create Lambda Ingest 2](../assets/images/lks/lambda2.png)
 ---
 
 * Enable konfigurasi VPC yang akan di pakai di Lammbda Ingest.
 * Pilih subnet Private sesuai dengan topologi.
 
-![Create Lambda Ingest 3](/assets/images/lks/lambda3.png)
+![Create Lambda Ingest 3](../assets/images/lks/lambda3.png)
 ---
 
 * Pilih Security Group yang sudah di buat dengan Inbound port 80 dan 443.
 
-![Create Lambda Ingest 4](/assets/images/lks/lambda4.png)
+![Create Lambda Ingest 4](../assets/images/lks/lambda4.png)
 ---
 
 *   Berikut adalah script untuk `IngestFunction`. Script ini akan menerima event dari ALB, mengambil body request, dan mengirimkannya sebagai pesan ke SQS.
@@ -139,30 +148,30 @@ def lambda_handler(event, context):
 ```
 ---
 
-### 4. Target Group
+### 5. Target Group
 Biar `IngestFunction` bisa diakses dari internet, kita butuh ALB.
 
 *   Buat Target Group baru, pilih target type **Lambda function** dan pilih `IngestFunction` yang sudah dibuat.
 
-![Target Group 1](/assets/images/lks/tg1.png)
+![Target Group 1](../assets/images/lks/tg1.png)
 ---
-![Target Group 2](/assets/images/lks/tg2.png)
+![Target Group 2](../assets/images/lks/tg2.png)
 ---
 
-### 5. Application Load Balancer (ALB)
+### 6. Application Load Balancer (ALB)
 *   Buat Application Load Balancer baru.
 
-![ALB Setup 1](/assets/images/lks/alb1.png)
+![ALB Setup 1](../assets/images/lks/alb1.png)
 ---
 
 *  Pilih tipe load balancer yang `Application Load Balance (ALB)`
 
-![ALB Setup 2](/assets/images/lks/alb2.png)
+![ALB Setup 2](../assets/images/lks/alb2.png)
 ---
 
 * Lalu konfigurasi nama, schema pakai `Internal-facing` kemudian IP address nya `IPv4`
 
-![ALB Setup 3](/assets/images/lks/alb3.png)
+![ALB Setup 3](../assets/images/lks/alb3.png)
 ---
 
 * Lalu configure VPC, AZ, dan Subnet
@@ -170,38 +179,38 @@ Biar `IngestFunction` bisa diakses dari internet, kita butuh ALB.
     - Pilih AZ, bisa 1 atau 2, sesuai jumlah AZ yang di buat saat, sebagai contoh saya akan add 2 AZ
     - Lalu arahkan Subnet nya ke `Subnet Public` karena ini akan di akses oleh Client
 
-![ALB Setup 4](/assets/images/lks/alb4.png)
+![ALB Setup 4](../assets/images/lks/alb4.png)
 ---
 
 * Lalu setting SG dan Listener
      - SG: arahkan ke SQ yang punya Inbound Port 80 dan 443
      - Listener: arahkan ke `HTTP` dan ke port `80`
 
-![ALB Setup 5](/assets/images/lks/alb5.png)
+![ALB Setup 5](../assets/images/lks/alb5.png)
 ---
 
 * Kemudian Pilih Target group yang sudah di buat sebelumnya, lalu klik `Create`
 
-![ALB Setup 6](/assets/images/lks/alb6.png)
+![ALB Setup 6](../assets/images/lks/alb6.png)
 ---
-### 6. Set Trigger Lambda 
+### 7. Set Trigger Lambda 
 *   Jangan lupa setting **Trigger** di `IngestFunction` agar dia tau kalau dia dipanggil sama ALB. klik `Add Trigger`
 
-![Lambda Trigger ALB 1](/assets/images/lks/lambda-trigger1.png)
+![Lambda Trigger ALB 1](../assets/images/lks/lambda-trigger1.png)
 ---
 
 * Search `ALB`
 
-![Lambda Trigger ALB 2](/assets/images/lks/lambda-trigger2.png)
+![Lambda Trigger ALB 2](../assets/images/lks/lambda-trigger2.png)
 ---
 * Pada Bagian `Application Load Balance` pilih ALB yang sudah kita buat
 * Listener arahkan ke `HTTP:80`
 * Path nya pakai `/lambda/api/`. Ini bisa kalian atur bebas, tapi sesuaikan juga pada code lambda `IngestFunction` kalian, agar sesuai.
 
-![Lambda Trigger ALB 3](/assets/images/lks/lambda-trigger3.png)
+![Lambda Trigger ALB 3](../assets/images/lks/lambda-trigger3.png)
 ---
 
-### 7. Lambda Process 
+### 8. Lambda Process 
 Nah, ini function kedua, si `ProcessFunction`. Tugasnya ngambil data dari SQS terus masukin ke DynamoDB.
 
 *   Buat function baru (misal: `ProcessFunction`). Samakan dengan `IngestFunction`.
@@ -247,9 +256,9 @@ def lambda_handler(event, context):
 
 *   **Set Trigger SQS:** Setting **Trigger**-nya arahin ke SQS yang udah kita buat. Jadi setiap ada pesan masuk ke SQS, Lambda ini bakal otomatis jalan.
 
-![Lambda Trigger SQS 1](/assets/images/lks/lambda-trigger-sqs1.png)
+![Lambda Trigger SQS 1](../assets/images/lks/lambda-trigger-sqs1.png)
 ---
-![Lambda Trigger SQS 2](/assets/images/lks/lambda-trigger-sqs2.png)
+![Lambda Trigger SQS 2](../assets/images/lks/lambda-trigger-sqs2.png)
 ---
 
 ## Tabel Konfigurasi Penting
@@ -278,12 +287,12 @@ Saatnya pembuktian! Apakah sistem kita jalan mulus?
     {"order_id": "123", "item":"Kopi Susu", "qty": 2}
     ```
 
-![Postman Test](/assets/images/lks/postman1.png)
+![Postman Test](../assets/images/lks/postman1.png)
 ---
 2.  **Cek DynamoDB**
     Dan... *voila*! Datanya udah masuk ke tabel DynamoDB dengan rapi.
 
-![DynamoDB Result](/assets/images/lks/result-dynamodb.png)
+![DynamoDB Result](../assets/images/lks/result-dynamodb.png)
 ---
 </br>
 Gimana? Seru kan mainan arsitektur *serverless*? Dengan pola ini, aplikasi kalian bakal jauh lebih *resilient* dan siap nge-handle trafik badai sekalipun.
